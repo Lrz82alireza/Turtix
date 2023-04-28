@@ -8,17 +8,26 @@
 #include <SFML/Network.hpp>
 #endif
 
+#include <sstream>
+
 using namespace sf;
 
 class Game
 {
 private:
 
-    // window
+    // Resources
+    Font font;
+    Text text;
+
+    // Window
     RenderWindow *Window;
     Event event;
 
-    void init_window();     
+    // Initialise Functions
+    void init_window();
+    void init_font();
+    void init_text();     
 public:
 
     // Constructors
@@ -33,7 +42,6 @@ public:
 
     void update();
     void render();
-
     void poll_events();
 };
 
