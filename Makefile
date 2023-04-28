@@ -8,16 +8,18 @@ SF_LIB = -lsfml-graphics -lsfml-window -lsfml-system
 BUILD_DR = build
 
 
-all: game
+all: game.out
 
 
-game: ${BUILD_DR}/main.o 
-	${CC} ${BUILD_DR}/main.o ${SF_LIB} -o game
+game.out: ${BUILD_DR}/main.o ${BUILD_DR}/Game.o
+	${CC} ${BUILD_DR}/main.o ${BUILD_DR}/Game.o ${SF_LIB} -o game
 
 
 ${BUILD_DR}/main.o: main.cpp
 	${CC} -c main.cpp -o ${BUILD_DR}/main.o
 
+${BUILD_DR}/Game.o: Game.cpp
+	${CC} -c Game.cpp -o ${BUILD_DR}/Game.o
 
 clean:
 	rm -rf build/ && mkdir -p build
