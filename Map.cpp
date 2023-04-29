@@ -2,10 +2,27 @@
 
 const char Ground = '.';
 const string GROUNDTXR = "Images/Ground.png";
-float const height = 100.0;
-float const weight = 100.0;
-float const gap = 400.0;
+float const height = 40.0;
+float const weight = 40.0;
+float const gap = height;
 
+// Private Functions
+void MAP::init_texture()
+{
+    ground_texture = new Texture;
+    if(!ground_texture->loadFromFile(GROUNDTXR))
+        cout << "ERROR: couldnt find map -> ground_texture" << endl;
+    
+}
+
+MAP::MAP()
+{
+    cout << "ERROR: couldnt find map -> ground_texture" << endl;
+    init_texture();
+    cout << "ERROR: couldnt find map -> ground_texture" << endl;
+}
+
+// Functions
 void MAP::read_inputs(string file_name)
 {
     vector<vector<char>> file_content;
@@ -21,12 +38,9 @@ void MAP::read_inputs(string file_name)
         }
         File.close();
     }
+    else
+        cout << "ERROR: map file_name didnt found" << endl;
     input = file_content;
-}
-
-void MAP::set_window(RenderWindow * init_window)
-{
-    window = init_window;
 }
 
 void MAP::make_ground(float cur_x , float cur_y , Texture * texture)
@@ -43,12 +57,6 @@ void MAP::make_map()
     float cur_y = 0.0;
     float cur_x = 0.0;
 
-    Texture ground;
-    if(!ground.loadFromFile(GROUNDTXR))
-    {
-        abort();
-    }
-    
     for (int i = 0 ; i < input.size() ; i++)
     {
         cur_x = 0.0;
@@ -56,7 +64,7 @@ void MAP::make_map()
         {
             if (input[i][j] == Ground)
             {
-                make_ground(cur_x , cur_y , &ground);
+                make_ground(cur_x , cur_y , ground_texture);
                 cur_x += weight;
             }
             else

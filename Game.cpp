@@ -2,14 +2,14 @@
 
 const String LOBBY_FONT = "Fonts/AmaticSC-Regular.ttf";
 
-const int WIDTH = 800;
-const int HEIGHT = 600;
+const int WIDTH = 1960;
+const int HEIGHT = 800;
 const int LIMIT_FPS = 144;
 
 // Initialise Functions
-void ::Game::init_window()
+void Game::init_window()
 {
-    this->Window = new RenderWindow(VideoMode(WIDTH, HEIGHT), "Game 1", Style::Close | Style::Titlebar);
+    this->Window = new RenderWindow(VideoMode(WIDTH, HEIGHT), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
 
     this->Window->setFramerateLimit(LIMIT_FPS);
 }
@@ -32,17 +32,16 @@ void Game::init_text()
 void Game::init_map()
 {
     this->map.read_inputs("input.txt");
-    this->map.set_window(Window);
     this->map.make_map();
 }
 
 // Functions
-void ::Game::update()
+void Game::update()
 {
     this->poll_events();
 }
 
-void ::Game::render()
+void Game::render()
 {
 
     this->Window->clear();
@@ -53,6 +52,7 @@ void ::Game::render()
     for (auto ground : map.get_ground())
         this->Window->draw(ground);
     
+
     this->Window->display();
 }
 

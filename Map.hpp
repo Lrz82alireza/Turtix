@@ -17,13 +17,15 @@ using namespace std;
 class MAP
 {
     private:
-        RenderWindow * window;
         vector <RectangleShape> grounds;
         vector<vector<char>> input;
+        Texture* ground_texture;
 
+        void init_texture();
     public:
+        MAP();
+
         void read_inputs(string file_name);
-        void set_window(RenderWindow * window);
         void make_ground(float cur_x , float cur_y , Texture * texture);
         void make_map();
         vector <RectangleShape> get_ground();
