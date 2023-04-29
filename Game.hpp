@@ -7,7 +7,7 @@
 #include <SFML/Network.hpp>
 
 #include <sstream>
-
+#include "Map.hpp"
 using namespace sf;
 
 class Game
@@ -17,7 +17,7 @@ private:
     // Resources
     Font font;
     Text text;
-
+    MAP map;
     // Window
     RenderWindow *Window;
     Event event;
@@ -25,7 +25,8 @@ private:
     // Initialise Functions
     void init_window();
     void init_font();
-    void init_text();     
+    void init_text();
+    void init_map();     
 public:
 
     // Constructors

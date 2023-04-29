@@ -29,6 +29,13 @@ void Game::init_text()
 
 }
 
+void Game::init_map()
+{
+    this->map.read_inputs("input.txt");
+    this->map.set_window(Window);
+    this->map.make_map();
+}
+
 // Functions
 void ::Game::update()
 {
@@ -43,6 +50,9 @@ void ::Game::render()
     // draw new window
     this->Window->draw(this->text);
 
+    for (auto ground : map.get_ground())
+        this->Window->draw(ground);
+    
     this->Window->display();
 }
 
@@ -83,6 +93,7 @@ Game::Game()
     this->init_window();
     this->init_font();
     this->init_text();
+    this->init_map();
 }
 
 Game::~Game()
