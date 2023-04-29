@@ -2,8 +2,8 @@
 
 const char Ground = '.';
 const string GROUNDTXR = "Images/Ground.png";
-float const height = 40.0;
-float const widht = 40.0;
+float const height = 10.0;
+float const widht = 10.0;
 float const gap = height;
 
 // Private Functions
@@ -77,7 +77,7 @@ vector <RectangleShape> MAP::get_ground()
     return grounds;
 }
 
-int MAP::calculate_widht()
+float MAP::calculate_widht()
 {
     int max = 0;
     for (auto row : input)
@@ -88,7 +88,7 @@ int MAP::calculate_widht()
     return max * widht;
 }
 
-int MAP::calculate_height()
+float MAP::calculate_height()
 {
     return input.size()*gap;
 }

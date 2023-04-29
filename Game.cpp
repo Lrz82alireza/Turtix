@@ -2,16 +2,16 @@
 
 const String LOBBY_FONT = "Fonts/AmaticSC-Regular.ttf";
 
-const int WIDTH = 1960;
-const int HEIGHT = 800;
+const int WIDTH = 1000;
+const int HEIGHT = 1000;
 const int LIMIT_FPS = 144;
 
 // Initialise Functions
-void Game::init_window()
+void Game::init_map_window()
 {
-    this->Window = new RenderWindow(VideoMode(WIDTH, HEIGHT), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
+    this->map_window = new RenderWindow(this->map.get_screen(), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
 
-    this->Window->setFramerateLimit(LIMIT_FPS);
+    this->map_window->setFramerateLimit(LIMIT_FPS);
 }
 
 void Game::init_font()
@@ -44,33 +44,32 @@ void Game::update()
 void Game::render()
 {
 
-    this->Window->clear();
+    this->map_window->clear();
 
-    // draw new window
-    this->Window->draw(this->text);
+    this->map_window->draw(this->text);
 
     for (auto ground : map.get_ground())
-        this->Window->draw(ground);
+        this->map_window->draw(ground);
     
 
-    this->Window->display();
+    this->map_window->display();
 }
 
 void Game::poll_events()
 {
-    while (this->Window->pollEvent(this->event))
+    while (this->map_window->pollEvent(this->event))
     {
         switch (this->event.type)
         {
         case Event::Closed:
-            this->Window->close();
+            this->map_window->close();
             break;
 
         case Event::KeyPressed:
             switch (this->event.key.code)
             {
             case Keyboard::Escape:
-                this->Window->close();
+                this->map_window->close();
                 break;
 
             default:
@@ -84,19 +83,19 @@ void Game::poll_events()
 // Accessors
 bool Game::running()
 {
-    return this->Window->isOpen();
+    return this->map_window->isOpen();
 }
 
 // Constructor / destructor
 Game::Game()
 {
-    this->init_window();
+    this->init_map();
+    this->init_map_window();
     this->init_font();
     this->init_text();
-    this->init_map();
 }
 
 Game::~Game()
 {
-    delete this->Window;
+    delete this->map_window;
 }

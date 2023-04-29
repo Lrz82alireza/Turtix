@@ -21,8 +21,8 @@ class MAP
         vector<vector<char>> input;
         Texture* ground_texture;
         void init_texture();
-        int calculate_widht();
-        int calculate_height();
+        float calculate_widht();
+        float calculate_height();
     public:
         MAP();
         void read_inputs(string file_name);
