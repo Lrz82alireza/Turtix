@@ -26,7 +26,6 @@ void Game::init_text()
     this->text.setCharacterSize(30);
     this->text.setFillColor(Color::White);
     this->text.setPosition(WIDTH / 2, HEIGHT / 2);
-
 }
 
 void Game::init_map()
@@ -50,7 +49,6 @@ void Game::render()
 
     for (auto ground : map.get_ground())
         this->map_window->draw(ground);
-    
 
     this->map_window->display();
 }
@@ -72,8 +70,7 @@ void Game::poll_events()
                 this->map_window->close();
                 break;
 
-            default:
-                break;
+            
             }
             break;
         }

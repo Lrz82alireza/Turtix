@@ -22,6 +22,7 @@ class MAP
         Texture* ground_texture;
         Texture* dirt_texture;
         VideoMode screen;
+        // Private Functions
         void init_texture();
         float calculate_widht();
         float calculate_height();
