@@ -10,19 +10,22 @@
 #include <iostream>
 #include <vector>
 
+using namespace sf;
+using namespace std;
+
 
 class MAP
 {
     private:
-        sf::RenderWindow * window;
-        std::vector <sf::RectangleShape> grounds;
-        std::vector<std::vector<char>> input;
+        RenderWindow * window;
+        vector <RectangleShape> grounds;
+        vector<vector<char>> input;
 
     public:
-        void read_inputs(std::string file_name);
-        void set_window(sf::RenderWindow * window);
-        void make_ground(float cur_x , float cur_y , sf::Texture * texture);
+        void read_inputs(string file_name);
+        void set_window(RenderWindow * window);
+        void make_ground(float cur_x , float cur_y , Texture * texture);
         void make_map();
-        std::vector <sf::RectangleShape> get_ground();
+        vector <RectangleShape> get_ground();
 };
 
