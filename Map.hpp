@@ -20,6 +20,7 @@ class MAP
         vector <RectangleShape> grounds;
         vector<vector<char>> input;
         Texture* ground_texture;
+        VideoMode screen;
         void init_texture();
         int calculate_widht();
         int calculate_height();
