@@ -20,14 +20,15 @@ class MAP
         vector <RectangleShape> grounds;
         vector<vector<char>> input;
         Texture* ground_texture;
-
         void init_texture();
+        int calculate_widht();
+        int calculate_height();
     public:
         MAP();
-
         void read_inputs(string file_name);
         void make_ground(float cur_x , float cur_y , Texture * texture);
         void make_map();
         vector <RectangleShape> get_ground();
+        VideoMode get_screen();
 };
 
