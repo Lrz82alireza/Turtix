@@ -2,8 +2,9 @@
 
 const char Ground = '.';
 const string GROUNDTXR = "Images/Ground.png";
-float const height = 40.0;
-float const widht = 40.0;
+const string DIRTTXR = "Images/Dirt.png";
+float const height = 10.0;
+float const widht = 10.0;
 float const gap = height;
 
 // Private Functions
@@ -12,7 +13,9 @@ void MAP::init_texture()
     ground_texture = new Texture;
     if(!ground_texture->loadFromFile(GROUNDTXR))
         cout << "ERROR: couldnt find map -> ground_texture" << endl;
-    
+    dirt_texture = new Texture;
+    if(!dirt_texture->loadFromFile(DIRTTXR))
+        cout << "ERROR: couldnt find map -> dirt_texture" << endl;
 }
 
 MAP::MAP()
@@ -62,7 +65,10 @@ void MAP::make_map()
         {
             if (input[i][j] == Ground)
             {
-                make_ground(cur_x , cur_y , ground_texture);
+                if (!is_top(cur_x , cur_y))
+                    make_ground(cur_x , cur_y , ground_texture);
+                else
+                    make_ground(cur_x , cur_y , dirt_texture);
                 cur_x += widht;
             }
             else
@@ -77,7 +83,7 @@ vector <RectangleShape> MAP::get_ground()
     return grounds;
 }
 
-int MAP::calculate_widht()
+float MAP::calculate_widht()
 {
     int max = 0;
     for (auto row : input)
@@ -88,7 +94,7 @@ int MAP::calculate_widht()
     return max * widht;
 }
 
-int MAP::calculate_height()
+float MAP::calculate_height()
 {
     return input.size()*gap;
 }
@@ -96,4 +102,15 @@ int MAP::calculate_height()
 VideoMode MAP::get_screen()
 {
     return VideoMode(calculate_widht() , calculate_height());
+}
+
+bool MAP::is_top(float x , float y)
+{
+    y -= gap;
+    for(auto ground: grounds)
+    {
+        if (ground.getPosition().x == x && ground.getPosition().y == y)
+            return true;
+    }
+    return false;
 }

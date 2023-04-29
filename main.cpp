@@ -9,9 +9,6 @@ int main()
 {
     Game game;
 
-    // CircleShape shape(200.f);
-    // shape.setFillColor(Color::Green);
-
     // game loop
     while (game.running())
     {

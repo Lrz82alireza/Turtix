@@ -18,12 +18,13 @@ private:
     Font font;
     Text text;
     MAP map;
+
     // Window
-    RenderWindow *Window;
+    RenderWindow *map_window;
     Event event;
 
     // Initialise Functions
-    void init_window();
+    void init_map_window();
     void init_font();
     void init_text();
     void init_map();     
