@@ -50,9 +50,16 @@ void Game::move_player(float dir_x, float dir_y)
         this->player.move(-dir_x, -dir_y);
 }
 
+void Game::gravity_action()
+{
+    this->move_player(0.f, GRAVITY_SPEED);
+}
+
 // Functions
 void Game::update()
 {
+    this->gravity_action();
+    
     this->poll_events();
 }
 
@@ -110,7 +117,7 @@ bool Game::running()
 }
 
 // Constructor / destructor
-Game::Game()
+Game::Game()  
 {
     this->init_map();
     this->init_map_window();

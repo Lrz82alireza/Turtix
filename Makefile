@@ -11,8 +11,8 @@ BUILD_DR = build
 all: game.out
 
 
-game.out: ${BUILD_DR}/main.o ${BUILD_DR}/Game.o ${BUILD_DR}/Map.o ${BUILD_DR}/Player.o
-	${CC} ${BUILD_DR}/main.o ${BUILD_DR}/Game.o ${BUILD_DR}/Map.o ${BUILD_DR}/Player.o ${SF_LIB} -o game
+game.out: ${BUILD_DR}/main.o ${BUILD_DR}/Game.o ${BUILD_DR}/Map.o ${BUILD_DR}/Player.o ${BUILD_DR}/Person.o
+	${CC} ${BUILD_DR}/main.o ${BUILD_DR}/Game.o ${BUILD_DR}/Map.o ${BUILD_DR}/Player.o ${BUILD_DR}/Person.o ${SF_LIB} -o game
 
 
 ${BUILD_DR}/main.o: main.cpp
@@ -24,8 +24,10 @@ ${BUILD_DR}/Game.o: Game.cpp Map.hpp Player.hpp
 ${BUILD_DR}/Map.o: Map.cpp
 	${CC} -c Map.cpp -o ${BUILD_DR}/Map.o
 
-${BUILD_DR}/Player.o: Player.cpp
+${BUILD_DR}/Player.o: Player.cpp Person.hpp
 	${CC} -c Player.cpp -o ${BUILD_DR}/Player.o
 
+${BUILD_DR}/Person.o: Person.cpp
+	${CC} -c Person.cpp -o ${BUILD_DR}/Person.o
 clean:
 	rm -rf build/ && mkdir -p build

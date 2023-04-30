@@ -11,6 +11,8 @@
 #include "Player.hpp"
 using namespace sf;
 
+const float GRAVITY_SPEED = 0.5;
+
 class Game
 {
 private:
@@ -19,7 +21,7 @@ private:
     Font font;
     Text text;
     MAP map;
-    Player player;
+    Player player = Player(GRAVITY_SPEED);
 
     // Window
     RenderWindow *map_window;
@@ -32,6 +34,7 @@ private:
     void init_map();
     void init_player(); 
     void move_player(float dir_x, float dir_y);
+    void gravity_action();
 public:
 
     // Constructors
