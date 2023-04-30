@@ -17,7 +17,6 @@ private:
     Texture* texture;
     int health;
     float player_speed;
-    MAP * map;
 
     // Private Functions
     void init_texture();

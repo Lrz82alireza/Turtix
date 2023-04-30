@@ -1,8 +1,12 @@
 #include "Map.hpp"
 
 const char Ground = '.';
+const char Portal = '$';
+
 const string GROUNDTXR = "Images/Ground.png";
 const string DIRTTXR = "Images/Dirt.png";
+const string PORTAL = "Images/portal.png";
+
 float const height = 20.0;
 float const widht = 20.0;
 float const gap = height;
@@ -16,6 +20,9 @@ void MAP::init_texture()
     dirt_texture = new Texture;
     if (!dirt_texture->loadFromFile(DIRTTXR))
         cout << "ERROR: couldnt find map -> dirt_texture" << endl;
+    //portal_texture = new Texture;
+    //if (!portal_texture->loadFromFile(PORTAL))
+    //    cout << "ERROR: couldnt find map -> portal_texture" << endl;
 }
 
 MAP::MAP()
@@ -53,26 +60,45 @@ void MAP::make_ground(float cur_x, float cur_y, Texture *texture)
     grounds.push_back(ground);
 }
 
+void MAP::make_portal(float cur_x, float cur_y, Texture *texture)
+{
+    RectangleShape newportal(Vector2f(height, widht));
+    newportal.setTexture(texture);
+    newportal.setPosition(cur_x, cur_y);
+    portal = newportal;
+}
+
+void MAP::make_texture(char c , float &cur_x , float &cur_y)
+{
+    if (c == Ground)
+    {
+        cur_x += widht;
+        if (!is_top(cur_x, cur_y))
+            make_ground(cur_x, cur_y, ground_texture);
+        else
+            make_ground(cur_x, cur_y, dirt_texture);
+    }
+    //if (c == Portal)
+    //{
+    //    cur_x += widht;
+    //    make_portal(cur_x, cur_y, portal_texture);
+    //}
+    else
+        cur_x += widht;
+}
+
 void MAP::make_map()
 {
     float cur_y = 0.0;
     float cur_x;
 
+    cout << '.';
     for (int i = 0; i < input.size(); i++)
     {
         cur_x = -widht;
         for (int j = 0; j < input[i].size(); j++)
         {
-            if (input[i][j] == Ground)
-            {
-                cur_x += widht;
-                if (!is_top(cur_x, cur_y))
-                    make_ground(cur_x, cur_y, ground_texture);
-                else
-                    make_ground(cur_x, cur_y, dirt_texture);
-            }
-            else
-                cur_x += widht;
+            make_texture(input[i][j] , cur_x , cur_y);
         }
         cur_y += gap;
     }
@@ -131,7 +157,7 @@ bool MAP::is_intersected(Sprite sprite, RectangleShape shape)
         if ((sprite.getGlobalBounds().left + sprite.getGlobalBounds().width) > shape.getGlobalBounds().left)
             return true;
     }
-    
+
     return false;
 }
 

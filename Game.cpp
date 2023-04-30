@@ -42,19 +42,12 @@ void Game::init_player()
 
 void Game::move_player(float dir_x, float dir_y)
 {
-<<<<<<< HEAD
-    if (this->map.is_move_valid(this->player.get_sprite(), this->map.get_ground()))
-    {
-        this->player.move(dir_x, dir_y);
-    }
-=======
     Vector2f dir = {dir_x, dir_y};
     RectangleShape intersected_shape;
 
     this->player.move(dir_x, dir_y);
     if (!this->map.is_move_valid(this->player.get_sprite(), this->map.get_ground(), intersected_shape))
         this->player.move(-dir_x, -dir_y);
->>>>>>> cccf525805f84cb48386dc62a438232b0cfdf33d
 }
 
 // Functions
