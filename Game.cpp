@@ -18,8 +18,8 @@ void Game::resize_view()
 // Initialise Functions
 void Game::init_map_window()
 {
-    this->map_window = new RenderWindow(this->map.get_screen(), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
-    // this->map_window = new RenderWindow(VideoMode(1000, 1000), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
+    // this->map_window = new RenderWindow(this->map.get_screen(), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
+    this->map_window = new RenderWindow(VideoMode(1000, 1000), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
 
     this->map_window->setFramerateLimit(LIMIT_FPS);
 }
@@ -46,7 +46,7 @@ void Game::init_map()
 
 void Game::init_player()
 {
-    Vector2f portal_pos = {1300.f, 10.f}; // getting start point location from map
+    Vector2f portal_pos = this->map.get_portal().getPosition(); // getting start point location from map
     this->player.to_pos(portal_pos);
 }
 
@@ -82,6 +82,7 @@ void Game::init_view()
 {
     this->view.setSize(VIEW_SIZE);
     this->view.setCenter(this->player.get_position());
+    // this->view.setCenter(this->map.get_portal().getPosition());
 }
 
 void Game::gravity_move(Person &person)
@@ -116,14 +117,14 @@ void Game::render()
 
     this->map_window->draw(this->text);
 
-    this->map_window->draw(map.get_portal());
     
     for (auto ground : map.get_ground())
         this->map_window->draw(ground);
     
 
+    this->map_window->draw(map.get_portal());
     this->map_window->draw(this->player.get_sprite());
-    //this->map_window->setView(view);
+    this->map_window->setView(view);
 
     this->map_window->display();
 }

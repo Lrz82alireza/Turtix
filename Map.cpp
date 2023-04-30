@@ -1,11 +1,11 @@
 #include "Map.hpp"
 
-const char Ground = '.';
-const char Portal = '$';
+const char GROUND = '.';
+const char PORTAL = '$';
 
 const string GROUNDTXR = "Images/Ground.png";
 const string DIRTTXR = "Images/Dirt.png";
-const string PORTAL = "Images/portal.png";
+const string PORTALTXR = "Images/portal-removebg-preview.png";
 
 float const height = 20.0;
 float const widht = 20.0;
@@ -21,7 +21,7 @@ void MAP::init_texture()
     if (!dirt_texture->loadFromFile(DIRTTXR))
         cout << "ERROR: couldnt find map -> dirt_texture" << endl;
     portal_texture = new Texture;
-    if (!portal_texture->loadFromFile(PORTAL))
+    if (!portal_texture->loadFromFile(PORTALTXR))
         cout << "ERROR: couldnt find map -> portal_texture" << endl;
 }
 
@@ -62,14 +62,17 @@ void MAP::make_ground(float cur_x, float cur_y, Texture *texture)
 
 void MAP::make_portal(float cur_x, float cur_y, Texture *texture)
 {
-    portal.setPosition(cur_x, cur_y);
-    portal.setScale(2.0f, 2.0f);
+    portal.setSize(Vector2f(portal_texture->getSize().x, portal_texture->getSize().y));
+    portal.setScale(0.1, 0.1); /////////////////// !!!!!!!!!!!!!!!!!!!!!
+    portal.setOrigin(portal_texture->getSize().x / 2,
+                       portal_texture->getSize().y / 2);
     portal.setTexture(texture);
+    portal.setPosition(cur_x, cur_y);
 }
 
-void MAP::make_texture(char c , float &cur_x , float &cur_y)
+void MAP::make_texture(char c, float &cur_x, float &cur_y)
 {
-    if (c == Ground)
+    if (c == GROUND)
     {
         cur_x += widht;
         if (!is_top(cur_x, cur_y))
@@ -78,7 +81,7 @@ void MAP::make_texture(char c , float &cur_x , float &cur_y)
             make_ground(cur_x, cur_y, dirt_texture);
         return;
     }
-    if (c == Portal)
+    if (c == PORTAL)
     {
         cur_x += widht;
         make_portal(cur_x, cur_y, portal_texture);
@@ -100,7 +103,7 @@ void MAP::make_map()
         cur_x = -widht;
         for (int j = 0; j < input[i].size(); j++)
         {
-            make_texture(input[i][j] , cur_x , cur_y);
+            make_texture(input[i][j], cur_x, cur_y);
         }
         cur_y += gap;
     }
