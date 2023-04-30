@@ -7,6 +7,13 @@ const int HEIGHT = 1000;
 const int LIMIT_FPS = 144;
 const float JUMP_SPEED = 7.5;
 const float GRAVITY_SPEED = 1;
+const Vector2f VIEW_SIZE = {512.f, 512.f};
+
+void Game::resize_view()
+{
+    float aspect_ratio = float(this->map_window->getSize().x) / float(this->map_window->getSize().y);
+    view.setSize(VIEW_SIZE * aspect_ratio);
+}
 
 // Initialise Functions
 void Game::init_map_window()
@@ -70,6 +77,12 @@ void Game::gravity_action()
     this->gravity_move(this->player);
 }
 
+void Game::init_view()
+{
+    this->view.setSize(VIEW_SIZE);
+    this->view.setCenter(this->player.get_position());
+}
+
 void Game::gravity_move(Person &person)
 {
     if (person.is_on_earth_())
@@ -82,8 +95,6 @@ void Game::gravity_move(Person &person)
 
 void Game::person_jump(Person &person)
 {
-    
-
     this->move_person(person, 0.f, -person.get_jump_speed());
     person.update_jump();
 }
@@ -94,6 +105,7 @@ void Game::update()
     this->gravity_action();
     this->poll_events();
     this->person_jump(this->player);
+    this->view.setCenter(this->player.get_position());
 }
 
 void Game::render()
@@ -107,6 +119,7 @@ void Game::render()
         this->map_window->draw(ground);
 
     this->map_window->draw(this->player.get_sprite());
+    this->map_window->setView(view);
 
     this->map_window->display();
 }
@@ -120,7 +133,9 @@ void Game::poll_events()
         case Event::Closed:
             this->map_window->close();
             break;
-
+        case Event::Resized:
+            
+            break;
         case Event::KeyPressed:
             switch (this->event.key.code)
             {
@@ -164,6 +179,7 @@ Game::Game()
     this->init_font();
     this->init_text();
     this->init_player();
+    this->init_view();
 }
 
 Game::~Game()

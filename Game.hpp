@@ -28,14 +28,17 @@ private:
 
     // Window
     RenderWindow *map_window;
+    View view;
     Event event;
+    void resize_view();
 
     // Initialise Functions
     void init_map_window();
     void init_font();
     void init_text();
     void init_map();
-    void init_player(); 
+    void init_player();
+    void init_view(); 
     void move_person(Person &person, float dir_x, float dir_y);
     void gravity_action();
     void gravity_move(Person &person);
