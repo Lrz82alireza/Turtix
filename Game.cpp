@@ -7,7 +7,7 @@ const int HEIGHT = 1000;
 const int LIMIT_FPS = 144;
 const float JUMP_SPEED = 7.5;
 const float GRAVITY_SPEED = 1;
-const Vector2f VIEW_SIZE = {512.f, 512.f};
+const Vector2f VIEW_SIZE = {400.f, 400.f};
 
 void Game::resize_view()
 {
@@ -18,7 +18,7 @@ void Game::resize_view()
 // Initialise Functions
 void Game::init_map_window()
 {
-    this->map_window = new RenderWindow(this->map.get_screen(), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
+    this->map_window = new RenderWindow(VideoMode(1000, 1000), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
 
     this->map_window->setFramerateLimit(LIMIT_FPS);
 }
@@ -134,7 +134,7 @@ void Game::poll_events()
             this->map_window->close();
             break;
         case Event::Resized:
-            
+            this->resize_view();
             break;
         case Event::KeyPressed:
             switch (this->event.key.code)
