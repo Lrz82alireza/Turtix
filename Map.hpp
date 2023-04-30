@@ -22,6 +22,7 @@ class MAP
         Texture* ground_texture;
         Texture* dirt_texture;
         VideoMode screen;
+        
         // Private Functions
         void init_texture();
         float calculate_widht();
@@ -34,7 +35,7 @@ class MAP
         void make_map();
         vector <RectangleShape> get_ground();
         VideoMode get_screen();
-        bool is_intersected(Sprite &thing , RectangleShape &shapes);
-        bool is_move_valid(Sprite &sprite , vector<RectangleShape>&shape);
+        bool is_intersected(Sprite thing , RectangleShape shapes);
+        bool is_move_valid(Sprite sprite , vector<RectangleShape> shape);
 };
 

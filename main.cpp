@@ -2,7 +2,6 @@
 
 #include <SFML/Graphics.hpp>
 
-
 using namespace sf;
 
 int main()
@@ -14,11 +13,12 @@ int main()
     {
         // update
         game.update();
-        
+
         // render
         game.render();
     }
 
     
+
     return 0;
 }

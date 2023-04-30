@@ -1,7 +1,7 @@
 #include "Player.hpp"
 
 const String PLAYER_TEXTURE = "Images/Dirt.png";
-const float PLAYER_SPEED = 5;
+const float PLAYER_SPEED = 1;
 
 // Private Functions
 void Player::init_texture()
@@ -16,7 +16,7 @@ void Player::init_texture()
 void Player::init_sprite()
 {
     this->sprite.setTexture(*this->texture);
-    this->sprite.setScale(0.5, 0.5);
+    this->sprite.setScale(0.1, 0.1);
     this->sprite.setOrigin(this->sprite.getTexture()->getSize().x / 2,
                            this->sprite.getTexture()->getSize().y / 2);
 }
