@@ -56,7 +56,7 @@ void MAP::make_ground(float cur_x , float cur_y , Texture * texture)
 void MAP::make_map()
 {
     float cur_y = 0.0;
-    float cur_x = 0.0;
+    float cur_x = -widht;
 
     for (int i = 0 ; i < input.size() ; i++)
     {
@@ -65,11 +65,11 @@ void MAP::make_map()
         {
             if (input[i][j] == Ground)
             {
+                cur_x += widht;
                 if (!is_top(cur_x , cur_y))
                     make_ground(cur_x , cur_y , ground_texture);
                 else
                     make_ground(cur_x , cur_y , dirt_texture);
-                cur_x += widht;
             }
             else
                 cur_x += widht;
@@ -113,4 +113,30 @@ bool MAP::is_top(float x , float y)
             return true;
     }
     return false;
+}
+
+bool MAP::is_intersected(Sprite sprite , RectangleShape shape)
+{
+    if (sprite.getGlobalBounds().top < (shape.getGlobalBounds().top + shape.getGlobalBounds().height))
+        return true;
+    
+    if ((sprite.getGlobalBounds().top + sprite.getGlobalBounds().height) > shape.getGlobalBounds().top)
+        return true;
+    
+    if (sprite.getGlobalBounds().left < (shape.getGlobalBounds().left + shape.getGlobalBounds().width))
+        return true;
+    
+    if ((sprite.getGlobalBounds().left + sprite.getGlobalBounds().width) > shape.getGlobalBounds().left)
+        return true;
+    return false;
+}
+
+bool MAP::is_move_valid(Sprite sprite , vector<RectangleShape>shapes)
+{
+    for (auto shape : shapes)
+    {
+        if (is_intersected(sprite , shape))
+            return false;
+    }
+    return true;
 }
