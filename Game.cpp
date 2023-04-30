@@ -18,6 +18,7 @@ void Game::resize_view()
 // Initialise Functions
 void Game::init_map_window()
 {
+    // this->map_window = new RenderWindow(this->map.get_screen(), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
     this->map_window = new RenderWindow(VideoMode(1000, 1000), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
 
     this->map_window->setFramerateLimit(LIMIT_FPS);
@@ -69,12 +70,12 @@ void Game::move_person(Person &person, float dir_x, float dir_y)
             person.set_jump(0);
         }
     }
-    
 }
 
 void Game::gravity_action()
 {
     this->gravity_move(this->player);
+    /*enemys and other sprites*/
 }
 
 void Game::init_view()
@@ -126,7 +127,7 @@ void Game::render()
 
 void Game::poll_events()
 {
-    if (this->map_window->pollEvent(this->event))
+    while (this->map_window->pollEvent(this->event))
     {
         switch (this->event.type)
         {
@@ -142,6 +143,15 @@ void Game::poll_events()
             case Keyboard::Escape:
                 this->map_window->close();
                 break;
+            case Keyboard::Space:
+                if (this->player.is_on_earth_() && key_held == false)
+                {
+                    key_held = true;
+                    this->player.set_on_earth(false);
+                    this->player.set_jump(JUMP_SPEED);
+                }
+                else
+                    key_held = false;
             }
         }
     }
