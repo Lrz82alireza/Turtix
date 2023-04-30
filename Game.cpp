@@ -63,7 +63,6 @@ void Game::render()
         this->map_window->draw(ground);
 
     this->map_window->draw(this->player.get_sprite());
-    
 
     this->map_window->display();
 }
@@ -87,17 +86,17 @@ void Game::poll_events()
             }
             break;
         }
-
-        if (Keyboard::isKeyPressed(Keyboard::W))
-            this->move_player(0.f, -1.f);
-        else if (Keyboard::isKeyPressed(Keyboard::S))
-            this->move_player(0.f, 1.f);
-        if (Keyboard::isKeyPressed(Keyboard::A))
-            this->move_player(-1.f, 0.f);
-        else if (Keyboard::isKeyPressed(Keyboard::D))
-            this->move_player(1.f, 0.f);
-            
     }
+
+    // player movement
+    if (Keyboard::isKeyPressed(Keyboard::W))
+        this->move_player(0.f, -1.f);
+    else if (Keyboard::isKeyPressed(Keyboard::S))
+        this->move_player(0.f, 1.f);
+    if (Keyboard::isKeyPressed(Keyboard::A))
+        this->move_player(-1.f, 0.f);
+    else if (Keyboard::isKeyPressed(Keyboard::D))
+        this->move_player(1.f, 0.f);
 }
 
 // Accessors
