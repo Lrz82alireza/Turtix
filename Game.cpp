@@ -5,6 +5,8 @@ const String LOBBY_FONT = "Fonts/AmaticSC-Regular.ttf";
 const int WIDTH = 1000;
 const int HEIGHT = 1000;
 const int LIMIT_FPS = 144;
+const float JUMP_SPEED = 7;
+
 
 // Initialise Functions
 void Game::init_map_window()
@@ -40,27 +42,35 @@ void Game::init_player()
     this->player.to_pos(portal_pos);
 }
 
-void Game::move_player(float dir_x, float dir_y)
+void Game::move_person(Person &person, float dir_x, float dir_y)
 {
     Vector2f dir = {dir_x, dir_y};
     RectangleShape intersected_shape;
 
-    this->player.move(dir_x, dir_y);
+    person.move(dir_x, dir_y);
     if (!this->map.is_move_valid(this->player.get_sprite(), this->map.get_ground(), intersected_shape))
+    {
         this->player.move(-dir_x, -dir_y);
+        if (dir_y > 0)
+        {
+            this->player.set_on_earth(true);
+            this->player.set_jump(0);
+        }
+    }
 }
 
 void Game::gravity_action()
 {
-    this->move_player(0.f, GRAVITY_SPEED);
+    this->move_person(this->player, 0.f, GRAVITY_SPEED);
 }
 
 // Functions
 void Game::update()
 {
     this->gravity_action();
-    
     this->poll_events();
+    this->player.jump();
+    this->move_person(this->player, 0.f, -this->player.get_jump_speed());
 }
 
 void Game::render()
@@ -94,6 +104,9 @@ void Game::poll_events()
             case Keyboard::Escape:
                 this->map_window->close();
                 break;
+            case Keyboard::Space:
+                if(this->player.is_on_earth_())
+                    this->player.set_jump(JUMP_SPEED);
             }
             break;
         }
@@ -101,13 +114,13 @@ void Game::poll_events()
 
     // player movement
     if (Keyboard::isKeyPressed(Keyboard::W))
-        this->move_player(0.f, -1.f);
+        this->move_person(this->player, 0.f, -1.f);
     if (Keyboard::isKeyPressed(Keyboard::S))
-        this->move_player(0.f, 1.f);
+        this->move_person(this->player, 0.f, 1.f);
     if (Keyboard::isKeyPressed(Keyboard::A))
-        this->move_player(-1.f, 0.f);
+        this->move_person(this->player, -1.f, 0.f);
     if (Keyboard::isKeyPressed(Keyboard::D))
-        this->move_player(1.f, 0.f);
+        this->move_person(this->player, 1.f, 0.f);
 }
 
 // Accessors
