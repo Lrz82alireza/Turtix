@@ -3,7 +3,7 @@
 const char Ground = '.';
 const string GROUNDTXR = "Images/Ground.png";
 const string DIRTTXR = "Images/Dirt.png";
-float const height = 20.0;
+float const height = 50.0;
 float const widht = 20.0;
 float const gap = height;
 
