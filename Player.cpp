@@ -16,7 +16,7 @@ void Player::init_texture()
 void Player::init_sprite()
 {
     this->sprite.setTexture(*this->texture);
-    this->sprite.setScale(0.1, 0.1);
+    this->sprite.setScale(0.2, 0.2);
     this->sprite.setOrigin(this->sprite.getTexture()->getSize().x / 2,
                            this->sprite.getTexture()->getSize().y / 2);
 }
@@ -28,7 +28,7 @@ void Player::move(float dir_x, float dir_y)
     this->sprite.move(dir);
 }
 
-void Player::to_portal(Vector2f pos)
+void Player::to_pos(Vector2f pos)
 {
     this->sprite.setPosition(pos);
 }

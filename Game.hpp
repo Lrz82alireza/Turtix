@@ -31,7 +31,7 @@ private:
     void init_text();
     void init_map();
     void init_player(); 
-    void move_player(float dir_x, float dir_y);    
+    void move_player(float dir_x, float dir_y);
 public:
 
     // Constructors

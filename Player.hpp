@@ -26,7 +26,7 @@ public:
 
     // Accessors
     void move(float dir_x, float dir_y);
-    void to_portal(Vector2f pos);
+    void to_pos(Vector2f pos);
     Sprite get_sprite() { return this->sprite; };
 
     Player();

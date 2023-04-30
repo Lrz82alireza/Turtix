@@ -36,16 +36,25 @@ void Game::init_map()
 
 void Game::init_player()
 {
-    Vector2f portal_pos = {10.f, 10.f}; // getting start point location from map
-    this->player.to_portal(portal_pos);
+    Vector2f portal_pos = {1300.f, 10.f}; // getting start point location from map
+    this->player.to_pos(portal_pos);
 }
 
 void Game::move_player(float dir_x, float dir_y)
 {
+<<<<<<< HEAD
     if (this->map.is_move_valid(this->player.get_sprite(), this->map.get_ground()))
     {
         this->player.move(dir_x, dir_y);
     }
+=======
+    Vector2f dir = {dir_x, dir_y};
+    RectangleShape intersected_shape;
+
+    this->player.move(dir_x, dir_y);
+    if (!this->map.is_move_valid(this->player.get_sprite(), this->map.get_ground(), intersected_shape))
+        this->player.move(-dir_x, -dir_y);
+>>>>>>> cccf525805f84cb48386dc62a438232b0cfdf33d
 }
 
 // Functions

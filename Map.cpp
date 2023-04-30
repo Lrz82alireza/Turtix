@@ -131,15 +131,19 @@ bool MAP::is_intersected(Sprite sprite, RectangleShape shape)
         if ((sprite.getGlobalBounds().left + sprite.getGlobalBounds().width) > shape.getGlobalBounds().left)
             return true;
     }
+    
     return false;
 }
 
-bool MAP::is_move_valid(Sprite sprite, vector<RectangleShape> shapes)
+bool MAP::is_move_valid(Sprite sprite, vector<RectangleShape> shapes, RectangleShape &intersected_shape)
 {
     for (auto shape : shapes)
     {
         if (is_intersected(sprite, shape))
+        {
+            intersected_shape = shape;
             return false;
+        }
     }
     return true;
 }
