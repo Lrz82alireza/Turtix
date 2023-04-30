@@ -56,11 +56,11 @@ void MAP::make_ground(float cur_x , float cur_y , Texture * texture)
 void MAP::make_map()
 {
     float cur_y = 0.0;
-    float cur_x = -widht;
+    float cur_x = 0.0;
 
     for (int i = 0 ; i < input.size() ; i++)
     {
-        cur_x = 0.0;
+        cur_x = -widht;
         for (int j = 0 ; j < input[i].size() ; j++)
         {
             if (input[i][j] == Ground)
@@ -115,10 +115,10 @@ bool MAP::is_top(float x , float y)
     return false;
 }
 
-bool MAP::is_intersected(Sprite sprite , RectangleShape shape)
+bool MAP::is_intersected(Sprite & sprite , RectangleShape &shape)
 {
     if (sprite.getGlobalBounds().top < (shape.getGlobalBounds().top + shape.getGlobalBounds().height))
-        return true;
+        return true;     
     
     if ((sprite.getGlobalBounds().top + sprite.getGlobalBounds().height) > shape.getGlobalBounds().top)
         return true;
@@ -131,7 +131,7 @@ bool MAP::is_intersected(Sprite sprite , RectangleShape shape)
     return false;
 }
 
-bool MAP::is_move_valid(Sprite sprite , vector<RectangleShape>shapes)
+bool MAP::is_move_valid(Sprite &sprite , vector<RectangleShape>&shapes)
 {
     for (auto shape : shapes)
     {
