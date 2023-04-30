@@ -35,11 +35,12 @@ class MAP
         void read_inputs(string file_name);
         void make_ground(float cur_x , float cur_y , Texture * texture);
         void make_portal(float cur_x, float cur_y, Texture *texture);
-        void make_map();
         void make_texture(char c , float &cur_x , float &cur_y);
+        void make_map();
         vector <RectangleShape> get_ground();
+        RectangleShape get_portal();
         VideoMode get_screen();
         bool is_intersected(Sprite thing , RectangleShape shapes);
-        bool is_move_valid(Sprite sprite, vector<RectangleShape> shapes, RectangleShape &intersected_shape);
+        bool is_move_valid(Sprite sprite, vector<RectangleShape> shapes);
 };
 

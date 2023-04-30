@@ -18,7 +18,7 @@ void Game::resize_view()
 // Initialise Functions
 void Game::init_map_window()
 {
-    this->map_window = new RenderWindow(VideoMode(1000, 1000), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
+    this->map_window = new RenderWindow(this->map.get_screen(), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
 
     this->map_window->setFramerateLimit(LIMIT_FPS);
 }
@@ -115,11 +115,14 @@ void Game::render()
 
     this->map_window->draw(this->text);
 
+    this->map_window->draw(map.get_portal());
+    
     for (auto ground : map.get_ground())
         this->map_window->draw(ground);
+    
 
     this->map_window->draw(this->player.get_sprite());
-    this->map_window->setView(view);
+    //this->map_window->setView(view);
 
     this->map_window->display();
 }

@@ -20,9 +20,9 @@ void MAP::init_texture()
     dirt_texture = new Texture;
     if (!dirt_texture->loadFromFile(DIRTTXR))
         cout << "ERROR: couldnt find map -> dirt_texture" << endl;
-    //portal_texture = new Texture;
-    //if (!portal_texture->loadFromFile(PORTAL))
-    //    cout << "ERROR: couldnt find map -> portal_texture" << endl;
+    portal_texture = new Texture;
+    if (!portal_texture->loadFromFile(PORTAL))
+        cout << "ERROR: couldnt find map -> portal_texture" << endl;
 }
 
 MAP::MAP()
@@ -62,10 +62,9 @@ void MAP::make_ground(float cur_x, float cur_y, Texture *texture)
 
 void MAP::make_portal(float cur_x, float cur_y, Texture *texture)
 {
-    RectangleShape newportal(Vector2f(height, widht));
-    newportal.setTexture(texture);
-    newportal.setPosition(cur_x, cur_y);
-    portal = newportal;
+    portal.setPosition(cur_x, cur_y);
+    portal.setScale(2.0f, 2.0f);
+    portal.setTexture(texture);
 }
 
 void MAP::make_texture(char c , float &cur_x , float &cur_y)
@@ -77,22 +76,25 @@ void MAP::make_texture(char c , float &cur_x , float &cur_y)
             make_ground(cur_x, cur_y, ground_texture);
         else
             make_ground(cur_x, cur_y, dirt_texture);
+        return;
     }
-    //if (c == Portal)
-    //{
-    //    cur_x += widht;
-    //    make_portal(cur_x, cur_y, portal_texture);
-    //}
-    else
+    if (c == Portal)
+    {
         cur_x += widht;
+        make_portal(cur_x, cur_y, portal_texture);
+        return;
+    }
+    if (c == ' ')
+    {
+        cur_x += widht;
+        return;
+    }
 }
 
 void MAP::make_map()
 {
     float cur_y = 0.0;
     float cur_x;
-
-    cout << '.';
     for (int i = 0; i < input.size(); i++)
     {
         cur_x = -widht;
@@ -166,7 +168,14 @@ bool MAP::is_move_valid(Sprite sprite, vector<RectangleShape> shapes)
     for (auto shape : shapes)
     {
         if (is_intersected(sprite, shape))
+        {
             return false;
+        }
     }
     return true;
+}
+
+RectangleShape MAP::get_portal()
+{
+    return portal;
 }
