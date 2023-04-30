@@ -82,6 +82,8 @@ void Game::gravity_move(Person &person)
 
 void Game::person_jump(Person &person)
 {
+    
+
     this->move_person(person, 0.f, -person.get_jump_speed());
     person.update_jump();
 }
