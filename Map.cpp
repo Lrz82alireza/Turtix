@@ -117,9 +117,6 @@ bool MAP::is_top(float x, float y)
 
 bool MAP::is_intersected(Sprite sprite, RectangleShape shape)
 {
-    cout << sprite.getGlobalBounds().top + sprite.getGlobalBounds().height << endl;
-    cout << shape.getGlobalBounds().top << endl;
-
     if (sprite.getGlobalBounds().intersects(shape.getGlobalBounds()))
     {
         if (sprite.getGlobalBounds().top < (shape.getGlobalBounds().top + shape.getGlobalBounds().height))
@@ -134,15 +131,19 @@ bool MAP::is_intersected(Sprite sprite, RectangleShape shape)
         if ((sprite.getGlobalBounds().left + sprite.getGlobalBounds().width) > shape.getGlobalBounds().left)
             return true;
     }
+    
     return false;
 }
 
-bool MAP::is_move_valid(Sprite sprite, vector<RectangleShape> shapes)
+bool MAP::is_move_valid(Sprite sprite, vector<RectangleShape> shapes, RectangleShape &intersected_shape)
 {
     for (auto shape : shapes)
     {
         if (is_intersected(sprite, shape))
+        {
+            intersected_shape = shape;
             return false;
+        }
     }
     return true;
 }
