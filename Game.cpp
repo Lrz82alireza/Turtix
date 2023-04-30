@@ -36,14 +36,14 @@ void Game::init_map()
 
 void Game::init_player()
 {
-    Vector2f portal_pos = {0.f, 0.f}; // getting start point location from map
+    Vector2f portal_pos = {10.f, 10.f}; // getting start point location from map
     this->player.to_portal(portal_pos);
 }
 
 void Game::move_player(float dir_x, float dir_y)
 {
-    // check player if move is valid then:
-    this->player.move(dir_x, dir_y);
+    if (this->map.is_move_valid(this->player.get_sprite(), this->map.get_ground()))
+        this->player.move(dir_x, dir_y);
 }
 
 // Functions
@@ -91,11 +91,11 @@ void Game::poll_events()
     // player movement
     if (Keyboard::isKeyPressed(Keyboard::W))
         this->move_player(0.f, -1.f);
-    else if (Keyboard::isKeyPressed(Keyboard::S))
+    if (Keyboard::isKeyPressed(Keyboard::S))
         this->move_player(0.f, 1.f);
     if (Keyboard::isKeyPressed(Keyboard::A))
         this->move_player(-1.f, 0.f);
-    else if (Keyboard::isKeyPressed(Keyboard::D))
+    if (Keyboard::isKeyPressed(Keyboard::D))
         this->move_player(1.f, 0.f);
 }
 
