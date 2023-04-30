@@ -106,7 +106,10 @@ void Game::poll_events()
                 break;
             case Keyboard::Space:
                 if(this->player.is_on_earth_())
+                {
+                    this->player.set_on_earth(false);
                     this->player.set_jump(JUMP_SPEED);
+                }
             }
             break;
         }
