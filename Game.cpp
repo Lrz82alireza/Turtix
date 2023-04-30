@@ -43,7 +43,9 @@ void Game::init_player()
 void Game::move_player(float dir_x, float dir_y)
 {
     if (this->map.is_move_valid(this->player.get_sprite(), this->map.get_ground()))
+    {
         this->player.move(dir_x, dir_y);
+    }
 }
 
 // Functions
