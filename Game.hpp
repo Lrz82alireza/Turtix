@@ -8,6 +8,7 @@
 
 #include <sstream>
 #include "Map.hpp"
+#include "Player.hpp"
 using namespace sf;
 
 class Game
@@ -18,6 +19,7 @@ private:
     Font font;
     Text text;
     MAP map;
+    Player player;
 
     // Window
     RenderWindow *map_window;
@@ -27,7 +29,9 @@ private:
     void init_map_window();
     void init_font();
     void init_text();
-    void init_map();     
+    void init_map();
+    void init_player(); 
+    void move_player(float dir_x, float dir_y);    
 public:
 
     // Constructors
