@@ -1,7 +1,7 @@
 #include "Player.hpp"
 
 const String PLAYER_TEXTURE = "Images/Dirt.png";
-const float PLAYER_SPEED = 5;
+const float PLAYER_SPEED = 1;
 
 // Private Functions
 void Player::init_texture()
