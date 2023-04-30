@@ -11,27 +11,37 @@
 #include "Player.hpp"
 using namespace sf;
 
+const float GRAVITY_ACCELERATION = 0.2;
+
 class Game
 {
 private:
+
+    // somthing
+    bool key_held;
 
     // Resources
     Font font;
     Text text;
     MAP map;
-    Player player;
+    Player player = Player(GRAVITY_ACCELERATION);
 
     // Window
     RenderWindow *map_window;
+    View view;
     Event event;
+    void resize_view();
 
     // Initialise Functions
     void init_map_window();
     void init_font();
     void init_text();
     void init_map();
-    void init_player(); 
-    void move_player(float dir_x, float dir_y);
+    void init_player();
+    void init_view(); 
+    void move_person(Person &person, float dir_x, float dir_y);
+    void gravity_action();
+    void gravity_move(Person &person);
 public:
 
     // Constructors
@@ -43,6 +53,7 @@ public:
     bool running();
 
     // Functions
+    void person_jump(Person &person);
 
     void update();
     void render();

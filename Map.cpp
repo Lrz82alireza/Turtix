@@ -161,15 +161,12 @@ bool MAP::is_intersected(Sprite sprite, RectangleShape shape)
     return false;
 }
 
-bool MAP::is_move_valid(Sprite sprite, vector<RectangleShape> shapes, RectangleShape &intersected_shape)
+bool MAP::is_move_valid(Sprite sprite, vector<RectangleShape> shapes)
 {
     for (auto shape : shapes)
     {
         if (is_intersected(sprite, shape))
-        {
-            intersected_shape = shape;
             return false;
-        }
     }
     return true;
 }

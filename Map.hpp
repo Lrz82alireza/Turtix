@@ -40,6 +40,6 @@ class MAP
         vector <RectangleShape> get_ground();
         VideoMode get_screen();
         bool is_intersected(Sprite thing , RectangleShape shapes);
-        bool is_move_valid(Sprite sprite , vector<RectangleShape> shape, RectangleShape &intersected_shape);
+        bool is_move_valid(Sprite sprite, vector<RectangleShape> shapes, RectangleShape &intersected_shape);
 };
 
