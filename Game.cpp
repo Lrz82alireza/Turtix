@@ -5,8 +5,8 @@ const String LOBBY_FONT = "Fonts/AmaticSC-Regular.ttf";
 const int WIDTH = 1000;
 const int HEIGHT = 1000;
 const int LIMIT_FPS = 144;
-const float JUMP_SPEED = 7;
-
+const float JUMP_SPEED = 7.5;
+const float GRAVITY_SPEED = 1;
 
 // Initialise Functions
 void Game::init_map_window()
@@ -45,23 +45,45 @@ void Game::init_player()
 void Game::move_person(Person &person, float dir_x, float dir_y)
 {
     Vector2f dir = {dir_x, dir_y};
-    RectangleShape intersected_shape;
 
     person.move(dir_x, dir_y);
-    if (!this->map.is_move_valid(this->player.get_sprite(), this->map.get_ground(), intersected_shape))
+    if (dir_y > 0)
+        person.set_on_earth(false);
+    while (!this->map.is_move_valid(this->player.get_sprite(), this->map.get_ground()))
     {
-        this->player.move(-dir_x, -dir_y);
+        person.move(-dir_x, -dir_y);
         if (dir_y > 0)
         {
-            this->player.set_on_earth(true);
-            this->player.set_jump(0);
+            person.set_on_earth(true);
+            person.set_jump(0);
+        }
+        if (dir_y < 0)
+        {
+            person.set_jump(0);
         }
     }
+    
 }
 
 void Game::gravity_action()
 {
-    this->move_person(this->player, 0.f, GRAVITY_SPEED);
+    this->gravity_move(this->player);
+}
+
+void Game::gravity_move(Person &person)
+{
+    if (person.is_on_earth_())
+        person.set_gravity_speed(GRAVITY_SPEED);
+    else
+        person.set_gravity_speed(person.get_gravity_speed() + GRAVITY_ACCELERATION);
+
+    this->move_person(person, 0.f, person.get_gravity_speed());
+}
+
+void Game::person_jump(Person &person)
+{
+    this->move_person(person, 0.f, -person.get_jump_speed());
+    person.update_jump();
 }
 
 // Functions
@@ -69,8 +91,7 @@ void Game::update()
 {
     this->gravity_action();
     this->poll_events();
-    this->player.jump();
-    this->move_person(this->player, 0.f, -this->player.get_jump_speed());
+    this->person_jump(this->player);
 }
 
 void Game::render()
@@ -90,7 +111,7 @@ void Game::render()
 
 void Game::poll_events()
 {
-    while (this->map_window->pollEvent(this->event))
+    if (this->map_window->pollEvent(this->event))
     {
         switch (this->event.type)
         {
@@ -104,14 +125,7 @@ void Game::poll_events()
             case Keyboard::Escape:
                 this->map_window->close();
                 break;
-            case Keyboard::Space:
-                if(this->player.is_on_earth_())
-                {
-                    this->player.set_on_earth(false);
-                    this->player.set_jump(JUMP_SPEED);
-                }
             }
-            break;
         }
     }
 
@@ -124,6 +138,14 @@ void Game::poll_events()
         this->move_person(this->player, -1.f, 0.f);
     if (Keyboard::isKeyPressed(Keyboard::D))
         this->move_person(this->player, 1.f, 0.f);
+    if (this->player.is_on_earth_() && Keyboard::isKeyPressed(Keyboard::Space) && key_held == false)
+    {
+        key_held = true;
+        this->player.set_on_earth(false);
+        this->player.set_jump(JUMP_SPEED);
+    }
+    else
+        key_held = false;
 }
 
 // Accessors
@@ -133,7 +155,7 @@ bool Game::running()
 }
 
 // Constructor / destructor
-Game::Game()  
+Game::Game()
 {
     this->init_map();
     this->init_map_window();
