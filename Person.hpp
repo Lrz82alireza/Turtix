@@ -15,7 +15,7 @@ class Person
 protected:
     Sprite sprite;
     Texture *texture;
-    int health;
+    int health = 1;
     float person_speed;
     float gravity_acceleration;
     float gravity_speed = 0;
