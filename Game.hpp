@@ -22,7 +22,7 @@ private:
 
     Clock cooldownClock;
     bool isCooldown = false;
-    const int cooldownDuration = 100; // milliseconds
+    const int cooldownDuration = 300; // milliseconds
 
 
     // Resources
@@ -47,6 +47,7 @@ private:
     void move_person(Person &person, float dir_x, float dir_y);
     void gravity_action();
     void gravity_move(Person &person);
+    void delay_check();
 public:
 
     // Constructors
