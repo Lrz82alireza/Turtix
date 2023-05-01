@@ -1,4 +1,5 @@
 #include "Map.hpp"
+#include "enemy.hpp"
 
 const char GROUND = '.';
 const char PORTAL = '$';
@@ -148,19 +149,8 @@ bool MAP::is_intersected(Sprite sprite, RectangleShape shape)
 {
     if (sprite.getGlobalBounds().intersects(shape.getGlobalBounds()))
     {
-        if (sprite.getGlobalBounds().top < (shape.getGlobalBounds().top + shape.getGlobalBounds().height))
-            return true;
-
-        if ((sprite.getGlobalBounds().top + sprite.getGlobalBounds().height) > shape.getGlobalBounds().top)
-            return true;
-
-        if (sprite.getGlobalBounds().left < (shape.getGlobalBounds().left + shape.getGlobalBounds().width))
-            return true;
-
-        if ((sprite.getGlobalBounds().left + sprite.getGlobalBounds().width) > shape.getGlobalBounds().left)
             return true;
     }
-
     return false;
 }
 
