@@ -5,7 +5,7 @@ const char Portal = '$';
 
 const string GROUNDTXR = "Images/Ground.png";
 const string DIRTTXR = "Images/Dirt.png";
-const string PORTAL = "Images/portal.png";
+const string PORTALTXR = "Images/portal.png";
 
 float const height = 20.0;
 float const widht = 20.0;
@@ -21,7 +21,7 @@ void MAP::init_texture()
     if (!dirt_texture->loadFromFile(DIRTTXR))
         cout << "ERROR: couldnt find map -> dirt_texture" << endl;
     portal_texture = new Texture;
-    if (!portal_texture->loadFromFile(PORTAL))
+    if (!portal_texture->loadFromFile(PORTALTXR))
         cout << "ERROR: couldnt find map -> portal_texture" << endl;
 }
 
@@ -62,8 +62,8 @@ void MAP::make_ground(float cur_x, float cur_y, Texture *texture)
 
 void MAP::make_portal(float cur_x, float cur_y, Texture *texture)
 {
-    portal.setPosition(cur_x, cur_y);
-    portal.setScale(2.0f, 2.0f);
+    portal.setSize(Vector2f(60, 60));
+    portal.setPosition(cur_x, cur_y-50);
     portal.setTexture(texture);
 }
 
@@ -179,3 +179,4 @@ RectangleShape MAP::get_portal()
 {
     return portal;
 }
+

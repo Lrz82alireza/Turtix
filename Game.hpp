@@ -20,6 +20,11 @@ private:
     // somthing
     bool key_held;
 
+    Clock cooldownClock;
+    bool isCooldown = false;
+    const int cooldownDuration = 100; // milliseconds
+
+
     // Resources
     Font font;
     Text text;
