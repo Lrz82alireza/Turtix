@@ -10,6 +10,8 @@
 #include <iostream>
 #include <vector>
 
+#include "enemy.hpp"
+
 using namespace sf;
 using namespace std;
 
@@ -24,7 +26,9 @@ class MAP
         Texture* portal_texture;
         VideoMode screen;
         RectangleShape portal;
-       
+        vector <Enemy> enemys;
+        
+
         // Private Functions
         void init_texture();
         float calculate_widht();
