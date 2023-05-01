@@ -91,7 +91,7 @@ void MAP::make_texture(char c, float &cur_x, float &cur_y)
         cur_x += widht;
         return;
     }
-}
+} 
 
 void MAP::make_map()
 {
