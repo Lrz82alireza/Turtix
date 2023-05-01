@@ -22,11 +22,7 @@ private:
 
     Clock cooldownClock;
     bool isCooldown = false;
-<<<<<<< HEAD
-    const int cooldownDuration = 2000; // milliseconds
-=======
     const int cooldownDuration = 300; // milliseconds
->>>>>>> 6096fa0206c41ac276cb4daf95774c293b4d4d88
 
 
     // Resources

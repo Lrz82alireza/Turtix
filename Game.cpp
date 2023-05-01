@@ -121,10 +121,6 @@ void Game::update()
     this->poll_events();
     this->person_jump(this->player);
     this->view.setCenter(this->player.get_position());
-<<<<<<< HEAD
-
-=======
->>>>>>> 6096fa0206c41ac276cb4daf95774c293b4d4d88
 }
 
 void Game::render()
@@ -147,50 +143,35 @@ void Game::render()
 
 void Game::poll_events()
 {
-<<<<<<< HEAD
-    sf::Event event;
-    while (this->map_window->pollEvent(event))
-=======
 
     while (this->map_window->pollEvent(this->event))
->>>>>>> 6096fa0206c41ac276cb4daf95774c293b4d4d88
     {
-        if (event.type == sf::Event::Closed)
-            this->map_window->close();
-        else if (event.type == sf::Event::KeyPressed)
+        switch (this->event.type)
         {
-            if (event.key.code == sf::Keyboard::Escape)
-                this->map_window->close();
-<<<<<<< HEAD
-            else if (event.key.code == sf::Keyboard::Space)
+        case Event::Closed:
+            this->map_window->close();
+            break;
+        case Event::Resized:
+            this->resize_view();
+            break;
+        case Event::KeyPressed:
+            switch (this->event.key.code)
             {
-                Time elapsedTime = cooldownClock.getElapsedTime();
-                if (isCooldown && elapsedTime.asMilliseconds() >= cooldownDuration)
-                {
-                    isCooldown = false;
-                }
-                if (this->player.is_on_earth_() && Keyboard::isKeyPressed(Keyboard::Space) && !isCooldown)
-=======
+            case Keyboard::Escape:
+                this->map_window->close();
                 break;
             case Keyboard::Space:
                 delay_check();
                 if (this->player.is_on_earth_() && !this->isCooldown)
->>>>>>> 6096fa0206c41ac276cb4daf95774c293b4d4d88
                 {
                     this->player.set_on_earth(false);
                     this->player.set_jump(JUMP_SPEED);
 
-<<<<<<< HEAD
-                    isCooldown = true;
-                    cooldownClock.restart();
-=======
                     this->cooldownClock.restart();
->>>>>>> 6096fa0206c41ac276cb4daf95774c293b4d4d88
                 }
             }
         }
     }
-
 
     // player movement
     if (Keyboard::isKeyPressed(Keyboard::W))
