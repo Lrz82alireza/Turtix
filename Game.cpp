@@ -95,6 +95,19 @@ void Game::gravity_move(Person &person)
     this->move_person(person, 0.f, person.get_gravity_speed());
 }
 
+void Game::delay_check()
+{
+    Time elapsedTime = this->cooldownClock.getElapsedTime();
+    if (elapsedTime.asMilliseconds() >= this->cooldownDuration)
+    {
+        this->isCooldown = false;
+    }
+    else
+    {
+        this->isCooldown = true;
+    }
+}
+
 void Game::person_jump(Person &person)
 {
     this->move_person(person, 0.f, -person.get_jump_speed());
@@ -108,7 +121,10 @@ void Game::update()
     this->poll_events();
     this->person_jump(this->player);
     this->view.setCenter(this->player.get_position());
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6096fa0206c41ac276cb4daf95774c293b4d4d88
 }
 
 void Game::render()
@@ -123,6 +139,7 @@ void Game::render()
 
     this->map_window->draw(map.get_portal());
     this->map_window->draw(this->player.get_sprite());
+
     this->map_window->setView(view);
 
     this->map_window->display();
@@ -130,8 +147,13 @@ void Game::render()
 
 void Game::poll_events()
 {
+<<<<<<< HEAD
     sf::Event event;
     while (this->map_window->pollEvent(event))
+=======
+
+    while (this->map_window->pollEvent(this->event))
+>>>>>>> 6096fa0206c41ac276cb4daf95774c293b4d4d88
     {
         if (event.type == sf::Event::Closed)
             this->map_window->close();
@@ -139,6 +161,7 @@ void Game::poll_events()
         {
             if (event.key.code == sf::Keyboard::Escape)
                 this->map_window->close();
+<<<<<<< HEAD
             else if (event.key.code == sf::Keyboard::Space)
             {
                 Time elapsedTime = cooldownClock.getElapsedTime();
@@ -147,13 +170,22 @@ void Game::poll_events()
                     isCooldown = false;
                 }
                 if (this->player.is_on_earth_() && Keyboard::isKeyPressed(Keyboard::Space) && !isCooldown)
+=======
+                break;
+            case Keyboard::Space:
+                delay_check();
+                if (this->player.is_on_earth_() && !this->isCooldown)
+>>>>>>> 6096fa0206c41ac276cb4daf95774c293b4d4d88
                 {
-                    key_held = true;
                     this->player.set_on_earth(false);
                     this->player.set_jump(JUMP_SPEED);
 
+<<<<<<< HEAD
                     isCooldown = true;
                     cooldownClock.restart();
+=======
+                    this->cooldownClock.restart();
+>>>>>>> 6096fa0206c41ac276cb4daf95774c293b4d4d88
                 }
             }
         }
