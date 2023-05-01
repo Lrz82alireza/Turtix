@@ -108,6 +108,13 @@ void Game::update()
     this->poll_events();
     this->person_jump(this->player);
     this->view.setCenter(this->player.get_position());
+
+    Time elapsedTime = cooldownClock.getElapsedTime();
+    if (isCooldown && elapsedTime.asMilliseconds() >= cooldownDuration)
+    {
+        isCooldown = false;
+    }
+
 }
 
 void Game::render()
@@ -170,14 +177,16 @@ void Game::poll_events()
         this->move_person(this->player, -1.f, 0.f);
     if (Keyboard::isKeyPressed(Keyboard::D))
         this->move_person(this->player, 1.f, 0.f);
-    if (this->player.is_on_earth_() && Keyboard::isKeyPressed(Keyboard::Space) && key_held == false)
+
+    if (this->player.is_on_earth_() && Keyboard::isKeyPressed(Keyboard::Space) && !isCooldown)
     {
         key_held = true;
         this->player.set_on_earth(false);
         this->player.set_jump(JUMP_SPEED);
+
+        isCooldown = true;
+        cooldownClock.restart();
     }
-    else
-        key_held = false;
 }
 
 // Accessors

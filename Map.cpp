@@ -62,10 +62,8 @@ void MAP::make_ground(float cur_x, float cur_y, Texture *texture)
 
 void MAP::make_portal(float cur_x, float cur_y, Texture *texture)
 {
-    portal.setSize(Vector2f(portal_texture->getSize().x, portal_texture->getSize().y));
-    portal.setScale(0.1, 0.1); /////////////////// !!!!!!!!!!!!!!!!!!!!!
-    portal.setOrigin(portal_texture->getSize().x / 2,
-                       portal_texture->getSize().y / 2);
+    portal.setSize(Vector2f(60, 60));
+    portal.setPosition(cur_x, cur_y-50);
     portal.setTexture(texture);
     portal.setPosition(cur_x, cur_y);
 }
@@ -182,3 +180,4 @@ RectangleShape MAP::get_portal()
 {
     return portal;
 }
+
