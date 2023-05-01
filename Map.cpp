@@ -5,7 +5,7 @@ const char PORTAL = '$';
 
 const string GROUNDTXR = "Images/Ground.png";
 const string DIRTTXR = "Images/Dirt.png";
-const string PORTALTXR = "Images/portal-removebg-preview.png";
+const string PORTALTXR = "Images/portal.png";
 
 float const height = 20.0;
 float const widht = 20.0;
