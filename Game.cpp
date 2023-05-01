@@ -124,6 +124,7 @@ void Game::render()
 
     this->map_window->draw(map.get_portal());
     this->map_window->draw(this->player.get_sprite());
+    
     this->map_window->setView(view);
 
     this->map_window->display();
