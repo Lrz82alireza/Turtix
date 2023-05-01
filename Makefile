@@ -11,8 +11,8 @@ BUILD_DR = build
 all: game.out
 
 
-game.out: ${BUILD_DR}/main.o ${BUILD_DR}/Game.o ${BUILD_DR}/Map.o ${BUILD_DR}/Player.o ${BUILD_DR}/Person.o ${BUILD_DR}/Public_functions.o ${BUILD_DR}/Enemy.o
-	${CC} ${BUILD_DR}/main.o ${BUILD_DR}/Game.o ${BUILD_DR}/Map.o ${BUILD_DR}/Player.o ${BUILD_DR}/Person.o ${BUILD_DR}/Public_functions.o ${BUILD_DR}/Enemy.o ${SF_LIB} -o game
+game.out: ${BUILD_DR}/main.o ${BUILD_DR}/Game.o ${BUILD_DR}/Map.o ${BUILD_DR}/Player.o ${BUILD_DR}/Person.o ${BUILD_DR}/Public_functions.o ${BUILD_DR}/Enemy.o ${BUILD_DR}/Die_hard.o
+	${CC} ${BUILD_DR}/main.o ${BUILD_DR}/Game.o ${BUILD_DR}/Map.o ${BUILD_DR}/Player.o ${BUILD_DR}/Person.o ${BUILD_DR}/Public_functions.o ${BUILD_DR}/Enemy.o ${BUILD_DR}/Die_hard.o ${SF_LIB} -o game
 
 
 ${BUILD_DR}/main.o: main.cpp
@@ -35,6 +35,9 @@ ${BUILD_DR}/Public_functions.o: Public_functions.cpp
 
 ${BUILD_DR}/Enemy.o: Enemy.cpp
 	${CC} -c ${BUILD_DR}/Enemy.cpp -o ${BUILD_DR}/Enemy.o
+
+${BUILD_DR}/Die_hard.o: Die_hard.cpp Enemy.hpp
+	${CC} -c ${BUILD_DR}/Die_hard.cpp -o ${BUILD_DR}/Die_hard.o
 
 clean:
 	rm -rf build/ && mkdir -p build
