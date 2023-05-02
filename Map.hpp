@@ -37,10 +37,15 @@ class MAP
         void make_portal(float cur_x, float cur_y, Texture *texture);
         void make_texture(char c , float &cur_x , float &cur_y);
         void make_map();
+
+        
+
         vector <RectangleShape> get_ground();
         RectangleShape get_portal();
         VideoMode get_screen();
+
         bool is_intersected(Sprite thing , RectangleShape shapes);
         bool is_move_valid(Sprite sprite, vector<RectangleShape> shapes);
+        bool is_on_edge(Sprite sprite);
 };
 

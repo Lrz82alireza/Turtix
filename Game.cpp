@@ -40,13 +40,13 @@ void Game::init_text()
 
 void Game::init_map()
 {
-    this->map.read_inputs("input.txt");
-    this->map.make_map();
+    this->game_map.read_inputs("input.txt");
+    this->game_map.make_map();
 }
 
 void Game::init_player()
 {
-    Vector2f portal_pos = this->map.get_portal().getPosition(); // getting start point location from map
+    Vector2f portal_pos = this->game_map.get_portal().getPosition(); // getting start point location from map
     this->player.to_pos(portal_pos);
 }
 
@@ -57,12 +57,14 @@ void Game::move_person(Person &person, float dir_x, float dir_y)
     person.move(dir_x, dir_y);
     if (dir_y > 0)
         person.set_on_earth(false);
-    while (!this->map.is_move_valid(this->player.get_sprite(), this->map.get_ground()))
+    while (!this->game_map.is_move_valid(this->player.get_sprite(), this->game_map.get_ground()))
     {
+        // bazgashty mitoone beshe ba shart khateme SPEED
+
         person.move(-dir_x, -dir_y);
         if (dir_y > 0)
         {
-            person.set_on_earth(true);
+            person.set_on_earth(true);  // we can think about it later
             person.set_jump(0);
         }
         if (dir_y < 0)
@@ -108,6 +110,13 @@ void Game::delay_check()
     }
 }
 
+void Game::default_events()
+{
+    // background sound
+
+    // enemys default move
+}
+
 void Game::person_jump(Person &person)
 {
     this->move_person(person, 0.f, -person.get_jump_speed());
@@ -130,10 +139,10 @@ void Game::render()
 
     this->map_window->draw(this->text);
 
-    for (auto ground : map.get_ground())
+    for (auto ground : game_map.get_ground())
         this->map_window->draw(ground);
 
-    this->map_window->draw(map.get_portal());
+    this->map_window->draw(game_map.get_portal());
     this->map_window->draw(this->player.get_sprite());
 
     this->map_window->setView(view);

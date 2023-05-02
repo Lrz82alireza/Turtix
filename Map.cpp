@@ -16,13 +16,13 @@ void MAP::init_texture()
 {
     ground_texture = new Texture;
     if (!ground_texture->loadFromFile(GROUNDTXR))
-        cout << "ERROR: couldnt find map -> ground_texture" << endl;
+        cout << "ERROR: couldnt find game_map -> ground_texture" << endl;
     dirt_texture = new Texture;
     if (!dirt_texture->loadFromFile(DIRTTXR))
-        cout << "ERROR: couldnt find map -> dirt_texture" << endl;
+        cout << "ERROR: couldnt find game_map -> dirt_texture" << endl;
     portal_texture = new Texture;
     if (!portal_texture->loadFromFile(PORTALTXR))
-        cout << "ERROR: couldnt find map -> portal_texture" << endl;
+        cout << "ERROR: couldnt find game_map -> portal_texture" << endl;
 }
 
 MAP::MAP()
@@ -48,7 +48,7 @@ void MAP::read_inputs(string file_name)
         File.close();
     }
     else
-        cout << "ERROR: map file_name didnt found" << endl;
+        cout << "ERROR: game_map file_name didnt found" << endl;
     input = file_content;
 }
 
@@ -174,6 +174,12 @@ bool MAP::is_move_valid(Sprite sprite, vector<RectangleShape> shapes)
         }
     }
     return true;
+}
+
+bool MAP::is_on_edge(Sprite sprite)
+{
+    /*TODO*/
+    return false;
 }
 
 RectangleShape MAP::get_portal()
