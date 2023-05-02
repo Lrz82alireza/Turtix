@@ -42,11 +42,15 @@ class MAP
         void make_portal(float cur_x, float cur_y, Texture *texture);
         void make_texture(char c , float &cur_x , float &cur_y);
         void make_map();
+        void make_die_hard(float cur_x, float cur_y);
+
+
         vector <RectangleShape> get_ground();
         RectangleShape get_portal();
         VideoMode get_screen();
+
         bool is_intersected(Sprite thing , RectangleShape shapes);
         bool is_move_valid(Sprite sprite, vector<RectangleShape> shapes);
-        void make_die_hard(float cur_x, float cur_y);
+        bool is_on_edge(Sprite sprite);
 };
 

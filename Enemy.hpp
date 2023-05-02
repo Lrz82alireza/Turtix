@@ -1,14 +1,20 @@
 #pragma once
 
 #include "Person.hpp"
-
-
+#include "Map.hpp"
 
 class Enemy : public Person
 {    
+protected:
+    Vector2f cur_dir; // some random dir OR a const
 public:
-    void default_movement();
+    void default_movement(MAP &game_map);
 
     Enemy(string file_name, float enemy_speed_, float gravity);
     ~Enemy();
 };
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> c47a71dd2aa69ea5e5e4e20fdd6d5b32a89c12b5

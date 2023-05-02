@@ -28,7 +28,7 @@ private:
     // Resources
     Font font;
     Text text;
-    MAP map;
+    MAP game_map;
     Player player = Player(GRAVITY_ACCELERATION);
 
     // Window
@@ -48,6 +48,7 @@ private:
     void gravity_action();
     void gravity_move(Person &person);
     void delay_check();
+    void default_events();
 public:
 
     // Constructors
