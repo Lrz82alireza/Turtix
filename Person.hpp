@@ -38,7 +38,6 @@ public:
     float get_gravity_speed() { return this->gravity_speed; }
     Vector2f get_position() { return this->sprite.getPosition(); }
     bool is_on_earth_() { return this->is_on_earth; }
-    int intersect_direct(FloatRect object1 , FloatRect object2);
     void to_pos(Vector2f pos);
     void update_jump();
 

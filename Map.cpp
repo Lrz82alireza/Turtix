@@ -1,11 +1,14 @@
 #include "Map.hpp"
 
+
 const char GROUND = '.';
 const char PORTAL = '$';
+const char DIEHARD = 'E';
 
 const string GROUNDTXR = "Images/Ground.png";
 const string DIRTTXR = "Images/Dirt.png";
 const string PORTALTXR = "Images/portal.png";
+const string DIEHARDTXR = "Images/portal.png";
 
 float const height = 20.0;
 float const widht = 20.0;
@@ -68,29 +71,34 @@ void MAP::make_portal(float cur_x, float cur_y, Texture *texture)
     portal.setPosition(cur_x, cur_y);
 }
 
+void MAP::make_die_hard(float cur_x, float cur_y)
+{
+    Die_hard enemy(DIEHARDTXR);
+    enemy.get_sprite().setPosition(cur_x , cur_y);
+    enemy.get_sprite().setScale(1.0 , 1.0);
+    enemys.push_back(enemy);
+}
+
+
 void MAP::make_texture(char c, float &cur_x, float &cur_y)
 {
+    cur_x += widht;
     if (c == GROUND)
     {
-        cur_x += widht;
         if (!is_top(cur_x, cur_y))
             make_ground(cur_x, cur_y, ground_texture);
         else
             make_ground(cur_x, cur_y, dirt_texture);
-        return;
     }
     if (c == PORTAL)
     {
-        cur_x += widht;
         make_portal(cur_x, cur_y, portal_texture);
-        return;
     }
-    if (c == ' ')
+    if (c == DIEHARD)
     {
-        cur_x += widht;
-        return;
+        make_die_hard(cur_x , cur_y);
     }
-} 
+}
 
 void MAP::make_map()
 {
@@ -148,19 +156,8 @@ bool MAP::is_intersected(Sprite sprite, RectangleShape shape)
 {
     if (sprite.getGlobalBounds().intersects(shape.getGlobalBounds()))
     {
-        if (sprite.getGlobalBounds().top < (shape.getGlobalBounds().top + shape.getGlobalBounds().height))
-            return true;
-
-        if ((sprite.getGlobalBounds().top + sprite.getGlobalBounds().height) > shape.getGlobalBounds().top)
-            return true;
-
-        if (sprite.getGlobalBounds().left < (shape.getGlobalBounds().left + shape.getGlobalBounds().width))
-            return true;
-
-        if ((sprite.getGlobalBounds().left + sprite.getGlobalBounds().width) > shape.getGlobalBounds().left)
             return true;
     }
-
     return false;
 }
 
@@ -186,4 +183,6 @@ RectangleShape MAP::get_portal()
 {
     return portal;
 }
+
+
 

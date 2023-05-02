@@ -21,7 +21,7 @@ ${BUILD_DR}/main.o: main.cpp
 ${BUILD_DR}/Game.o: Game.cpp Map.hpp Player.hpp
 	${CC} -c Game.cpp -o ${BUILD_DR}/Game.o
 
-${BUILD_DR}/Map.o: Map.cpp
+${BUILD_DR}/Map.o: Map.cpp Enemy.hpp Die_hard.hpp
 	${CC} -c Map.cpp -o ${BUILD_DR}/Map.o
 
 ${BUILD_DR}/Player.o: Player.cpp Person.hpp

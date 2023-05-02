@@ -1,20 +1,13 @@
 #pragma once
 
+
 #include "Enemy.hpp"
 
-class Die_hard
+class Die_hard : public Enemy 
 {
 private:
-    /* data */
+   
 public:
-    Die_hard(/* args */);
-    ~Die_hard();
+    Die_hard (string file_name);
 };
 
-Die_hard::Die_hard(/* args */)
-{
-}
-
-Die_hard::~Die_hard()
-{
-}

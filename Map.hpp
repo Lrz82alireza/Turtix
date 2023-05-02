@@ -10,6 +10,9 @@
 #include <iostream>
 #include <vector>
 
+#include "Enemy.hpp"
+#include "Die_hard.hpp"
+
 using namespace sf;
 using namespace std;
 
@@ -24,7 +27,9 @@ class MAP
         Texture* portal_texture;
         VideoMode screen;
         RectangleShape portal;
-       
+        vector <Enemy> enemys;
+
+
         // Private Functions
         void init_texture();
         float calculate_widht();
@@ -37,8 +42,8 @@ class MAP
         void make_portal(float cur_x, float cur_y, Texture *texture);
         void make_texture(char c , float &cur_x , float &cur_y);
         void make_map();
+        void make_die_hard(float cur_x, float cur_y);
 
-        
 
         vector <RectangleShape> get_ground();
         RectangleShape get_portal();

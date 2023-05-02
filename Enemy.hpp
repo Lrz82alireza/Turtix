@@ -13,5 +13,8 @@ public:
     Enemy(string file_name, float enemy_speed_, float gravity);
     ~Enemy();
 };
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> c47a71dd2aa69ea5e5e4e20fdd6d5b32a89c12b5
