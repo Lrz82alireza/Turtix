@@ -48,7 +48,7 @@ class MAP
         vector <RectangleShape> get_ground();
         RectangleShape get_portal();
         VideoMode get_screen();
-        vector<Enemy> get_enemys();
+        vector<Enemy>& get_enemys();
 
         bool is_intersected(Sprite thing , RectangleShape shapes);
         bool is_move_valid(Sprite sprite, vector<RectangleShape> shapes);

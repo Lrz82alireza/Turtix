@@ -7,7 +7,7 @@ const char DIEHARD = 'E';
 const string GROUNDTXR = "Images/Ground.png";
 const string DIRTTXR = "Images/Dirt.png";
 const string PORTALTXR = "Images/portal.png";
-const string DIEHARDTXR = "Images/portal.png";
+const string DIEHARDTXR = "Images/Ground.png";
 
 float const height = 20.0;
 float const widht = 20.0;
@@ -197,7 +197,7 @@ RectangleShape MAP::get_portal()
     return portal;
 }
 
-vector<Enemy> MAP::get_enemys()
+vector<Enemy>& MAP::get_enemys()
 {
     return enemys;
 }

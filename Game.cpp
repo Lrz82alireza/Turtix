@@ -19,7 +19,7 @@ void Game::resize_view()
 void Game::init_map_window()
 {
     this->map_window = new RenderWindow(this->game_map.get_screen(), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
-    //this->map_window = new RenderWindow(VideoMode(1000, 1000), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
+    // this->map_window = new RenderWindow(VideoMode(1000, 1000), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
 
     this->map_window->setFramerateLimit(LIMIT_FPS);
 }
@@ -64,7 +64,7 @@ void Game::move_person(Person &person, float dir_x, float dir_y)
         person.move(-dir_x, -dir_y);
         if (dir_y > 0)
         {
-            person.set_on_earth(true);  // we can think about it later
+            person.set_on_earth(true); // we can think about it later
             person.set_jump(0);
         }
         if (dir_y < 0)
@@ -77,7 +77,7 @@ void Game::move_person(Person &person, float dir_x, float dir_y)
 void Game::gravity_action()
 {
     this->gravity_move(this->player);
-    /*enemys and other sprites*/
+    // this->enemys_gravity_move();
 }
 
 void Game::init_view()
@@ -114,7 +114,28 @@ void Game::default_events()
 {
     // background sound
 
-    // enemys default move
+    default_enemys_movement();
+}
+
+void Game::default_enemys_movement()
+{
+    for (int i = 0; i < this->game_map.get_enemys().size(); i++)
+    {
+        Enemy *enemy = &this->game_map.get_enemys()[i];
+
+        enemy->move(enemy->get_cur_dir().x, enemy->get_cur_dir().y);
+        bool is_move_valid = game_map.is_move_valid(enemy->get_sprite(), game_map.get_ground());
+        bool is_on_edge = game_map.is_on_edge(enemy->get_sprite());
+        enemy->default_movement(is_move_valid, is_on_edge);
+    }
+}
+
+void Game::enemys_gravity_move()
+{
+    for (int i = 0; i < this->game_map.get_enemys().size(); i++)
+    {
+        this->gravity_move(this->game_map.get_enemys()[i]);
+    }
 }
 
 void Game::person_jump(Person &person)
@@ -130,12 +151,7 @@ void Game::update()
     this->poll_events();
     this->person_jump(this->player);
     this->view.setCenter(this->player.get_position());
-    for (auto enemy : this->game_map.get_enemys())
-    {
-        bool is_move_valid = game_map.is_move_valid(enemy.get_sprite() , game_map.get_ground());
-        bool is_on_edge = game_map.is_on_edge(enemy.get_sprite());
-        enemy.default_movement(is_move_valid , is_on_edge);
-    }
+    this->default_events();
 }
 
 void Game::render()
@@ -143,14 +159,14 @@ void Game::render()
 
     this->map_window->clear();
 
-    //this->map_window->draw(this->text);
+    // this->map_window->draw(this->text);
 
     for (auto ground : game_map.get_ground())
         this->map_window->draw(ground);
 
     this->map_window->draw(game_map.get_portal());
     this->map_window->draw(this->player.get_sprite());
-    
+
     for (auto enemy : game_map.get_enemys())
         this->map_window->draw(enemy.get_sprite());
 
@@ -160,7 +176,7 @@ void Game::render()
 }
 
 void Game::poll_events()
-{   
+{
 
     while (this->map_window->pollEvent(this->event))
     {

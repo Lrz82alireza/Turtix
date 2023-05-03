@@ -50,6 +50,8 @@ private:
     void gravity_move(Person &person);
     void delay_check();
     void default_events();
+    void default_enemys_movement();
+    void enemys_gravity_move();
 public:
 
     // Constructors
