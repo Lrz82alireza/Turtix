@@ -11,6 +11,8 @@
 using namespace sf;
 using namespace std;
 
+const float GRAVITY_ACCELERATION = 0.1;
+
 class Person
 {
 protected:
@@ -18,7 +20,7 @@ protected:
     Texture *texture;
     int health;
     float person_speed;
-    float gravity_acceleration;
+    float gravity_acceleration = GRAVITY_ACCELERATION;
     float gravity_speed = 1;
     float jump_speed = 0;
     bool is_on_earth = false;
@@ -43,5 +45,5 @@ public:
     void update_jump();
 
     // Constructors
-    Person(string file_name, float person_speed_, float gravity_acceleration_);
+    Person(string file_name, float person_speed_);
 };

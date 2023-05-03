@@ -10,8 +10,8 @@ void Enemy::default_movement(bool is_move_valid , bool is_on_edge)
     }
 }
 
-Enemy::Enemy(string file_name, float enemy_speed_, float gravity)
-    : Person(file_name, enemy_speed_, gravity)
+Enemy::Enemy(string file_name, float enemy_speed_)
+    : Person(file_name, enemy_speed_)
 {
     switch (rand() % 2)
     {

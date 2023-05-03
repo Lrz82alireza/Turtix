@@ -40,10 +40,9 @@ void Person::update_jump()
 }
 
 // Constructors
-Person::Person(string file_name, float person_speed_, float gravity_acceleration_)
+Person::Person(string file_name, float person_speed_)
 {
     init_texture(file_name);
     this->init_sprite();
     this->person_speed = person_speed_;
-    this->gravity_acceleration = gravity_acceleration_;
 }

@@ -51,6 +51,7 @@ class MAP
         vector<Enemy>& get_enemys();
 
         bool is_intersected(Sprite thing , RectangleShape shapes);
+        bool is_enemy_hited(Sprite sprite, Enemy enemy);
         bool is_move_valid(Sprite sprite, vector<RectangleShape> shapes);
         bool is_on_edge(Sprite sprite);
 };

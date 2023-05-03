@@ -12,8 +12,6 @@
 
 using namespace sf;
 
-const float GRAVITY_ACCELERATION = 0.2;
-
 class Game
 {
 private:
@@ -30,7 +28,7 @@ private:
     Font font;
     Text text;
     MAP game_map;
-    Player player = Player(GRAVITY_ACCELERATION);
+    Player player;
 
     // Window
     RenderWindow *map_window;
@@ -52,6 +50,7 @@ private:
     void default_events();
     void default_enemys_movement();
     void enemys_gravity_move();
+    void player_hit_event();
 public:
 
     // Constructors

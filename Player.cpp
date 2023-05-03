@@ -1,7 +1,7 @@
 #include "Player.hpp"
 
-const String PLAYER_TEXTURE = "Images/Dirt.png";
-const float PLAYER_SPEED = 1;
+const String PLAYER_TEXTURE = "Images/Ground.png";
+const float PLAYER_SPEED = 1.5;
 
 
 // Private Functions
@@ -10,7 +10,7 @@ const float PLAYER_SPEED = 1;
 
 // Constructors
 
-Player::Player(float gravity)
-       :Person(PLAYER_TEXTURE, PLAYER_SPEED, gravity)
+Player::Player()
+       :Person(PLAYER_TEXTURE, PLAYER_SPEED)
 {
 }

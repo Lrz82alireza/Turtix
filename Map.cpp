@@ -158,6 +158,15 @@ bool MAP::is_intersected(Sprite sprite, RectangleShape shape)
     return false;
 }
 
+bool MAP::is_enemy_hited(Sprite sprite, Enemy enemy)
+{
+    if (sprite.getGlobalBounds().intersects(enemy.get_sprite().getGlobalBounds()))
+    {
+        return true;
+    }
+    return false;
+}
+
 bool MAP::is_move_valid(Sprite sprite, vector<RectangleShape> shapes)
 {
     for (auto shape : shapes)

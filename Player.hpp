@@ -22,6 +22,6 @@ private:
 public:
 
     // Accessors
-    Player(float gravity);
+    Player();
 };
 

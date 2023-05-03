@@ -5,8 +5,8 @@ const String LOBBY_FONT = "Fonts/AmaticSC-Regular.ttf";
 const int WIDTH = 1000;
 const int HEIGHT = 1000;
 const int LIMIT_FPS = 144;
-const float JUMP_SPEED = 7.5;
-const float GRAVITY_SPEED = 1;
+const float JUMP_SPEED = 6;
+const float GRAVITY_SPEED = 0.5;
 const Vector2f VIEW_SIZE = {400.f, 400.f};
 
 void Game::resize_view()
@@ -18,8 +18,8 @@ void Game::resize_view()
 // Initialise Functions
 void Game::init_map_window()
 {
-    this->map_window = new RenderWindow(this->game_map.get_screen(), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
-    // this->map_window = new RenderWindow(VideoMode(1000, 1000), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
+    // this->map_window = new RenderWindow(this->game_map.get_screen(), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
+    this->map_window = new RenderWindow(VideoMode(1000, 1000), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
 
     this->map_window->setFramerateLimit(LIMIT_FPS);
 }
@@ -130,10 +130,38 @@ void Game::default_enemys_movement()
 
 void Game::enemys_gravity_move()
 {
-    vector<Enemy>& enemys = this->game_map.get_enemys();
+    vector<Enemy> &enemys = this->game_map.get_enemys();
     for (int i = 0; i < enemys.size(); i++)
     {
         this->gravity_move(enemys[i]);
+    }
+}
+
+void Game::player_hit_event()
+{
+    float player_bottom = this->player.get_sprite().getGlobalBounds().top +
+                          this->player.get_sprite().getGlobalBounds().height - this->player.get_gravity_speed();
+
+    vector<Enemy> &enemys = this->game_map.get_enemys();
+    for (int i = 0; i < enemys.size(); i++)
+    {
+        if (this->game_map.is_enemy_hited(this->player.get_sprite(), enemys[i]))
+        {
+            if (player_bottom < enemys[i].get_sprite().getGlobalBounds().top) 
+            {
+                cout << "enemy: " << enemys[i].get_sprite().getGlobalBounds().top << endl;
+                cout << "player: " << player_bottom << endl;
+
+                enemys.erase(enemys.begin() + i);
+                this->player.set_on_earth(false);
+                this->player.set_jump(JUMP_SPEED);
+                this->player.set_gravity_speed(GRAVITY_SPEED);
+            }
+            else
+            {
+                this->player.to_pos(this->game_map.get_portal().getPosition());
+            }
+        }
     }
 }
 
@@ -147,6 +175,7 @@ void Game::person_jump(Person &person)
 void Game::update()
 {
     this->gravity_action();
+    this->player_hit_event();
     this->poll_events();
     this->person_jump(this->player);
     this->view.setCenter(this->player.get_position());
