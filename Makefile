@@ -36,6 +36,8 @@ ${BUILD_DR}/Person.o: Person.cpp
 ${BUILD_DR}/Public_functions.o: Public_functions.cpp
 	${CC} -c Public_functions.cpp -o ${BUILD_DR}/Public_functions.o
 
+${BUILD_DR}/Enemy.o: Enemy.cpp Person.hpp 
+	${CC} -c Enemy.cpp -o ${BUILD_DR}/Enemy.o
 
 ${BUILD_DR}/Die_hard.o: Die_hard.cpp Enemy.hpp
 	${CC} -c Die_hard.cpp -o ${BUILD_DR}/Die_hard.o

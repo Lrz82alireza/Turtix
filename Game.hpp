@@ -9,6 +9,7 @@
 #include <sstream>
 #include "Map.hpp"
 #include "Player.hpp"
+
 using namespace sf;
 
 const float GRAVITY_ACCELERATION = 0.2;

@@ -18,8 +18,8 @@ void Game::resize_view()
 // Initialise Functions
 void Game::init_map_window()
 {
-    // this->map_window = new RenderWindow(this->map.get_screen(), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
-    this->map_window = new RenderWindow(VideoMode(1000, 1000), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
+    this->map_window = new RenderWindow(this->game_map.get_screen(), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
+    //this->map_window = new RenderWindow(VideoMode(1000, 1000), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
 
     this->map_window->setFramerateLimit(LIMIT_FPS);
 }
@@ -130,6 +130,12 @@ void Game::update()
     this->poll_events();
     this->person_jump(this->player);
     this->view.setCenter(this->player.get_position());
+    for (auto enemy : this->game_map.get_enemys())
+    {
+        bool is_move_valid = game_map.is_move_valid(enemy.get_sprite() , game_map.get_ground());
+        bool is_on_edge = game_map.is_on_edge(enemy.get_sprite());
+        enemy.default_movement(is_move_valid , is_on_edge);
+    }
 }
 
 void Game::render()
@@ -137,13 +143,16 @@ void Game::render()
 
     this->map_window->clear();
 
-    this->map_window->draw(this->text);
+    //this->map_window->draw(this->text);
 
     for (auto ground : game_map.get_ground())
         this->map_window->draw(ground);
 
     this->map_window->draw(game_map.get_portal());
     this->map_window->draw(this->player.get_sprite());
+    
+    for (auto enemy : game_map.get_enemys())
+        this->map_window->draw(enemy.get_sprite());
 
     this->map_window->setView(view);
 
@@ -151,7 +160,7 @@ void Game::render()
 }
 
 void Game::poll_events()
-{
+{   
 
     while (this->map_window->pollEvent(this->event))
     {

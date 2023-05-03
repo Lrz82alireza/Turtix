@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
@@ -15,7 +16,7 @@ class Person
 protected:
     Sprite sprite;
     Texture *texture;
-    int health = 1;
+    int health;
     float person_speed;
     float gravity_acceleration;
     float gravity_speed = 0;

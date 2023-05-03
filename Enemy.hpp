@@ -1,15 +1,20 @@
 #pragma once
 
+#include <cstdlib>
 #include "Person.hpp"
-#include "Map.hpp"
+#include <SFML/Graphics.hpp>
+
 
 class Enemy : public Person
-{    
+{
 protected:
     Vector2f cur_dir; // some random dir OR a const
 public:
-    void default_movement(MAP &game_map);
+
+    void default_movement(bool is_move_valid , bool is_on_edge);
 
     Enemy(string file_name, float enemy_speed_, float gravity);
     ~Enemy();
 };
+
+

@@ -1,6 +1,5 @@
 #include "Map.hpp"
 
-
 const char GROUND = '.';
 const char PORTAL = '$';
 const char DIEHARD = 'E';
@@ -66,7 +65,7 @@ void MAP::make_ground(float cur_x, float cur_y, Texture *texture)
 void MAP::make_portal(float cur_x, float cur_y, Texture *texture)
 {
     portal.setSize(Vector2f(60, 60));
-    portal.setPosition(cur_x, cur_y-50);
+    portal.setPosition(cur_x, cur_y - 50);
     portal.setTexture(texture);
     portal.setPosition(cur_x, cur_y);
 }
@@ -74,11 +73,9 @@ void MAP::make_portal(float cur_x, float cur_y, Texture *texture)
 void MAP::make_die_hard(float cur_x, float cur_y)
 {
     Die_hard enemy(DIEHARDTXR);
-    enemy.get_sprite().setPosition(cur_x , cur_y);
-    enemy.get_sprite().setScale(1.0 , 1.0);
+    enemy.to_pos(Vector2f(cur_x, cur_y)); //
     enemys.push_back(enemy);
 }
-
 
 void MAP::make_texture(char c, float &cur_x, float &cur_y)
 {
@@ -96,7 +93,7 @@ void MAP::make_texture(char c, float &cur_x, float &cur_y)
     }
     if (c == DIEHARD)
     {
-        make_die_hard(cur_x , cur_y);
+        make_die_hard(cur_x, cur_y);
     }
 }
 
@@ -156,7 +153,7 @@ bool MAP::is_intersected(Sprite sprite, RectangleShape shape)
 {
     if (sprite.getGlobalBounds().intersects(shape.getGlobalBounds()))
     {
-            return true;
+        return true;
     }
     return false;
 }
@@ -175,8 +172,24 @@ bool MAP::is_move_valid(Sprite sprite, vector<RectangleShape> shapes)
 
 bool MAP::is_on_edge(Sprite sprite)
 {
-    /*TODO*/
-    return false;
+    float l_x = sprite.getPosition().x - sprite.getGlobalBounds().width / 2;
+    float r_x = sprite.getPosition().x + sprite.getGlobalBounds().width / 2;
+    float space = 10.0; //
+    float b_y = sprite.getPosition().y + sprite.getGlobalBounds().height / 2;
+    for (auto ground : grounds)
+    {
+        if (ground.getGlobalBounds().contains(l_x, b_y + space))
+        {
+            for (auto ground : grounds)
+            {
+                if (ground.getGlobalBounds().contains(r_x, b_y + space))
+                {
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
 }
 
 RectangleShape MAP::get_portal()
@@ -184,5 +197,9 @@ RectangleShape MAP::get_portal()
     return portal;
 }
 
+vector<Enemy> MAP::get_enemys()
+{
+    return enemys;
+}
 
 
