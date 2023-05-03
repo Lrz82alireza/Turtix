@@ -52,8 +52,6 @@ void Game::init_player()
 
 void Game::move_person(Person &person, float dir_x, float dir_y)
 {
-    Vector2f dir = {dir_x, dir_y};
-
     person.move(dir_x, dir_y);
     if (dir_y > 0)
         person.set_on_earth(false);
@@ -64,7 +62,7 @@ void Game::move_person(Person &person, float dir_x, float dir_y)
         person.move(-dir_x, -dir_y);
         if (dir_y > 0)
         {
-            person.set_on_earth(true); // we can think about it later
+            person.set_on_earth(true);
             person.set_jump(0);
         }
         if (dir_y < 0)
@@ -132,9 +130,11 @@ void Game::default_enemys_movement()
 
 void Game::enemys_gravity_move()
 {
-    for (int i = 0; i < this->game_map.get_enemys().size(); i++)
+    vector<Enemy>& enemys = this->game_map.get_enemys();
+    for (int i = 0; i < enemys.size(); i++)
     {
-        this->gravity_move(this->game_map.get_enemys()[i]);
+        this->gravity_move(enemys[i]);
+        cout << enemys[i].is_on_earth_() << endl;
     }
 }
 

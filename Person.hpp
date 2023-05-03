@@ -19,7 +19,7 @@ protected:
     int health;
     float person_speed;
     float gravity_acceleration;
-    float gravity_speed = 0;
+    float gravity_speed = 1;
     float jump_speed = 0;
     bool is_on_earth = false;
 
