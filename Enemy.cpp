@@ -2,7 +2,6 @@
 
 #include <cstdlib>
 
-
 void Enemy::default_movement(MAP &game_map)
 {
     this->move(cur_dir.x, cur_dir.y);
