@@ -10,8 +10,8 @@
 #include <iostream>
 #include <vector>
 
-#include "Enemy.hpp"
 #include "Die_hard.hpp"
+#include "Enemy.hpp"
 
 using namespace sf;
 using namespace std;
@@ -28,6 +28,7 @@ class MAP
         VideoMode screen;
         RectangleShape portal;
         vector <Enemy> enemys;
+        bool is_RectangleShape_include_point(float x , float y , float distance);
 
 
         // Private Functions
@@ -44,10 +45,10 @@ class MAP
         void make_map();
         void make_die_hard(float cur_x, float cur_y);
 
-
         vector <RectangleShape> get_ground();
         RectangleShape get_portal();
         VideoMode get_screen();
+        vector<Enemy> get_enemys();
 
         bool is_intersected(Sprite thing , RectangleShape shapes);
         bool is_move_valid(Sprite sprite, vector<RectangleShape> shapes);

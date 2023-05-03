@@ -15,7 +15,7 @@ game.out: ${BUILD_DR}/main.o ${BUILD_DR}/Game.o ${BUILD_DR}/Map.o ${BUILD_DR}/Pl
 	${CC} ${BUILD_DR}/main.o ${BUILD_DR}/Game.o ${BUILD_DR}/Map.o ${BUILD_DR}/Player.o ${BUILD_DR}/Person.o ${BUILD_DR}/Public_functions.o ${BUILD_DR}/Enemy.o ${BUILD_DR}/Die_hard.o ${SF_LIB} -o game
 
 
-${BUILD_DR}/main.o: main.cpp
+${BUILD_DR}/main.o: main.cpp Game.hpp
 	${CC} -c main.cpp -o ${BUILD_DR}/main.o
 
 ${BUILD_DR}/Game.o: Game.cpp Map.hpp Player.hpp
@@ -27,13 +27,13 @@ ${BUILD_DR}/Map.o: Map.cpp Enemy.hpp Die_hard.hpp
 ${BUILD_DR}/Player.o: Player.cpp Person.hpp
 	${CC} -c Player.cpp -o ${BUILD_DR}/Player.o
 
-${BUILD_DR}/Person.o: Person.cpp
+${BUILD_DR}/Person.o: Person.cpp 
 	${CC} -c Person.cpp -o ${BUILD_DR}/Person.o
 
 ${BUILD_DR}/Public_functions.o: Public_functions.cpp
 	${CC} -c Public_functions.cpp -o ${BUILD_DR}/Public_functions.o
 
-${BUILD_DR}/Enemy.o: Enemy.cpp Person.hpp
+${BUILD_DR}/Enemy.o: Enemy.cpp Person.hpp 
 	${CC} -c Enemy.cpp -o ${BUILD_DR}/Enemy.o
 
 ${BUILD_DR}/Die_hard.o: Die_hard.cpp Enemy.hpp

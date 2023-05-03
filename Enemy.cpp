@@ -1,13 +1,9 @@
 #include "Enemy.hpp"
 
-#include <cstdlib>
 
-
-void Enemy::default_movement(MAP &game_map)
+void Enemy::default_movement(bool is_move_valid , bool is_on_edge)
 {
-    this->move(cur_dir.x, cur_dir.y);
-    if (!game_map.is_move_valid(this->get_sprite(), game_map.get_ground()) || 
-        game_map.is_on_edge(this->get_sprite()))
+    if (!is_move_valid || is_on_edge)
     {
         this->cur_dir = {-cur_dir.x, -cur_dir.y};
         this->move(cur_dir.x, cur_dir.y);
@@ -32,3 +28,4 @@ Enemy::Enemy(string file_name, float enemy_speed_, float gravity)
 Enemy::~Enemy()
 {
 }
+
