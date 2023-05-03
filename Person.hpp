@@ -35,6 +35,8 @@ public:
     void set_jump(float jump_speed_) { this->jump_speed = jump_speed_; }
     void set_on_earth(bool state) { this->is_on_earth = state; }
     void set_gravity_speed(float number) { this->gravity_speed = number; }
+    void reduse_health(int number) { this->health -= number; }
+    bool is_alive() { return (this->health > 0); }
 
     Sprite get_sprite() { return this->sprite; };
     float get_jump_speed() { return this->jump_speed; }

@@ -149,16 +149,19 @@ void Game::player_hit_event()
         {
             if (player_bottom < enemys[i].get_sprite().getGlobalBounds().top) 
             {
-                cout << "enemy: " << enemys[i].get_sprite().getGlobalBounds().top << endl;
-                cout << "player: " << player_bottom << endl;
-
-                enemys.erase(enemys.begin() + i);
+                enemys[i].reduse_health(1);
+                if (!enemys[i].is_alive())
+                    enemys.erase(enemys.begin() + i);
+                
                 this->player.set_on_earth(false);
                 this->player.set_jump(JUMP_SPEED);
                 this->player.set_gravity_speed(GRAVITY_SPEED);
             }
             else
             {
+                this->player.reduse_health(1);
+                if (!this->player.is_alive())
+                    cout << "player is dead" << endl;
                 this->player.to_pos(this->game_map.get_portal().getPosition());
             }
         }
