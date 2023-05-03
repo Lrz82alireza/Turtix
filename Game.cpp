@@ -55,7 +55,7 @@ void Game::move_person(Person &person, float dir_x, float dir_y)
     person.move(dir_x, dir_y);
     if (dir_y > 0)
         person.set_on_earth(false);
-    while (!this->game_map.is_move_valid(this->player.get_sprite(), this->game_map.get_ground()))
+    while (!this->game_map.is_move_valid(person.get_sprite(), this->game_map.get_ground()))
     {
         // bazgashty mitoone beshe ba shart khateme SPEED
 
@@ -75,7 +75,7 @@ void Game::move_person(Person &person, float dir_x, float dir_y)
 void Game::gravity_action()
 {
     this->gravity_move(this->player);
-    // this->enemys_gravity_move();
+    this->enemys_gravity_move();
 }
 
 void Game::init_view()
@@ -134,7 +134,6 @@ void Game::enemys_gravity_move()
     for (int i = 0; i < enemys.size(); i++)
     {
         this->gravity_move(enemys[i]);
-        cout << enemys[i].is_on_earth_() << endl;
     }
 }
 
