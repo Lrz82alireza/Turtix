@@ -9,6 +9,9 @@ const float JUMP_SPEED = 6;
 const float GRAVITY_SPEED = 0.5;
 const Vector2f VIEW_SIZE = {400.f, 400.f};
 
+const int SHIELD_TIME = 5000; //ms
+
+
 void Game::resize_view()
 {
     float aspect_ratio = float(this->map_window->getSize().x) / float(this->map_window->getSize().y);
@@ -145,9 +148,10 @@ void Game::player_hit_event()
     vector<Enemy> &enemys = this->game_map.get_enemys();
     for (int i = 0; i < enemys.size(); i++)
     {
+        //this->set_enemys_shield(enemys[i]);
         if (this->game_map.is_enemy_hited(this->player.get_sprite(), enemys[i]))
         {
-            if (player_bottom < enemys[i].get_sprite().getGlobalBounds().top) 
+            if (player_bottom < enemys[i].get_sprite().getGlobalBounds().top /*&& !(enemys[i].has_enemy_shield())*/) 
             {
                 enemys[i].reduse_health(1);
                 if (!enemys[i].is_alive())
@@ -232,7 +236,7 @@ void Game::poll_events()
                     this->player.set_on_earth(false);
                     this->player.set_jump(JUMP_SPEED);
 
-                    this->cooldownClock.restart();
+                    //this->cooldownClock.restart();
                 }
             }
         }
@@ -270,3 +274,16 @@ Game::~Game()
 {
     delete this->map_window;
 }
+
+//void Game::set_enemys_shield(Enemy enemy)
+//{
+//    Time elapsedTime = this->cooldownClock.getElapsedTime();
+//    if ((float)(elapsedTime.asMilliseconds() / SHIELD_TIME) == 0 && !enemy.has_enemy_shield())
+//    {
+//        enemy.set_enemy_shield(true);
+//    }
+//    else if ((float)(elapsedTime.asMilliseconds() / SHIELD_TIME) == 0 && enemy.has_enemy_shield())
+//    {
+//        enemy.set_enemy_shield(false);
+//    }
+//}

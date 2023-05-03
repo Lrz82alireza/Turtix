@@ -8,5 +8,6 @@ private:
    
 public:
     Die_hard (string file_name );
+    //void set_enemy_shield(bool clock) {this->has_shield = false;};
 };
 

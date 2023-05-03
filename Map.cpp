@@ -3,6 +3,7 @@
 const char GROUND = '.';
 const char PORTAL = '$';
 const char DIEHARD = 'E';
+const char SHIELD = 'M';
 
 const string GROUNDTXR = "Images/Ground.png";
 const string DIRTTXR = "Images/Dirt.png";
@@ -77,6 +78,13 @@ void MAP::make_die_hard(float cur_x, float cur_y)
     enemys.push_back(enemy);
 }
 
+void MAP::make_shield_guy(float cur_x, float cur_y)
+{
+    Die_hard enemy(DIEHARDTXR);
+    enemy.to_pos(Vector2f(cur_x, cur_y)); //
+    enemys.push_back(enemy);
+}
+
 void MAP::make_texture(char c, float &cur_x, float &cur_y)
 {
     cur_x += widht;
@@ -94,6 +102,10 @@ void MAP::make_texture(char c, float &cur_x, float &cur_y)
     if (c == DIEHARD)
     {
         make_die_hard(cur_x, cur_y);
+    }
+    if (c == SHIELD)
+    {
+        make_shield_guy(cur_x, cur_y);
     }
 }
 

@@ -12,6 +12,7 @@
 
 #include "Die_hard.hpp"
 #include "Enemy.hpp"
+#include "Shield_guy.hpp"
 
 using namespace sf;
 using namespace std;
@@ -44,6 +45,7 @@ class MAP
         void make_texture(char c , float &cur_x , float &cur_y);
         void make_map();
         void make_die_hard(float cur_x, float cur_y);
+        void make_shield_guy(float cur_x, float cur_y);
 
         vector <RectangleShape> get_ground();
         RectangleShape get_portal();

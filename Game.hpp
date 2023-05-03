@@ -51,6 +51,8 @@ private:
     void default_enemys_movement();
     void enemys_gravity_move();
     void player_hit_event();
+    //void set_enemys_shield(Enemy enemy);
+
 public:
 
     // Constructors

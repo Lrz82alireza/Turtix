@@ -8,3 +8,5 @@ Die_hard::Die_hard(string file_name)
 {
     health = DIE_HARD_HEALTH;
 }
+
+
