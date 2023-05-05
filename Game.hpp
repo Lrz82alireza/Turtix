@@ -76,4 +76,3 @@ public:
     void render();
     void poll_events();
 };
-
