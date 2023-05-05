@@ -45,6 +45,7 @@ class MAP
         void make_map();
         void make_die_hard(float cur_x, float cur_y);
 
+        void close();
         vector<RectangleShape>* get_ground();
         RectangleShape get_portal();
         VideoMode get_screen();

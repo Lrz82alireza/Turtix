@@ -112,7 +112,14 @@ void MAP::make_map()
     }
 }
 
-vector<RectangleShape>* MAP::get_ground()
+void MAP::close()
+{
+    delete ground_texture;
+    delete dirt_texture;
+    delete portal_texture;
+}
+
+vector<RectangleShape> *MAP::get_ground()
 {
     return &grounds;
 }

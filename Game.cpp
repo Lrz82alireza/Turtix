@@ -253,6 +253,7 @@ void Game::close()
 {
     delete map_window;
     this->player.close();
+    this->game_map.close();
 }
 
 // Accessors

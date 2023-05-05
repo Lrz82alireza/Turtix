@@ -17,8 +17,6 @@ int main()
         // render
         game.render();
     }
-    // cout << "s" << endl;
-    // game.close();
 
     return 0;
 }
