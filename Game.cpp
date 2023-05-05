@@ -249,12 +249,6 @@ void Game::poll_events()
         this->move_person(this->player, 1.f, 0.f);
 }
 
-void Game::close()
-{
-    delete map_window;
-    this->player.close();
-}
-
 // Accessors
 bool Game::running()
 {

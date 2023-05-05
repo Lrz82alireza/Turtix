@@ -7,7 +7,7 @@ class Die_hard : public Enemy
 private:
    
 public:
-    Die_hard (string file_name );
+    Die_hard (Texture * texture);
     int g();
 };
 

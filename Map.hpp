@@ -25,6 +25,7 @@ class MAP
         Texture* ground_texture;
         Texture* dirt_texture;
         Texture* portal_texture;
+        Texture* diehard_texture;
         VideoMode screen;
         RectangleShape portal;
         vector <Enemy> enemys;

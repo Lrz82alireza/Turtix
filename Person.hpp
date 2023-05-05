@@ -17,7 +17,6 @@ class Person
 {
 protected:
     Sprite sprite;
-    Texture *texture;
     int health;
     float person_speed;
     float gravity_acceleration = GRAVITY_ACCELERATION;
@@ -26,8 +25,7 @@ protected:
     bool is_on_earth = false;
 
     // Private Functions
-    void init_texture(string file_name);
-    void init_sprite();
+    void init_sprite(Texture * texture);
 
 public:
     // Accessors
@@ -37,7 +35,6 @@ public:
     void set_gravity_speed(float number) { this->gravity_speed = number; }
     void reduse_health(int number) { this->health -= number; }
     bool is_alive() { return (this->health > 0); }
-    void close() { delete texture; }
 
     Sprite get_sprite() { return this->sprite; };
     float get_jump_speed() { return this->jump_speed; }
@@ -48,5 +45,5 @@ public:
     void update_jump();
 
     // Constructors
-    Person(string file_name, float person_speed_);
+    Person(Texture *init_texture , float person_speed_);
 };

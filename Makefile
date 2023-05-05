@@ -20,11 +20,7 @@ ${BUILD_DR}/main.o: main.cpp Game.hpp
 
 ${BUILD_DR}/Game.o: Game.cpp Map.hpp Player.hpp
 	${CC} -c Game.cpp -o ${BUILD_DR}/Game.o
-<<<<<<< HEAD
 	
-=======
-
->>>>>>> 6e5d48f2b85b4a254d7e99c01f02db35f3c26fa0
 ${BUILD_DR}/Map.o: Map.cpp Enemy.hpp Die_hard.hpp
 	${CC} -c Map.cpp -o ${BUILD_DR}/Map.o
 

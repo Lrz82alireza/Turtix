@@ -16,7 +16,7 @@ public:
     void default_movement(bool is_move_valid , bool is_on_edge);
     int virtual g() {return 1;};
     
-    Enemy(string file_name, float enemy_speed_);
+    Enemy(Texture * texture , float enemy_speed_);
     ~Enemy();
 };
 

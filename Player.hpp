@@ -16,7 +16,7 @@ using namespace std;
 class Player : public Person
 {
 private:
-
+    Texture * texture;
     // Private Functions
 
 public:

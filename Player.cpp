@@ -13,5 +13,7 @@ const int HEALTH = 3;
 Player::Player()
        :Person(PLAYER_TEXTURE, PLAYER_SPEED)
 {
+       texture = new Texture;
+       texture->loadFromFile("Images/Ground.png");
        this->health = HEALTH;
 }

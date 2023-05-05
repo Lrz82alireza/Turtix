@@ -1,18 +1,10 @@
 #include "Person.hpp"
 
 // Private Functions
-void Person::init_texture(string file_name)
-{
-    this->texture = new Texture;
-    if (!this->texture->loadFromFile(file_name))
-    {
-        cout << "Didnt find Player texture" << endl;
-    }
-}
 
-void Person::init_sprite()
+void Person::init_sprite(Texture * texture)
 {
-    this->sprite.setTexture(*this->texture);
+    this->sprite.setTexture(*texture);
     this->sprite.setScale(0.2, 0.2);
     this->sprite.setOrigin(this->sprite.getTexture()->getSize().x / 2,
                            this->sprite.getTexture()->getSize().y / 2);
@@ -40,9 +32,8 @@ void Person::update_jump()
 }
 
 // Constructors
-Person::Person(string file_name, float person_speed_)
+Person::Person(Texture * texture, float person_speed_)
 {
-    init_texture(file_name);
-    this->init_sprite();
+    this->init_sprite(texture);
     this->person_speed = person_speed_;
 }

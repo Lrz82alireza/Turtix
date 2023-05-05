@@ -25,6 +25,9 @@ void MAP::init_texture()
     portal_texture = new Texture;
     if (!portal_texture->loadFromFile(PORTALTXR))
         cout << "ERROR: couldnt find game_map -> portal_texture" << endl;
+    diehard_texture = new Texture;
+    if (!diehard_texture->loadFromFile(DIEHARDTXR))
+        cout << "ERROR: couldnt find game_map -> diehard_texture" << endl;
 }
 
 MAP::MAP()
@@ -72,7 +75,7 @@ void MAP::make_portal(float cur_x, float cur_y, Texture *texture)
 
 void MAP::make_die_hard(float cur_x, float cur_y)
 {
-    Die_hard enemy(DIEHARDTXR);
+    Die_hard enemy(diehard_texture);
     enemy.to_pos(Vector2f(cur_x, cur_y)); //
     enemys.push_back(enemy);
 }
@@ -112,7 +115,7 @@ void MAP::make_map()
     }
 }
 
-vector<RectangleShape>* MAP::get_ground()
+vector<RectangleShape> *MAP::get_ground()
 {
     return &grounds;
 }
@@ -167,7 +170,7 @@ bool MAP::is_enemy_hited(Sprite sprite, Enemy enemy)
     return false;
 }
 
-bool MAP::is_move_valid(Sprite sprite, vector<RectangleShape>* shapes)
+bool MAP::is_move_valid(Sprite sprite, vector<RectangleShape> *shapes)
 {
     for (auto shape : *shapes)
     {
@@ -185,11 +188,11 @@ bool MAP::is_on_edge(Sprite sprite)
     float r_x = sprite.getPosition().x + sprite.getGlobalBounds().width / 2;
     float space = 10.0; //
     float b_y = sprite.getPosition().y + sprite.getGlobalBounds().height / 2;
-    for (int i = 0 ; i < grounds.size() ; i++)
+    for (int i = 0; i < grounds.size(); i++)
     {
         if (grounds[i].getGlobalBounds().contains(l_x, b_y + space))
         {
-            for (int j = 0 ; j < grounds.size() ; j++)
+            for (int j = 0; j < grounds.size(); j++)
             {
                 if (grounds[i].getGlobalBounds().contains(r_x, b_y + space))
                 {
@@ -206,9 +209,7 @@ RectangleShape MAP::get_portal()
     return portal;
 }
 
-vector<Enemy>& MAP::get_enemys()
+vector<Enemy> &MAP::get_enemys()
 {
     return enemys;
 }
-
-
