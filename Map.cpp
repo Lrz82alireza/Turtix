@@ -185,13 +185,13 @@ bool MAP::is_on_edge(Sprite sprite)
     float r_x = sprite.getPosition().x + sprite.getGlobalBounds().width / 2;
     float space = 10.0; //
     float b_y = sprite.getPosition().y + sprite.getGlobalBounds().height / 2;
-    for (auto ground : grounds)
+    for (int i = 0 ; i < grounds.size() ; i++)
     {
-        if (ground.getGlobalBounds().contains(l_x, b_y + space))
+        if (grounds[i].getGlobalBounds().contains(l_x, b_y + space))
         {
-            for (auto ground : grounds)
+            for (int j = 0 ; j < grounds.size() ; j++)
             {
-                if (ground.getGlobalBounds().contains(r_x, b_y + space))
+                if (grounds[i].getGlobalBounds().contains(r_x, b_y + space))
                 {
                     return false;
                 }

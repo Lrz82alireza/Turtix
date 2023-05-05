@@ -8,5 +8,6 @@ private:
    
 public:
     Die_hard (string file_name );
+    int g();
 };
 
