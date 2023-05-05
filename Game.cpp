@@ -64,6 +64,16 @@ void Game::gravity_action()
 {
     this->gravity_move(this->player);
     this->enemys_gravity_move();
+    this->babys_gravity_move();
+}
+
+void Game::babys_gravity_move()
+{
+    vector<Baby_turtle> &babys = this->game_map.get_Babys();
+    for (int i = 0; i < babys.size(); i++)
+    {
+        this->gravity_move(babys[i]);
+    }
 }
 
 void Game::init_view()
@@ -99,8 +109,24 @@ void Game::delay_check()
 void Game::default_events()
 {
     // background sound
-
     default_enemys_movement();
+    default_baby_turtles_movement();
+}
+
+void Game::default_baby_turtles_movement()
+{
+    for (int i = 0; i < this->game_map.get_Babys().size(); i++)
+    {
+        Baby_turtle *baby = &this->game_map.get_Babys()[i];
+
+        if (baby->is_free_())
+        {
+            baby->move(baby->get_cur_dir().x, baby->get_cur_dir().y);
+            bool is_move_valid = this->game_map.is_move_valid(baby->get_sprite(), this->game_map.get_ground());
+            bool is_in_map = this->game_map.is_in_map(baby->get_sprite());
+            baby->default_movement(is_move_valid, is_in_map);
+        }
+    }
 }
 
 void Game::default_enemys_movement()
@@ -127,6 +153,25 @@ void Game::enemys_gravity_move()
 
 void Game::player_hit_event()
 {
+    player_hit_enemy();
+    player_hit_baby();
+}
+
+void Game::player_hit_baby()
+{
+    vector<Baby_turtle> &babys = this->game_map.get_Babys();
+    for (int i = 0; i < babys.size(); i++)
+    {
+        if (this->game_map.did_it_hit(this->player.get_sprite(), babys[i]))
+        {
+            if (!babys[i].is_free_())
+                babys[i].set_free(true);
+        }
+    }
+}
+
+void Game::player_hit_enemy()
+{
     float player_bottom = this->player.get_sprite().getGlobalBounds().top +
                           this->player.get_sprite().getGlobalBounds().height - this->player.get_gravity_speed();
 
@@ -139,7 +184,7 @@ void Game::player_hit_event()
 
     for (int i = 0; i < enemys.size(); i++)
     {
-        if (this->game_map.is_enemy_hited(this->player.get_sprite(), enemys[i]))
+        if (this->game_map.did_it_hit(this->player.get_sprite(), enemys[i]))
         {
             if (player_bottom < enemys[i].get_sprite().getGlobalBounds().top) 
             {
@@ -194,6 +239,9 @@ void Game::render()
 
     for (auto enemy : game_map.get_enemys())
         this->map_window->draw(enemy.get_sprite());
+
+    for (auto baby : game_map.get_Babys())
+        this->map_window->draw(baby.get_sprite());
 
     this->map_window->setView(view);
 

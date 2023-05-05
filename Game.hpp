@@ -45,11 +45,15 @@ private:
     void move_person(Person &person, float dir_x, float dir_y);
     void gravity_action();
     void gravity_move(Person &person);
+    void babys_gravity_move();
     void delay_check();
     void default_events();
+    void default_baby_turtles_movement();
     void default_enemys_movement();
     void enemys_gravity_move();
     void player_hit_event();
+    void player_hit_baby();
+    void player_hit_enemy();
 
     void set_enemy_shield(Enemy & enemy);
     void set_enemys_shield(vector<Enemy> & enemys);

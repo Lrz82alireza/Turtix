@@ -79,6 +79,13 @@ void MAP::make_die_hard(float cur_x, float cur_y)
     enemys.push_back(enemy);
 }
 
+void MAP::make_baby_turtle(float cur_x, float cur_y)
+{
+    Baby_turtle Baby(BABYTXR);
+    Baby.to_pos(Vector2f(cur_x, cur_y));
+    baby_turtles.push_back(Baby);
+}
+
 void MAP::make_shield_guy(float cur_x, float cur_y)
 {
     Shied_guy enemy(DIEHARDTXR);
@@ -109,6 +116,10 @@ void MAP::make_texture(char c, float &cur_x, float &cur_y)
     {
         make_shield_guy(cur_x , cur_y);
     }
+    if (c == BABY)
+    {
+        make_baby_turtle(cur_x, cur_y);
+    }
 }
 
 void MAP::make_map()
@@ -138,7 +149,7 @@ vector<RectangleShape> *MAP::get_ground()
     return &grounds;
 }
 
-float MAP::calculate_widht()
+float MAP::calculate_width()
 {
     int max = 0;
     for (auto row : input)
@@ -154,9 +165,17 @@ float MAP::calculate_height()
     return input.size() * gap;
 }
 
-VideoMode MAP::get_screen()
+Vector2f MAP::get_screen()
 {
-    return VideoMode(calculate_widht(), calculate_height());
+    return Vector2f(calculate_width(), calculate_height());
+}
+
+bool MAP::is_in_map(Sprite sprite)
+{
+    if (sprite.getGlobalBounds().left <= 0.f ||
+        sprite.getGlobalBounds().left + sprite.getGlobalBounds().width >= this->get_screen().x)
+        return false;
+    return true;
 }
 
 bool MAP::is_top(float x, float y)
@@ -179,7 +198,7 @@ bool MAP::is_intersected(Sprite sprite, RectangleShape shape)
     return false;
 }
 
-bool MAP::is_enemy_hited(Sprite sprite, Enemy enemy)
+bool MAP::did_it_hit(Sprite sprite, Person enemy)
 {
     if (sprite.getGlobalBounds().intersects(enemy.get_sprite().getGlobalBounds()))
     {
