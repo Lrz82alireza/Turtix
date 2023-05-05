@@ -131,12 +131,17 @@ void MAP::close()
     delete portal_texture;
 }
 
+vector<Baby_turtle> &MAP::get_Babys()
+{
+    return this->baby_turtles;
+}
+
 vector<RectangleShape> *MAP::get_ground()
 {
     return &grounds;
 }
 
-float MAP::calculate_widht()
+float MAP::calculate_width()
 {
     int max = 0;
     for (auto row : input)
@@ -152,9 +157,9 @@ float MAP::calculate_height()
     return input.size() * gap;
 }
 
-VideoMode MAP::get_screen()
+Vector2f MAP::get_screen()
 {
-    return VideoMode(calculate_widht(), calculate_height());
+    return Vector2f(calculate_width(), calculate_height());
 }
 
 bool MAP::is_top(float x, float y)
@@ -168,6 +173,14 @@ bool MAP::is_top(float x, float y)
     return false;
 }
 
+bool MAP::is_in_map(Sprite sprite)
+{
+    if (sprite.getGlobalBounds().left <= 0.f ||
+        sprite.getGlobalBounds().left + sprite.getGlobalBounds().width >= this->get_screen().x)
+        return false;
+    return true;
+}
+
 bool MAP::is_intersected(Sprite sprite, RectangleShape shape)
 {
     if (sprite.getGlobalBounds().intersects(shape.getGlobalBounds()))
@@ -177,9 +190,9 @@ bool MAP::is_intersected(Sprite sprite, RectangleShape shape)
     return false;
 }
 
-bool MAP::is_enemy_hited(Sprite sprite, Enemy enemy)
+bool MAP::did_it_hit(Sprite sprite, Person thing)
 {
-    if (sprite.getGlobalBounds().intersects(enemy.get_sprite().getGlobalBounds()))
+    if (sprite.getGlobalBounds().intersects(thing.get_sprite().getGlobalBounds()))
     {
         return true;
     }
