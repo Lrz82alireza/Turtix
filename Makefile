@@ -11,9 +11,8 @@ BUILD_DR = build
 all: game.out
 
 
-game.out: ${BUILD_DR}/main.o ${BUILD_DR}/Game.o ${BUILD_DR}/Map.o ${BUILD_DR}/Player.o ${BUILD_DR}/Person.o ${BUILD_DR}/Public_functions.o ${BUILD_DR}/Enemy.o ${BUILD_DR}/Die_hard.o ${BUILD_DR}/Baby_turtle.o
-	${CC} ${BUILD_DR}/main.o ${BUILD_DR}/Game.o ${BUILD_DR}/Map.o ${BUILD_DR}/Player.o ${BUILD_DR}/Person.o ${BUILD_DR}/Public_functions.o ${BUILD_DR}/Enemy.o ${BUILD_DR}/Die_hard.o ${BUILD_DR}/Baby_turtle.o ${SF_LIB} -o game
-
+game.out: ${BUILD_DR}/main.o ${BUILD_DR}/Game.o ${BUILD_DR}/Map.o ${BUILD_DR}/Player.o ${BUILD_DR}/Person.o ${BUILD_DR}/Public_functions.o ${BUILD_DR}/Enemy.o ${BUILD_DR}/Die_hard.o ${BUILD_DR}/Shield_guy.o ${BUILD_DR}/Baby_turtle.o
+	${CC} ${BUILD_DR}/main.o ${BUILD_DR}/Game.o ${BUILD_DR}/Map.o ${BUILD_DR}/Player.o ${BUILD_DR}/Person.o ${BUILD_DR}/Public_functions.o ${BUILD_DR}/Enemy.o ${BUILD_DR}/Die_hard.o ${BUILD_DR}/Shield_guy.o ${BUILD_DR}/Baby_turtle.o ${SF_LIB} -o game
 
 ${BUILD_DR}/main.o: main.cpp Game.hpp
 	${CC} -c main.cpp -o ${BUILD_DR}/main.o
@@ -38,6 +37,9 @@ ${BUILD_DR}/Enemy.o: Enemy.cpp Person.hpp
 
 ${BUILD_DR}/Die_hard.o: Die_hard.cpp Enemy.hpp
 	${CC} -c Die_hard.cpp -o ${BUILD_DR}/Die_hard.o
+
+${BUILD_DR}/Shield_guy.o: Shield_guy.cpp Enemy.hpp
+	${CC} -c Shield_guy.cpp -o ${BUILD_DR}/Shield_guy.o
 
 ${BUILD_DR}/Baby_turtle.o: Baby_turtle.cpp Person.hpp
 	${CC} -c Baby_turtle.cpp -o ${BUILD_DR}/Baby_turtle.o

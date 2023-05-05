@@ -12,6 +12,7 @@
 
 #include "Die_hard.hpp"
 #include "Enemy.hpp"
+#include "Shield_guy.hpp"
 #include "Baby_turtle.hpp"
 
 using namespace sf;
@@ -32,10 +33,10 @@ private:
     bool is_RectangleShape_include_point(float x, float y, float distance);
 
     // Private Functions
-    void init_texture();
     float calculate_width();
     float calculate_height();
     bool is_top(float x, float y);
+    void init_texture();
 
 public:
     MAP();
@@ -45,9 +46,10 @@ public:
     void make_texture(char c, float &cur_x, float &cur_y);
     void make_map();
     void make_die_hard(float cur_x, float cur_y);
+    void make_shield_guy(float cur_x, float cur_y);
 
     void close();
-    vector<Baby_turtle>& get_Babys();
+    vector<Baby_turtle> &get_Babys();
     vector<RectangleShape> *get_ground();
     RectangleShape get_portal();
     Vector2f get_screen();

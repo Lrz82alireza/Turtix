@@ -25,9 +25,9 @@ Enemy::Enemy(string file_name, float enemy_speed_)
     }
 }
 
-void Enemy::g()
+void Enemy::set_shield()
 {
-    
+
 }
 
 Enemy::~Enemy()
