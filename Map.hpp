@@ -45,14 +45,14 @@ class MAP
         void make_map();
         void make_die_hard(float cur_x, float cur_y);
 
-        vector <RectangleShape> get_ground();
+        vector<RectangleShape>* get_ground();
         RectangleShape get_portal();
         VideoMode get_screen();
         vector<Enemy>& get_enemys();
 
         bool is_intersected(Sprite thing , RectangleShape shapes);
         bool is_enemy_hited(Sprite sprite, Enemy enemy);
-        bool is_move_valid(Sprite sprite, vector<RectangleShape> shapes);
+        bool is_move_valid(Sprite sprite, vector<RectangleShape>* shapes); /////////////////////////
         bool is_on_edge(Sprite sprite);
 };
 

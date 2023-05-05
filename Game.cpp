@@ -192,7 +192,7 @@ void Game::render()
 
     // this->map_window->draw(this->text);
 
-    for (auto ground : game_map.get_ground())
+    for (auto ground : *(game_map.get_ground()))
         this->map_window->draw(ground);
 
     this->map_window->draw(game_map.get_portal());
@@ -247,6 +247,12 @@ void Game::poll_events()
         this->move_person(this->player, -1.f, 0.f);
     if (Keyboard::isKeyPressed(Keyboard::D))
         this->move_person(this->player, 1.f, 0.f);
+}
+
+void Game::close()
+{
+    delete map_window;
+    this->player.close();
 }
 
 // Accessors
