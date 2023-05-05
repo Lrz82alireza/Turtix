@@ -173,11 +173,8 @@ void Game::player_hit_baby()
     vector<Baby_turtle> babys = this->game_map.get_Babys();
     for (int i = 0; i < babys.size(); i++)
     {
-        if (this->game_map.did_it_hit(this->player.get_sprite(), babys[i]))
-        {
-            if (!babys[i].is_free_())
-                babys[i].set_free(true);
-        }
+        if (!babys[i].is_free_() && this->game_map.did_it_hit(this->player.get_sprite(), babys[i]))
+            babys[i].set_free(true);
     }
 }
 
