@@ -17,9 +17,9 @@ Baby_turtle::Baby_turtle(string file_name)
     }
 }
 
-void Baby_turtle::default_movement(bool is_move_valid)
+void Baby_turtle::default_movement(bool is_move_valid, bool is_in_map)
 {
-    if (!is_move_valid)
+    if (!is_move_valid || !is_in_map)
     {
         this->cur_dir = {-cur_dir.x, -cur_dir.y};
         this->move(cur_dir.x, cur_dir.y);

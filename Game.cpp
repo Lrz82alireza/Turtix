@@ -81,10 +81,10 @@ void Game::gravity_action()
 
 void Game::babys_gravity_move()
 {
-    vector<Baby_turtle> &enemys = this->game_map.get_enemys();
-    for (int i = 0; i < enemys.size(); i++)
+    vector<Baby_turtle> &baby = this->game_map.get_Babys();
+    for (int i = 0; i < baby.size(); i++)
     {
-        this->gravity_move(enemys[i]);
+        this->gravity_move(baby[i]);
     }
 }
 
@@ -133,7 +133,8 @@ void Game::default_baby_turtles_movement()
 
         baby->move(baby->get_cur_dir().x, baby->get_cur_dir().y);
         bool is_move_valid = this->game_map.is_move_valid(baby->get_sprite(), this->game_map.get_ground());
-        baby->default_movement(is_move_valid);
+        bool is_in_map = this->game_map.is_in_map(baby->get_sprite());
+        baby->default_movement(is_move_valid, is_in_map);
     }
 }
 
