@@ -30,7 +30,6 @@ private:
     RectangleShape portal;
     vector<Enemy> enemys;
     vector<Baby_turtle> baby_turtles;
-    bool is_RectangleShape_include_point(float x, float y, float distance);
 
     // Private Functions
     float calculate_width();
@@ -43,6 +42,7 @@ public:
     void read_inputs(string file_name);
     void make_ground(float cur_x, float cur_y, Texture *texture);
     void make_portal(float cur_x, float cur_y, Texture *texture);
+    void make_baby_turtle(float cur_x, float cur_y);
     void make_texture(char c, float &cur_x, float &cur_y);
     void make_map();
     void make_die_hard(float cur_x, float cur_y);

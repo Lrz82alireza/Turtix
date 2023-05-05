@@ -65,7 +65,7 @@ void Game::gravity_action()
 {
     this->gravity_move(this->player);
     this->enemys_gravity_move();
-    this->babys_gravity_move();
+    // this->babys_gravity_move();
 }
 
 void Game::babys_gravity_move()
@@ -110,7 +110,7 @@ void Game::delay_check()
 void Game::default_events()
 {
     // background sound
-    this->default_baby_turtles_movement();
+    // this->default_baby_turtles_movement();
     this->default_enemys_movement();
 }
 
@@ -153,7 +153,7 @@ void Game::enemys_gravity_move()
 
 void Game::player_hit_event()
 {
-    player_hit_baby();
+    // player_hit_baby();
     player_hit_enemy();
 }
 
@@ -176,7 +176,7 @@ void Game::player_hit_enemy()
     cout << passed_time << endl;
     vector<Enemy> &enemys = this->game_map.get_enemys();
     set_enemys_shield(enemys);
-    
+
     for (int i = 0; i < enemys.size(); i++)
     {
         if (this->game_map.did_it_hit(this->player.get_sprite(), enemys[i]))
@@ -302,7 +302,7 @@ Game::~Game()
     delete this->map_window;
 }
 
-void Game::set_enemy_shield(Enemy & enemy)
+void Game::set_enemy_shield(Enemy &enemy)
 {
     if ((passed_time) - (SHIELD_TIME) >= 0.0)
     {
@@ -312,9 +312,9 @@ void Game::set_enemy_shield(Enemy & enemy)
     }
 }
 
-void Game::set_enemys_shield(vector<Enemy>& enemys)
+void Game::set_enemys_shield(vector<Enemy> &enemys)
 {
-    for (int i = 0 ; i < enemys.size() ; i++)
+    for (int i = 0; i < enemys.size(); i++)
     {
         set_enemy_shield(enemys[i]);
     }
