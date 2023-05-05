@@ -46,7 +46,7 @@ public:
     bool is_on_earth_() { return this->is_on_earth; }
     void to_pos(Vector2f pos);
     void update_jump();
-    
+
     // Constructors
     Person(string file_name, float person_speed_);
 };

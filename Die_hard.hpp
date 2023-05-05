@@ -10,4 +10,3 @@ public:
     Die_hard (string file_name );
     virtual void set_shield() {shield=false;};
 };
-

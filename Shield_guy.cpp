@@ -12,6 +12,7 @@ Shied_guy::Shied_guy(string file_name)
 
 void Shied_guy::set_shield()
 {
+    cout << "checked";
     if(shield)
     {
         shield = false;
@@ -20,8 +21,8 @@ void Shied_guy::set_shield()
     }
     else
     {
+        shield = true;
         cout << "not_set_shield" << endl;
         sprite.setColor(Color::Blue);
-        shield = true;
     }
 }

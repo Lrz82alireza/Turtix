@@ -68,7 +68,6 @@ void MAP::make_portal(float cur_x, float cur_y, Texture *texture)
     portal.setSize(Vector2f(60, 60));
     portal.setPosition(cur_x, cur_y - 50);
     portal.setTexture(texture);
-    portal.setPosition(cur_x, cur_y);
 }
 
 void MAP::make_die_hard(float cur_x, float cur_y)
@@ -84,6 +83,7 @@ void MAP::make_shield_guy(float cur_x, float cur_y)
     enemy.to_pos(Vector2f(cur_x, cur_y)); //
     enemys.push_back(enemy);
 }
+
 
 void MAP::make_texture(char c, float &cur_x, float &cur_y)
 {
@@ -131,17 +131,12 @@ void MAP::close()
     delete portal_texture;
 }
 
-vector<Baby_turtle> &MAP::get_Babys()
-{
-    return this->baby_turtles;
-}
-
 vector<RectangleShape> *MAP::get_ground()
 {
     return &grounds;
 }
 
-float MAP::calculate_width()
+float MAP::calculate_widht()
 {
     int max = 0;
     for (auto row : input)
@@ -157,9 +152,9 @@ float MAP::calculate_height()
     return input.size() * gap;
 }
 
-Vector2f MAP::get_screen()
+VideoMode MAP::get_screen()
 {
-    return Vector2f(calculate_width(), calculate_height());
+    return VideoMode(calculate_widht(), calculate_height());
 }
 
 bool MAP::is_top(float x, float y)
@@ -173,14 +168,6 @@ bool MAP::is_top(float x, float y)
     return false;
 }
 
-bool MAP::is_in_map(Sprite sprite)
-{
-    if (sprite.getGlobalBounds().left <= 0.f ||
-        sprite.getGlobalBounds().left + sprite.getGlobalBounds().width >= this->get_screen().x)
-        return false;
-    return true;
-}
-
 bool MAP::is_intersected(Sprite sprite, RectangleShape shape)
 {
     if (sprite.getGlobalBounds().intersects(shape.getGlobalBounds()))
@@ -190,9 +177,9 @@ bool MAP::is_intersected(Sprite sprite, RectangleShape shape)
     return false;
 }
 
-bool MAP::did_it_hit(Sprite sprite, Person thing)
+bool MAP::is_enemy_hited(Sprite sprite, Enemy enemy)
 {
-    if (sprite.getGlobalBounds().intersects(thing.get_sprite().getGlobalBounds()))
+    if (sprite.getGlobalBounds().intersects(enemy.get_sprite().getGlobalBounds()))
     {
         return true;
     }

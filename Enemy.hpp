@@ -19,5 +19,3 @@ public:
     Enemy(string file_name, float enemy_speed_);
     ~Enemy();
 };
-
-

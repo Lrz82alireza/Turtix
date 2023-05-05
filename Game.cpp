@@ -7,10 +7,9 @@ const int HEIGHT = 1000;
 const int LIMIT_FPS = 144;
 const float JUMP_SPEED = 6;
 const float GRAVITY_SPEED = 0.5;
-const double SHIELD_TIME = 5.0;
-const float TIME = 0.1;
-
 const Vector2f VIEW_SIZE = {400.f, 400.f};
+const float TIME = 0.01;
+const float SHIELD_TIME = 5.0;
 
 void Game::resize_view()
 {
@@ -65,16 +64,6 @@ void Game::gravity_action()
 {
     this->gravity_move(this->player);
     this->enemys_gravity_move();
-    this->babys_gravity_move();
-}
-
-void Game::babys_gravity_move()
-{
-    vector<Baby_turtle> &baby = this->game_map.get_Babys();
-    for (int i = 0; i < baby.size(); i++)
-    {
-        this->gravity_move(baby[i]);
-    }
 }
 
 void Game::init_view()
@@ -110,23 +99,8 @@ void Game::delay_check()
 void Game::default_events()
 {
     // background sound
-    this->default_baby_turtles_movement();
-    this->default_enemys_movement();
-}
 
-void Game::default_baby_turtles_movement()
-{
-    for (int i = 0; i < this->game_map.get_Babys().size(); i++)
-    {
-        Baby_turtle *baby = &this->game_map.get_Babys()[i];
-        if (baby->is_free_())
-        {
-            baby->move(baby->get_cur_dir().x, baby->get_cur_dir().y);
-            bool is_move_valid = this->game_map.is_move_valid(baby->get_sprite(), this->game_map.get_ground());
-            bool is_in_map = this->game_map.is_in_map(baby->get_sprite());
-            baby->default_movement(is_move_valid, is_in_map);
-        }
-    }
+    default_enemys_movement();
 }
 
 void Game::default_enemys_movement()
@@ -136,8 +110,8 @@ void Game::default_enemys_movement()
         Enemy *enemy = &this->game_map.get_enemys()[i];
 
         enemy->move(enemy->get_cur_dir().x, enemy->get_cur_dir().y);
-        bool is_move_valid = this->game_map.is_move_valid(enemy->get_sprite(), game_map.get_ground());
-        bool is_on_edge = this->game_map.is_on_edge(enemy->get_sprite());
+        bool is_move_valid = game_map.is_move_valid(enemy->get_sprite(), game_map.get_ground());
+        bool is_on_edge = game_map.is_on_edge(enemy->get_sprite());
         enemy->default_movement(is_move_valid, is_on_edge);
     }
 }
@@ -153,40 +127,26 @@ void Game::enemys_gravity_move()
 
 void Game::player_hit_event()
 {
-    player_hit_baby();
-    player_hit_enemy();
-}
-
-void Game::player_hit_baby()
-{
-    vector<Baby_turtle> babys = this->game_map.get_Babys();
-    for (int i = 0; i < babys.size(); i++)
-    {
-        if (!babys[i].is_free_() && this->game_map.did_it_hit(this->player.get_sprite(), babys[i]))
-            babys[i].set_free(true);
-    }
-}
-
-void Game::player_hit_enemy()
-{
     float player_bottom = this->player.get_sprite().getGlobalBounds().top +
                           this->player.get_sprite().getGlobalBounds().height - this->player.get_gravity_speed();
 
     passed_time += TIME;
-    cout << passed_time << endl;
+
     vector<Enemy> &enemys = this->game_map.get_enemys();
+
+    //cout << passed_time << endl;
     set_enemys_shield(enemys);
-    
+
     for (int i = 0; i < enemys.size(); i++)
     {
-        if (this->game_map.did_it_hit(this->player.get_sprite(), enemys[i]))
+        if (this->game_map.is_enemy_hited(this->player.get_sprite(), enemys[i]))
         {
-            if (player_bottom < enemys[i].get_sprite().getGlobalBounds().top)
+            if (player_bottom < enemys[i].get_sprite().getGlobalBounds().top) 
             {
                 enemys[i].reduse_health(1);
                 if (!enemys[i].is_alive())
                     enemys.erase(enemys.begin() + i);
-
+                
                 this->player.set_on_earth(false);
                 this->player.set_jump(JUMP_SPEED);
                 this->player.set_gravity_speed(GRAVITY_SPEED);
@@ -282,6 +242,13 @@ void Game::poll_events()
         this->move_person(this->player, 1.f, 0.f);
 }
 
+void Game::close()
+{
+    delete map_window;
+    this->player.close();
+    this->game_map.close();
+}
+
 // Accessors
 bool Game::running()
 {
@@ -307,14 +274,14 @@ void Game::set_enemy_shield(Enemy & enemy)
     if ((passed_time) - (SHIELD_TIME) >= 0.0)
     {
         enemy.set_shield();
-        cout << &enemy << endl;
+        //cout << &enemy << endl;
         passed_time = 0.0;
     }
 }
 
-void Game::set_enemys_shield(vector<Enemy>& enemys)
+void Game::set_enemys_shield(vector<Enemy> & enemys)
 {
-    for (int i = 0 ; i < enemys.size() ; i++)
+    for (int i = 0; i < enemys.size(); i++)
     {
         set_enemy_shield(enemys[i]);
     }
