@@ -7,6 +7,9 @@ const int HEIGHT = 1000;
 const int LIMIT_FPS = 144;
 const float JUMP_SPEED = 6;
 const float GRAVITY_SPEED = 0.5;
+const double SHIELD_TIME = 5.0;
+const float TIME = 0.1;
+
 const Vector2f VIEW_SIZE = {400.f, 400.f};
 
 void Game::resize_view()
@@ -22,20 +25,6 @@ void Game::init_map_window()
     this->map_window = new RenderWindow(VideoMode(1000, 1000), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
 
     this->map_window->setFramerateLimit(LIMIT_FPS);
-}
-
-void Game::init_font()
-{
-    this->font.loadFromFile(LOBBY_FONT);
-}
-
-void Game::init_text()
-{
-    this->text.setFont(this->font);
-    this->text.setString("How you doin");
-    this->text.setCharacterSize(30);
-    this->text.setFillColor(Color::White);
-    this->text.setPosition(WIDTH / 2, HEIGHT / 2);
 }
 
 void Game::init_map()
@@ -142,7 +131,11 @@ void Game::player_hit_event()
     float player_bottom = this->player.get_sprite().getGlobalBounds().top +
                           this->player.get_sprite().getGlobalBounds().height - this->player.get_gravity_speed();
 
+    passed_time += TIME;
+    cout << passed_time << endl;
     vector<Enemy> &enemys = this->game_map.get_enemys();
+    set_enemys_shield(enemys);
+    
     for (int i = 0; i < enemys.size(); i++)
     {
         if (this->game_map.is_enemy_hited(this->player.get_sprite(), enemys[i]))
@@ -208,7 +201,6 @@ void Game::render()
 
 void Game::poll_events()
 {
-
     while (this->map_window->pollEvent(this->event))
     {
         switch (this->event.type)
@@ -267,8 +259,6 @@ Game::Game()
 {
     this->init_map();
     this->init_map_window();
-    this->init_font();
-    this->init_text();
     this->init_player();
     this->init_view();
 }
@@ -276,4 +266,22 @@ Game::Game()
 Game::~Game()
 {
     delete this->map_window;
+}
+
+void Game::set_enemy_shield(Enemy & enemy)
+{
+    if ((passed_time) - (SHIELD_TIME) >= 0.0)
+    {
+        enemy.set_shield();
+        cout << &enemy << endl;
+        passed_time = 0.0;
+    }
+}
+
+void Game::set_enemys_shield(vector<Enemy>& enemys)
+{
+    for (int i = 0 ; i < enemys.size() ; i++)
+    {
+        set_enemy_shield(enemys[i]);
+    }
 }
