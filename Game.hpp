@@ -53,6 +53,8 @@ private:
     void default_enemys_movement();
     void enemys_gravity_move();
     void player_hit_event();
+    void player_hit_baby();
+    void player_hit_enemy();
 public:
 
     // Constructors

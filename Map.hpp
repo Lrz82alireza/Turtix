@@ -55,7 +55,7 @@ public:
 
     bool is_in_map(Sprite sprite);
     bool is_intersected(Sprite thing, RectangleShape shapes);
-    bool is_enemy_hited(Sprite sprite, Enemy enemy);
+    bool did_it_hit(Sprite sprite, Person enemy);
     bool is_move_valid(Sprite sprite, vector<RectangleShape> *shapes);
     bool is_on_edge(Sprite sprite);
 };

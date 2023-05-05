@@ -178,9 +178,9 @@ bool MAP::is_intersected(Sprite sprite, RectangleShape shape)
     return false;
 }
 
-bool MAP::is_enemy_hited(Sprite sprite, Enemy enemy)
+bool MAP::did_it_hit(Sprite sprite, Person thing)
 {
-    if (sprite.getGlobalBounds().intersects(enemy.get_sprite().getGlobalBounds()))
+    if (sprite.getGlobalBounds().intersects(thing.get_sprite().getGlobalBounds()))
     {
         return true;
     }
