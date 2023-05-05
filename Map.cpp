@@ -70,16 +70,6 @@ void MAP::make_portal(float cur_x, float cur_y, Texture *texture)
     portal.setSize(Vector2f(60, 60));
     portal.setPosition(cur_x, cur_y - 50);
     portal.setTexture(texture);
-<<<<<<< HEAD
-=======
-}
-
-void MAP::make_baby_turtle(float cur_x, float cur_y)
-{
-    Baby_turtle baby(BABYTXR);
-    baby.to_pos(Vector2f(cur_x, cur_y)); //
-    baby_turtles.push_back(baby);
->>>>>>> b593e049413c75b7d7f398c2a3f938030ceb1304
 }
 
 void MAP::make_die_hard(float cur_x, float cur_y)
@@ -118,10 +108,6 @@ void MAP::make_texture(char c, float &cur_x, float &cur_y)
     if (c == SHIELD)
     {
         make_shield_guy(cur_x , cur_y);
-    }
-    if (c == BABY)
-    {
-        make_baby_turtle(cur_x , cur_y);
     }
 }
 
