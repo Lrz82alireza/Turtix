@@ -25,6 +25,11 @@ Enemy::Enemy(string file_name, float enemy_speed_)
     }
 }
 
+void Enemy::g()
+{
+    
+}
+
 Enemy::~Enemy()
 {
 }

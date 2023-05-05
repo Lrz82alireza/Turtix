@@ -58,7 +58,7 @@ public:
     ~Game();
 
     // Accessors
-    
+    void close();
     bool running();
 
     // Functions

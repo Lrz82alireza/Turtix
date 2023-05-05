@@ -37,6 +37,7 @@ public:
     void set_gravity_speed(float number) { this->gravity_speed = number; }
     void reduse_health(int number) { this->health -= number; }
     bool is_alive() { return (this->health > 0); }
+    void close() { delete texture; }
 
     Sprite get_sprite() { return this->sprite; };
     float get_jump_speed() { return this->jump_speed; }
@@ -45,7 +46,7 @@ public:
     bool is_on_earth_() { return this->is_on_earth; }
     void to_pos(Vector2f pos);
     void update_jump();
-
+    
     // Constructors
     Person(string file_name, float person_speed_);
 };

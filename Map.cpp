@@ -112,9 +112,16 @@ void MAP::make_map()
     }
 }
 
-vector<RectangleShape> MAP::get_ground()
+void MAP::close()
 {
-    return grounds;
+    delete ground_texture;
+    delete dirt_texture;
+    delete portal_texture;
+}
+
+vector<RectangleShape> *MAP::get_ground()
+{
+    return &grounds;
 }
 
 float MAP::calculate_widht()
@@ -167,9 +174,9 @@ bool MAP::is_enemy_hited(Sprite sprite, Enemy enemy)
     return false;
 }
 
-bool MAP::is_move_valid(Sprite sprite, vector<RectangleShape> shapes)
+bool MAP::is_move_valid(Sprite sprite, vector<RectangleShape>* shapes)
 {
-    for (auto shape : shapes)
+    for (auto shape : *shapes)
     {
         if (is_intersected(sprite, shape))
         {

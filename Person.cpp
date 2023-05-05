@@ -3,7 +3,6 @@
 // Private Functions
 void Person::init_texture(string file_name)
 {
-    this->texture = new Texture;
     if (!this->texture->loadFromFile(file_name))
     {
         cout << "Didnt find Player texture" << endl;
