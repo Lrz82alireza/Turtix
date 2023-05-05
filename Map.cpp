@@ -4,11 +4,13 @@ const char GROUND = '.';
 const char PORTAL = '$';
 const char DIEHARD = 'E';
 const char SHIELD = 'M';
+const char BABY = 'O';
 
 const string GROUNDTXR = "Images/Ground.png";
 const string DIRTTXR = "Images/Dirt.png";
 const string PORTALTXR = "Images/portal.png";
 const string DIEHARDTXR = "Images/Ground.png";
+const string BABYTXR = "Images/Dirt.png";
 
 float const height = 20.0;
 float const widht = 20.0;
@@ -68,6 +70,16 @@ void MAP::make_portal(float cur_x, float cur_y, Texture *texture)
     portal.setSize(Vector2f(60, 60));
     portal.setPosition(cur_x, cur_y - 50);
     portal.setTexture(texture);
+<<<<<<< HEAD
+=======
+}
+
+void MAP::make_baby_turtle(float cur_x, float cur_y)
+{
+    Baby_turtle baby(BABYTXR);
+    baby.to_pos(Vector2f(cur_x, cur_y)); //
+    baby_turtles.push_back(baby);
+>>>>>>> b593e049413c75b7d7f398c2a3f938030ceb1304
 }
 
 void MAP::make_die_hard(float cur_x, float cur_y)
@@ -106,6 +118,10 @@ void MAP::make_texture(char c, float &cur_x, float &cur_y)
     if (c == SHIELD)
     {
         make_shield_guy(cur_x , cur_y);
+    }
+    if (c == BABY)
+    {
+        make_baby_turtle(cur_x , cur_y);
     }
 }
 

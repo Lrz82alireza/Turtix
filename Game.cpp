@@ -242,13 +242,6 @@ void Game::poll_events()
         this->move_person(this->player, 1.f, 0.f);
 }
 
-void Game::close()
-{
-    delete map_window;
-    this->player.close();
-    this->game_map.close();
-}
-
 // Accessors
 bool Game::running()
 {
@@ -269,7 +262,7 @@ Game::~Game()
     delete this->map_window;
 }
 
-void Game::set_enemy_shield(Enemy & enemy)
+void Game::set_enemy_shield(Enemy &enemy)
 {
     if ((passed_time) - (SHIELD_TIME) >= 0.0)
     {

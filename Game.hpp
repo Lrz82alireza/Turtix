@@ -15,7 +15,9 @@ using namespace sf;
 class Game
 {
 private:
+
     // somthing
+
     bool key_held;
     double passed_time = 0.0;
     Clock cooldownClock;
@@ -23,6 +25,7 @@ private:
     const int cooldownDuration = 300; // milliseconds
 
     // Resources
+
     Font font;
     Text text;
     MAP game_map;
@@ -53,11 +56,13 @@ private:
 
 public:
     // Constructors
+
     Game();
     ~Game();
 
     // Accessors
-    void close();
+
+    // void close();
     bool running();
 
     // Functions
