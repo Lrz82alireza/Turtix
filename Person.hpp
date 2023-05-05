@@ -17,6 +17,7 @@ class Person
 {
 protected:
     Sprite sprite;
+    Texture *texture;
     int health;
     float person_speed;
     float gravity_acceleration = GRAVITY_ACCELERATION;
@@ -25,7 +26,8 @@ protected:
     bool is_on_earth = false;
 
     // Private Functions
-    void init_sprite(Texture * texture);
+    void init_texture(string file_name);
+    void init_sprite();
 
 public:
     // Accessors
@@ -45,5 +47,5 @@ public:
     void update_jump();
 
     // Constructors
-    Person(Texture *init_texture , float person_speed_);
+    Person(string file_name, float person_speed_);
 };

@@ -192,7 +192,7 @@ void Game::render()
 
     // this->map_window->draw(this->text);
 
-    for (auto ground : *(game_map.get_ground()))
+    for (auto ground : game_map.get_ground())
         this->map_window->draw(ground);
 
     this->map_window->draw(game_map.get_portal());
