@@ -45,9 +45,11 @@ private:
     void init_view(); 
     void move_person(Person &person, float dir_x, float dir_y);
     void gravity_action();
+    void babys_gravity_move();
     void gravity_move(Person &person);
     void delay_check();
     void default_events();
+    void default_baby_turtles_movement();
     void default_enemys_movement();
     void enemys_gravity_move();
     void player_hit_event();

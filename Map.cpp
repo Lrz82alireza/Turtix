@@ -119,6 +119,11 @@ void MAP::close()
     delete portal_texture;
 }
 
+vector<Baby_turtle> &MAP::get_Babys()
+{
+    return this->baby_turtles;
+}
+
 vector<RectangleShape> *MAP::get_ground()
 {
     return &grounds;

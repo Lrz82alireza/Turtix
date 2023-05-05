@@ -76,6 +76,16 @@ void Game::gravity_action()
 {
     this->gravity_move(this->player);
     this->enemys_gravity_move();
+    this->babys_gravity_move();
+}
+
+void Game::babys_gravity_move()
+{
+    vector<Baby_turtle> &enemys = this->game_map.get_enemys();
+    for (int i = 0; i < enemys.size(); i++)
+    {
+        this->gravity_move(enemys[i]);
+    }
 }
 
 void Game::init_view()
@@ -111,8 +121,20 @@ void Game::delay_check()
 void Game::default_events()
 {
     // background sound
+    this->default_baby_turtles_movement();
+    this->default_enemys_movement();
+}
 
-    default_enemys_movement();
+void Game::default_baby_turtles_movement()
+{
+    for (int i = 0; i < this->game_map.get_Babys().size(); i++)
+    {
+        Baby_turtle *baby = &this->game_map.get_Babys()[i];
+
+        baby->move(baby->get_cur_dir().x, baby->get_cur_dir().y);
+        bool is_move_valid = this->game_map.is_move_valid(baby->get_sprite(), this->game_map.get_ground());
+        baby->default_movement(is_move_valid);
+    }
 }
 
 void Game::default_enemys_movement()
@@ -122,8 +144,8 @@ void Game::default_enemys_movement()
         Enemy *enemy = &this->game_map.get_enemys()[i];
 
         enemy->move(enemy->get_cur_dir().x, enemy->get_cur_dir().y);
-        bool is_move_valid = game_map.is_move_valid(enemy->get_sprite(), game_map.get_ground());
-        bool is_on_edge = game_map.is_on_edge(enemy->get_sprite());
+        bool is_move_valid = this->game_map.is_move_valid(enemy->get_sprite(), game_map.get_ground());
+        bool is_on_edge = this->game_map.is_on_edge(enemy->get_sprite());
         enemy->default_movement(is_move_valid, is_on_edge);
     }
 }
