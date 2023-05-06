@@ -117,6 +117,12 @@ void Game::default_baby_turtles_movement()
 {
     for (int i = 0; i < this->game_map.get_Babys().size(); i++)
     {
+        if (this->game_map.is_intersected(this->game_map.get_Babys()[i].get_sprite(), this->game_map.get_portal()))
+        {
+            this->game_map.get_Babys().erase(this->game_map.get_Babys().begin() + i);
+        }
+
+
         Baby_turtle *baby = &this->game_map.get_Babys()[i];
 
         if (baby->is_free_())
