@@ -68,7 +68,7 @@ void MAP::make_ground(float cur_x, float cur_y, Texture *texture)
 void MAP::make_portal(float cur_x, float cur_y, Texture *texture)
 {
     portal.setSize(Vector2f(60, 60));
-    portal.setPosition(cur_x, cur_y - 50);
+    portal.setPosition(cur_x, cur_y - 40);
     portal.setTexture(texture);
 }
 
