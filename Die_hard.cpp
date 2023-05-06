@@ -7,5 +7,4 @@ Die_hard::Die_hard(string file_name)
          :Enemy(file_name, enemy_speed)
 {
     health = DIE_HARD_HEALTH;
-    shield = false;
 }
