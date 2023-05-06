@@ -12,7 +12,6 @@ Shied_guy::Shied_guy(string file_name)
 
 void Shied_guy::set_shield()
 {
-    cout << "checked";
     if(shield)
     {
         shield = false;
