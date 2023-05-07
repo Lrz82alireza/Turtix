@@ -368,7 +368,8 @@ void Game::init_texts()
 
 void Game::init_font()
 {
-    this->font.loadFromFile(LOBBY_FONT);
+    if (!this->font.loadFromFile(LOBBY_FONT))
+        cout << "ERROR: FAILED TO LOAD FONTS" << endl;
 }
 
 void Game::update_texts()
