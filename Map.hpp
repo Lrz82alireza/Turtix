@@ -21,6 +21,9 @@ using namespace std;
 class MAP
 {
 private:
+    vector<RectangleShape> diamonds;
+    vector<RectangleShape> stars;
+
     vector<RectangleShape> grounds;
     vector<vector<char>> input;
     Texture *ground_texture;

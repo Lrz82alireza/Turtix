@@ -5,6 +5,8 @@ const char PORTAL = '$';
 const char DIEHARD = 'E';
 const char SHIELD = 'M';
 const char BABY = 'O';
+const char DIAMOND = '^';
+const char STAR = '*';
 
 const string GROUNDTXR = "Images/Ground.png";
 const string DIRTTXR = "Images/Dirt.png";
@@ -21,7 +23,6 @@ const int SHIELD_GUY_FRAMENUM = 12;
 
 const String ARMORED_SHIELD_GUY_FRAMES_ADDRESS = "Images/shield/dont_set/";
 const int ARMORED_SHIELD_GUY_FRAMENUM = 12;
-
 
 float const height = 20.0;
 float const widht = 20.0;
@@ -64,7 +65,6 @@ void MAP::init_animations()
     init_animation_frames(&this->Shield_guy_frames, SHIELD_GUY_FRAMES_ADDRESS, SHIELD_GUY_FRAMENUM);
     init_animation_frames(&this->armored_shield_guy_frames, ARMORED_SHIELD_GUY_FRAMES_ADDRESS, ARMORED_SHIELD_GUY_FRAMENUM);
 }
-
 
 // Functions
 void MAP::read_inputs(string file_name)
@@ -145,11 +145,19 @@ void MAP::make_texture(char c, float &cur_x, float &cur_y)
     }
     if (c == SHIELD)
     {
-        make_shield_guy(cur_x , cur_y);
+        make_shield_guy(cur_x, cur_y);
     }
     if (c == BABY)
     {
         make_baby_turtle(cur_x, cur_y);
+    }
+    if (c == DIAMOND)
+    {
+        //
+    }
+    if (c == STAR)
+    {
+        //
     }
 }
 
@@ -238,7 +246,7 @@ bool MAP::did_it_hit(Sprite sprite, Person enemy)
     return false;
 }
 
-bool MAP::is_move_valid(Sprite sprite, vector<RectangleShape>* shapes)
+bool MAP::is_move_valid(Sprite sprite, vector<RectangleShape> *shapes)
 {
     for (auto shape : *shapes)
     {
@@ -277,13 +285,12 @@ RectangleShape MAP::get_portal()
     return portal;
 }
 
-vector<Enemy>& MAP::get_enemys()
+vector<Enemy> &MAP::get_enemys()
 {
     return enemys;
 }
 
-vector<Shied_guy> & MAP::get_shield_guys()
+vector<Shied_guy> &MAP::get_shield_guys()
 {
     return shildGuys;
 }
-
