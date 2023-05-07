@@ -37,12 +37,14 @@ private:
     bool lobby_running = true;
     RenderWindow *lobby_window;
     vector<RectangleShape> lobby_options;
+    Image lobby_image;
 
     // map_selection
     void map_selection();
     bool map_selection_running = false;
     RenderWindow *map_selection_window;
     vector<RectangleShape> map_selection_options;
+    Image map_selection_image;
 
     vector<string> maps;
 
@@ -52,12 +54,14 @@ private:
     bool is_pause = true;
     RenderWindow *pause_window;
     vector<RectangleShape> pause_options;
+    Image pause_image;
 
 
     
     int get_window_event(vector<RectangleShape> &options);
     void init_windows();
     void get_mous_pos(RenderWindow &window);
+    void render_window(RenderWindow &Window, vector<RectangleShape> &options, Image &image);
 public:
     Game_manager(/* args */);
     ~Game_manager();
