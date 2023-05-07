@@ -37,13 +37,13 @@ void Shied_guy::init_animation_frames()
     for (int i = 0; i < FRAMENUM; i++)
     {
         Texture tmp;
-        tmp.loadFromFile("Images/shield/set" + to_string(i) + ".png");
+        tmp.loadFromFile("Images/shield/set/" + to_string(i) + ".png");
         frames.push_back(tmp);
     }
     for (int i = 0; i < FRAMENUM; i++)
     {
         Texture tmp;
-        tmp.loadFromFile("Images/shield/dont_set" + to_string(i) + ".png");
+        tmp.loadFromFile("Images/shield/dont_set/" + to_string(i) + ".png");
         shield_frames.push_back(tmp);
     }
 }
