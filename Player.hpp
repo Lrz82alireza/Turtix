@@ -16,12 +16,13 @@ using namespace std;
 class Player : public Person
 {
 private:
-
     // Private Functions
+    vector<Texture> frames;
 
 public:
 
     // Accessors
     Player();
+    void init_animation_frames();
 };
 
