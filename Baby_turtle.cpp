@@ -11,8 +11,8 @@ Baby_turtle::Baby_turtle(string file_name)
     // set the first frame
     init_animation_frames();
     cur_frame = 0;
-    //sprite.setTexture(frames[cur_frame]);
-    //sprite.setScale(FRAMESIZE, FRAMESIZE);
+    sprite.setTexture(frames[cur_frame]);
+    sprite.setScale(FRAMESIZE, FRAMESIZE);
 
     int ran = rand() % 2;
     switch (ran)
@@ -77,7 +77,6 @@ void Baby_turtle::move_right_animation()
     {
         update_frame();
         sprite.setTexture(frames[cur_frame]);
-        sprite.setScale(FRAMESIZE, FRAMESIZE);
         sprite.setScale(-FRAMESIZE, FRAMESIZE);
     }
 }

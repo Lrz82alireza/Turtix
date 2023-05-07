@@ -63,7 +63,6 @@ void Player::move_right_animation()
        {
               update_frame();
               sprite.setTexture(frames[cur_frame]);
-              sprite.setScale(FRAMESIZE, FRAMESIZE);
               sprite.setScale(-FRAMESIZE, FRAMESIZE);
        }
 }
