@@ -26,9 +26,9 @@ void Game::init_map_window()
     this->map_window->setFramerateLimit(LIMIT_FPS);
 }
 
-void Game::init_map()
+void Game::init_map(string map_name)
 {
-    this->game_map.read_inputs("input.txt");
+    this->game_map.read_inputs(map_name);
     this->game_map.make_map();
 }
 
@@ -318,12 +318,17 @@ bool Game::running()
 }
 
 // Constructor / destructor
-Game::Game()
+Game::Game(string map_name)
 {
-    this->init_map();
+    this->init_map(map_name);
     this->init_map_window();
     this->init_player();
     this->init_view();
+}
+
+Game::Game()
+{
+
 }
 
 Game::~Game()

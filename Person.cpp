@@ -18,7 +18,6 @@ void Person::init_sprite()
                            this->sprite.getTexture()->getSize().y / 2);
 }
 
-
 // Accessors
 void Person::move(float dir_x, float dir_y)
 {

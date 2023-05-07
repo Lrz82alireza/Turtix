@@ -39,7 +39,7 @@ private:
 
     // Initialise Functions
     void init_map_window();
-    void init_map();
+    void init_map(string map_name);
     void init_player();
     void init_view();
     void move_person(Person &person, float dir_x, float dir_y);
@@ -60,6 +60,7 @@ private:
 public:
     // Constructors
 
+    Game(string map_name);
     Game();
     ~Game();
 

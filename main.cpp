@@ -6,7 +6,8 @@ using namespace sf;
 
 int main()
 {
-    Game game;
+
+    Game game("input.txt");
 
     // game loop
     while (game.running())
@@ -17,7 +18,7 @@ int main()
         // render
         game.render();
     }
-    //cout << "s" << endl;
+    // cout << "s" << endl;
 
     return 0;
 }
