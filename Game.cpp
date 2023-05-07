@@ -121,8 +121,6 @@ void Game::default_baby_turtles_movement()
         {
             this->game_map.get_Babys().erase(this->game_map.get_Babys().begin() + i);
         }
-
-
         Baby_turtle *baby = &this->game_map.get_Babys()[i];
 
         if (baby->is_free_())
