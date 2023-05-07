@@ -6,7 +6,7 @@ int const DIE_HARD_HEALTH = 1;
 const int FRAMENUM = 12;
 const float FRAMESIZE = 0.4;
 
-Shied_guy::Shied_guy(string file_name, vector<Texture> *frames_, vector<Texture> *shield_frames_)
+Shield_guy::Shield_guy(string file_name, vector<Texture> *frames_, vector<Texture> *shield_frames_)
     : Enemy(file_name, enemy_speed , FRAMENUM , FRAMESIZE)
 {
     frames = frames_;
@@ -17,7 +17,7 @@ Shied_guy::Shied_guy(string file_name, vector<Texture> *frames_, vector<Texture>
     sprite.setScale(FRAMESIZE , FRAMESIZE);
 }
 
-void Shied_guy::set_shield()
+void Shield_guy::set_shield()
 {
     if (shield)
     {

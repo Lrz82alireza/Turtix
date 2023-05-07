@@ -35,7 +35,7 @@ private:
     RectangleShape portal;
     vector<Enemy> enemys;
     vector<Baby_turtle> baby_turtles;
-    vector<Shied_guy> shildGuys;
+    vector<Shield_guy> shildGuys;
 
     // animation fields
     vector<Texture> baby_frames;
@@ -72,7 +72,7 @@ public:
     vector<RectangleShape> &get_diamonds() { return this->diamonds; }
     vector<Baby_turtle> &get_Babys() { return this->baby_turtles; }
     vector<Enemy> &get_enemys();
-    vector<Shied_guy> &get_shield_guys();
+    vector<Shield_guy> &get_shield_guys();
 
     bool is_in_map(Sprite sprite);
     bool is_intersected(Sprite thing, RectangleShape shapes);

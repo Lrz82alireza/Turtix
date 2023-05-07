@@ -231,10 +231,9 @@ void Game::player_hit_enemy()
     passed_time += TIME;
 
     vector<Enemy> &enemys = this->game_map.get_enemys();
-    vector<Shied_guy> &shieldGuys = this->game_map.get_shield_guys();
-
+    
     // cout << passed_time << endl;
-    set_enemys_shield(shieldGuys);
+    set_enemys_shield(game_map.get_shield_guys());
 
     for (int i = 0; i < enemys.size(); i++)
     {
@@ -386,13 +385,13 @@ Game::~Game()
     delete this->map_window;
 }
 
-void Game::set_enemys_shield(vector<Shied_guy> &shieldGuys)
+void Game::set_enemys_shield(vector<Shield_guy> &shieldGuys)
 {
     if ((passed_time) - (SHIELD_TIME) >= 0.0)
     {
         for (int i = 0; i < shieldGuys.size(); i++)
         {
-            shieldGuys[i].set_shield();
+            shieldGuys[i]->set_shield();
         }
         passed_time = 0.0;
     }

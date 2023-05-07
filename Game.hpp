@@ -59,7 +59,7 @@ private:
     void player_hit_baby();
     void player_hit_enemy();
 
-    void set_enemys_shield(vector<Shied_guy> & shieldGuys);
+    void set_enemys_shield(vector<Shield_guy> &shieldGuys);
 
     void update_texts();
 public:

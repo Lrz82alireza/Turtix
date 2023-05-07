@@ -145,7 +145,7 @@ void MAP::make_baby_turtle(float cur_x, float cur_y)
 
 void MAP::make_shield_guy(float cur_x, float cur_y)
 {
-    Shied_guy enemy(SHIELDTXR, &this->Shield_guy_frames, &this->armored_shield_guy_frames);
+    Shield_guy enemy(SHIELDTXR, &this->Shield_guy_frames, &this->armored_shield_guy_frames);
     enemy.to_pos(Vector2f(cur_x, cur_y)); //
     shildGuys.push_back(enemy);
     enemys.push_back(enemy);
@@ -316,7 +316,7 @@ vector<Enemy> &MAP::get_enemys()
     return enemys;
 }
 
-vector<Shied_guy> &MAP::get_shield_guys()
+vector<Shield_guy>& MAP::get_shield_guys()
 {
     return shildGuys;
 }
