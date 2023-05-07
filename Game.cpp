@@ -129,7 +129,7 @@ void Game::default_baby_turtles_movement()
             bool is_move_valid = this->game_map.is_move_valid(baby->get_sprite(), this->game_map.get_ground());
             bool is_in_map = this->game_map.is_in_map(baby->get_sprite());
             baby->default_movement(is_move_valid, is_in_map);
-            if(baby->get_cur_dir().x > 0)
+            if (baby->get_cur_dir().x > 0)
             {
                 baby->move_right_animation();
             }
@@ -151,6 +151,14 @@ void Game::default_enemys_movement()
         bool is_move_valid = game_map.is_move_valid(enemy->get_sprite(), game_map.get_ground());
         bool is_on_edge = game_map.is_on_edge(enemy->get_sprite());
         enemy->default_movement(is_move_valid, is_on_edge);
+        if (enemy->get_cur_dir().x > 0)
+        {
+            enemy->move_right_animation();
+        }
+        else
+        {
+            enemy->move_left_animation();
+        }
     }
 }
 
@@ -192,19 +200,19 @@ void Game::player_hit_enemy()
     vector<Enemy> &enemys = this->game_map.get_enemys();
     vector<Shied_guy> &shieldGuys = this->game_map.get_shield_guys();
 
-    //cout << passed_time << endl;
+    // cout << passed_time << endl;
     set_enemys_shield(shieldGuys);
 
     for (int i = 0; i < enemys.size(); i++)
     {
         if (this->game_map.did_it_hit(this->player.get_sprite(), enemys[i]))
         {
-            if (player_bottom < enemys[i].get_sprite().getGlobalBounds().top) 
+            if (player_bottom < enemys[i].get_sprite().getGlobalBounds().top)
             {
                 enemys[i].reduse_health(1);
                 if (!enemys[i].is_alive())
                     enemys.erase(enemys.begin() + i);
-                
+
                 this->player.set_on_earth(false);
                 this->player.set_jump(JUMP_SPEED);
                 this->player.set_gravity_speed(GRAVITY_SPEED);
@@ -236,16 +244,13 @@ void Game::update()
     this->view.setCenter(this->player.get_position());
     this->default_events();
 
-
     this->update_texts();
-
 }
 
 void Game::render()
 {
 
     this->map_window->clear();
-
 
     for (auto ground : *(game_map.get_ground()))
         this->map_window->draw(ground);
@@ -262,7 +267,7 @@ void Game::render()
     this->map_window->setView(view);
 
     for (auto i : this->texts)
-    this->map_window->draw(i);
+        this->map_window->draw(i);
 
     this->map_window->display();
 }
@@ -334,7 +339,6 @@ Game::Game(string map_name)
 
 Game::Game()
 {
-
 }
 
 Game::~Game()
@@ -342,7 +346,7 @@ Game::~Game()
     delete this->map_window;
 }
 
-void Game::set_enemys_shield(vector<Shied_guy> & shieldGuys)
+void Game::set_enemys_shield(vector<Shied_guy> &shieldGuys)
 {
     if ((passed_time) - (SHIELD_TIME) >= 0.0)
     {
@@ -378,7 +382,7 @@ void Game::update_texts()
 
     texts[1].setPosition(view.getCenter().x - 25, view.getCenter().y - (view.getSize().y / 2));
     texts[1].setString("Score: " + to_string(this->player.get_health()));
-    
+
     texts[2].setPosition(view.getCenter().x + (view.getSize().x / 2) - 75, view.getCenter().y - (view.getSize().y / 2));
     texts[2].setString("Baby: " + to_string(this->game_map.get_Babys().size()));
 }

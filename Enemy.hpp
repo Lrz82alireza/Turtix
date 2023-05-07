@@ -13,12 +13,8 @@ protected:
     //animation fields
     vector<Texture> *frames;
     vector<Texture> *shield_frames;
-<<<<<<< HEAD
-
-=======
->>>>>>> 0705f012fdb6ee22fd0592da4cd3b00431981a25
     int cur_frame;
-    int framesize;
+    float framesize;
     int framenum;
 
 public:
@@ -30,9 +26,9 @@ public:
     void update_frame();
     void move_left_animation();
     void move_right_animation();
-    void move_update(int framesize_ , vector<Texture> *texture);
+    void move_update(float framesize_ , vector<Texture> *texture);
 
 
-    Enemy(string file_name, float enemy_speed_ , int freamnum_ , int framesize_);
+    Enemy(string file_name, float enemy_speed_ , int freamnum_ , float framesize_);
     ~Enemy();
 };

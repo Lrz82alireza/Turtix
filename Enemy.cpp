@@ -11,7 +11,7 @@ void Enemy::default_movement(bool is_move_valid, bool is_on_edge)
     }
 }
 
-Enemy::Enemy(string file_name, float enemy_speed_, int freamnum_, int framesize_)
+Enemy::Enemy(string file_name, float enemy_speed_, int freamnum_, float framesize_)
     : Person(file_name, enemy_speed_)
 {
     framenum = freamnum_;
@@ -48,7 +48,7 @@ void Enemy::update_frame()
     }
 }
 
-void Enemy::move_update(int framesize_, vector<Texture> *texture)
+void Enemy::move_update(float framesize_, vector<Texture> *texture)
 {
     if (!shield)
     {
