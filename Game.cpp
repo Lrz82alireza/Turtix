@@ -131,6 +131,14 @@ void Game::default_baby_turtles_movement()
             bool is_move_valid = this->game_map.is_move_valid(baby->get_sprite(), this->game_map.get_ground());
             bool is_in_map = this->game_map.is_in_map(baby->get_sprite());
             baby->default_movement(is_move_valid, is_in_map);
+            if(baby->get_cur_dir().x > 0)
+            {
+                baby->move_right_animation();
+            }
+            else
+            {
+                baby->move_left_animation();
+            }
         }
     }
 }
@@ -292,9 +300,15 @@ void Game::poll_events()
     if (Keyboard::isKeyPressed(Keyboard::S))
         this->move_person(this->player, 0.f, 1.f);
     if (Keyboard::isKeyPressed(Keyboard::A))
+    {
         this->move_person(this->player, -1.f, 0.f);
+        player.move_left_animation();
+    }
     if (Keyboard::isKeyPressed(Keyboard::D))
+    {
         this->move_person(this->player, 1.f, 0.f);
+        player.move_right_animation();
+    }
 }
 
 // Accessors
