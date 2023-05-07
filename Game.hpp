@@ -27,9 +27,9 @@ private:
     // Resources
 
     Font font;
-    Text text;
     MAP game_map;
     Player player;
+    vector<Text> texts;
 
     // Window
     RenderWindow *map_window;
@@ -42,6 +42,9 @@ private:
     void init_map(string map_name);
     void init_player();
     void init_view();
+    void init_texts();
+    void init_font();
+
     void move_person(Person &person, float dir_x, float dir_y);
     void gravity_action();
     void gravity_move(Person &person);
@@ -57,6 +60,7 @@ private:
 
     void set_enemys_shield(vector<Shied_guy> & shieldGuys);
 
+    void update_texts();
 public:
     // Constructors
 

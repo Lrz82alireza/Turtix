@@ -39,6 +39,7 @@ public:
     bool is_alive() { return (this->health > 0); }
     void close() { delete texture; }
 
+    int get_health() { return this->health; }
     Sprite get_sprite() { return this->sprite; };
     float get_jump_speed() { return this->jump_speed; }
     float get_gravity_speed() { return this->gravity_speed; }

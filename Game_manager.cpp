@@ -23,9 +23,14 @@ void Game_manager::run()
                 while (this->is_pause)
                 {
                     pause();
+                    this->render_window(pause_window, pause_options, pause_image);
                 }
             }
+
+            this->render_window(map_selection_window, map_selection_options, map_selection_image);
         }
+
+        this->render_window(lobby_window, lobby_options, lobby_image);
     }
 }
 
@@ -33,6 +38,18 @@ void Game_manager::get_mous_pos(RenderWindow &window)
 {
     Vector2i mous_pos_i = Mouse::getPosition(window);
     mous_pos = window.mapPixelToCoords(mous_pos_i);
+}
+
+void Game_manager::render_window(RenderWindow &Window, vector<RectangleShape> &options, Image &image)
+{
+    Window.clear();
+
+    Window.draw(image);
+
+    for (auto i : options)
+        Window.draw(i);
+
+    Window.display();
 }
 
 int Game_manager::get_window_event(vector<RectangleShape> &options)
@@ -57,14 +74,19 @@ void Game_manager::lobby()
     {
     case START:
         // check click mouse
-        this->map_selection_running = true;
+        if (Mouse::isButtonPressed(Mouse::Left))
+        {
+            this->map_selection_running = true;
+        }
         break;
 
     case EXIT_LOBBY:
         // check click mouse
-
-        this->lobby_running = false;
-        this->lobby_window->close();
+        if (Mouse::isButtonPressed(Mouse::Left))
+        {
+            this->lobby_running = false;
+            this->lobby_window->close();
+        }
         break;
     }
 }
@@ -79,27 +101,33 @@ void Game_manager::map_selection()
     {
     case MAP_1:
         // check click mouse
-
-        this->cur_map = this->maps[result];
-        this->in_game = true;
-        game = new Game(cur_map);
+        if (Mouse::isButtonPressed(Mouse::Left))
+        {
+            this->cur_map = this->maps[result];
+            this->in_game = true;
+            game = new Game(cur_map);
+        }
         // go to game
         break;
 
     case MAP_2:
         // check click mouse
-
-        this->cur_map = this->maps[result];
-        this->in_game = true;
-        game = new Game(cur_map);
+        if (Mouse::isButtonPressed(Mouse::Left))
+        {
+            this->cur_map = this->maps[result];
+            this->in_game = true;
+            game = new Game(cur_map);
+        }
         // go to game
         break;
 
     case RETURN_MAP_SELECTION:
         // check click mouse
-
-        delete(game);
-        map_selection_running = false;
+        if (Mouse::isButtonPressed(Mouse::Left))
+        {
+            delete (game);
+            map_selection_running = false;
+        }
         break;
     }
 }
@@ -114,16 +142,20 @@ void Game_manager::pause()
     {
     case RESUME:
         // check click mouse
-
-        this->is_pause = false;        
+        if (Mouse::isButtonPressed(Mouse::Left))
+        {
+            this->is_pause = false;
+        }
         break;
 
     case EXIT_GAME:
         // check click mouse
-
-        this->is_pause = false;
-        this->in_game = false;
-        delete(this->game);
+        if (Mouse::isButtonPressed(Mouse::Left))
+        {
+            this->is_pause = false;
+            this->in_game = false;
+            delete (this->game);
+        }
         break;
     }
 }

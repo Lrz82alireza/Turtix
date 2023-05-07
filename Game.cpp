@@ -235,6 +235,10 @@ void Game::update()
     this->person_jump(this->player);
     this->view.setCenter(this->player.get_position());
     this->default_events();
+
+
+    this->update_texts();
+
 }
 
 void Game::render()
@@ -242,7 +246,6 @@ void Game::render()
 
     this->map_window->clear();
 
-    // this->map_window->draw(this->text);
 
     for (auto ground : *(game_map.get_ground()))
         this->map_window->draw(ground);
@@ -257,6 +260,9 @@ void Game::render()
         this->map_window->draw(baby.get_sprite());
 
     this->map_window->setView(view);
+
+    for (auto i : this->texts)
+    this->map_window->draw(i);
 
     this->map_window->display();
 }
@@ -322,6 +328,8 @@ Game::Game(string map_name)
     this->init_map_window();
     this->init_player();
     this->init_view();
+    this->init_font();
+    this->init_texts();
 }
 
 Game::Game()
@@ -344,4 +352,32 @@ void Game::set_enemys_shield(vector<Shied_guy> & shieldGuys)
         }
         passed_time = 0.0;
     }
+}
+
+void Game::init_texts()
+{
+    for (int i = 0; i < 3; i++)
+    {
+        Text temp;
+        temp.setFont(this->font);
+        texts.push_back(temp);
+    }
+}
+
+void Game::init_font()
+{
+    this->font.loadFromFile(LOBBY_FONT);
+}
+
+void Game::update_texts()
+{
+
+    texts[0].setPosition(view.getCenter().x - (view.getSize().x / 2) + 10, view.getCenter().y - (view.getSize().y / 2));
+    texts[0].setString("Health: " + to_string(this->player.get_health()));
+
+    texts[1].setPosition(view.getCenter().x - 25, view.getCenter().y - (view.getSize().y / 2));
+    texts[1].setString("Score: " + to_string(this->player.get_health()));
+    
+    texts[2].setPosition(view.getCenter().x + (view.getSize().x / 2) - 75, view.getCenter().y - (view.getSize().y / 2));
+    texts[2].setString("Baby: " + to_string(this->game_map.get_Babys().size()));
 }
