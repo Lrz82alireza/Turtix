@@ -5,9 +5,10 @@ float BABY_TURTLE_SPEED = 1;
 const int FRAMENUM = 17;
 const float FRAMESIZE = 0.3;
 
-Baby_turtle::Baby_turtle(string file_name)
+Baby_turtle::Baby_turtle(string file_name, vector<Texture> *frames_)
     : Person(file_name, BABY_TURTLE_SPEED)
 {
+    this->frames = frames_;
 
     int ran = rand() % 2;
     switch (ran)
@@ -22,7 +23,6 @@ Baby_turtle::Baby_turtle(string file_name)
         break;
     }
     // set the first frame
-    init_animation_frames();
     cur_frame = 0;
     sprite.setScale(FRAMESIZE, FRAMESIZE);
 }
@@ -33,16 +33,6 @@ void Baby_turtle::default_movement(bool is_move_valid, bool is_in_map)
     {
         this->cur_dir = {-cur_dir.x, -cur_dir.y};
         this->move(cur_dir.x, cur_dir.y);
-    }
-}
-
-void Baby_turtle::init_animation_frames()
-{
-    for (int i = 0; i < FRAMENUM; i++)
-    {
-        Texture tmp;
-        tmp.loadFromFile("Images/boy/" + to_string(i) + ".png");
-        frames.push_back(tmp);
     }
 }
 
@@ -64,10 +54,7 @@ void Baby_turtle::move_left_animation()
     if (is_on_earth_())
     {
         update_frame();
-        sprite.setTexture(frames[cur_frame]);
-        //sprite.setOrigin(+frames[cur_frame].getSize().x ,
-        //                 +frames[cur_frame].getSize().y);
-
+        sprite.setTexture((*frames)[cur_frame]);
         sprite.setScale(FRAMESIZE, FRAMESIZE);
     }
 }
@@ -78,7 +65,7 @@ void Baby_turtle::move_right_animation()
     if (is_on_earth_())
     {
         update_frame();
-        sprite.setTexture(frames[cur_frame]);
+        sprite.setTexture((*frames)[cur_frame]);
         sprite.setScale(-FRAMESIZE, FRAMESIZE);
     }
 }

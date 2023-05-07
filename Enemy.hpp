@@ -11,9 +11,12 @@ protected:
     Vector2f cur_dir; // some random dir OR a const
     bool shield;
     //animation fields
-    vector<Texture> frames;
-    vector<Texture> shield_frames;
+    vector<Texture> *frames;
+    vector<Texture> *shield_frames;
+
     int cur_frame;
+    int framesize;
+    int framenum;
 
 public:
     Vector2f get_cur_dir() { return cur_dir; }
@@ -21,11 +24,12 @@ public:
     bool has_shield(){return shield;};
 
     //animation methods
-    void update_frame(int const FRAMENUM);
-    void move_left_animation(int const FRAMESIZE , int const FRAMENUM);
-    void move_right_animation(int const FRAMESIZE , int const FRAMENUM);
+    void update_frame();
+    void move_left_animation();
+    void move_right_animation();
+    void move_update(int framesize_ , vector<Texture> *texture);
 
 
-    Enemy(string file_name, float enemy_speed_);
+    Enemy(string file_name, float enemy_speed_ , int freamnum_ , int framesize_);
     ~Enemy();
 };

@@ -32,6 +32,14 @@ private:
     vector<Baby_turtle> baby_turtles;
     vector<Shied_guy> shildGuys;
 
+    // animation fields
+    vector<Texture> baby_frames;
+
+    vector<Texture> Shield_guy_frames;
+    vector<Texture> armored_shield_guy_frames;
+    void init_animation_frames(vector<Texture> *frames, string address, int max_frame);
+    void init_animations();
+
     // Private Functions
     void init_texture();
     float calculate_width();
