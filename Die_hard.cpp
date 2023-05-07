@@ -7,7 +7,7 @@ int const FRAMENUM = 12;
 const float FRAMESIZE = 0.4;
 
 Die_hard::Die_hard(string file_name, vector<Texture> *frames_)
-         :Enemy(file_name, enemy_speed)
+         :Enemy(file_name, enemy_speed , FRAMENUM , FRAMESIZE)
 {
     this->frames = frames_;
 

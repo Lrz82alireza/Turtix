@@ -3,10 +3,11 @@
 float const enemy_speed = 1.0;
 int const DIE_HARD_HEALTH = 1;
 
+const int FRAMENUM = 12;
 const float FRAMESIZE = 0.4;
 
 Shied_guy::Shied_guy(string file_name, vector<Texture> *frames_, vector<Texture> *shield_frames_)
-    : Enemy(file_name, enemy_speed)
+    : Enemy(file_name, enemy_speed , FRAMENUM , FRAMESIZE)
 {
     frames = frames_;
     shield_frames = shield_frames_;

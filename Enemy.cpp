@@ -2,7 +2,7 @@
 
 const int FRAMENUM = 12;
 
-void Enemy::default_movement(bool is_move_valid , bool is_on_edge)
+void Enemy::default_movement(bool is_move_valid, bool is_on_edge)
 {
     if (!is_move_valid || is_on_edge)
     {
@@ -11,19 +11,24 @@ void Enemy::default_movement(bool is_move_valid , bool is_on_edge)
     }
 }
 
-Enemy::Enemy(string file_name, float enemy_speed_)
+Enemy::Enemy(string file_name, float enemy_speed_, int freamnum_, int framesize_)
     : Person(file_name, enemy_speed_)
 {
+    framenum = freamnum_;
+    framesize = framesize_;
+    cur_frame = 0;
+
     int ran = rand() % 2;
     switch (ran)
     {
     case 0:
         this->cur_dir = {1.f, 0.f};
         break;
-    
+
     case 1:
         this->cur_dir = {-1.f, 0.f};
-        break;;
+        break;
+        ;
     }
 }
 
@@ -31,9 +36,9 @@ Enemy::~Enemy()
 {
 }
 
-void Enemy::update_frame(int const FRAMENUM)
+void Enemy::update_frame()
 {
-    if (cur_frame < (FRAMENUM - 1))
+    if (cur_frame < (framenum - 1))
     {
         cur_frame += 1;
     }
@@ -43,50 +48,40 @@ void Enemy::update_frame(int const FRAMENUM)
     }
 }
 
-void Enemy::move_left_animation(int const FRAMESIZE , int const FRAMENUM)
+void Enemy::move_update(int framesize_, vector<Texture> *texture)
 {
     if (!shield)
     {
-        sprite.setScale(FRAMESIZE, FRAMESIZE);
+        sprite.setScale(framesize_, framesize_);
         if (is_on_earth_())
         {
-            update_frame(FRAMENUM);
-            sprite.setTexture((*frames)[cur_frame]);
-            sprite.setScale(FRAMESIZE, FRAMESIZE);
-        }
-    }
-    else
-    {
-        sprite.setScale(FRAMESIZE, FRAMESIZE);
-        if (is_on_earth_())
-        {
-            update_frame(FRAMENUM);
-            sprite.setTexture((*shield_frames)[cur_frame]);
-            sprite.setScale(FRAMESIZE, FRAMESIZE);
+            update_frame();
+            sprite.setTexture((*texture)[cur_frame]);
+            sprite.setScale(framesize_, framesize_);
         }
     }
 }
 
-void Enemy::move_right_animation(int const FRAMESIZE , int const FRAMENUM)
+void Enemy::move_left_animation()
 {
     if (!shield)
     {
-        sprite.setScale(-FRAMESIZE, FRAMESIZE);
-        if (is_on_earth_())
-        {
-            update_frame(FRAMENUM);
-            sprite.setTexture((*frames)[cur_frame]);
-            sprite.setScale(-FRAMESIZE, FRAMESIZE);
-        }
+        move_update(framesize, frames);
     }
     else
     {
-        sprite.setScale(-FRAMESIZE, FRAMESIZE);
-        if (is_on_earth_())
-        {
-            update_frame(FRAMENUM);
-            sprite.setTexture((*shield_frames)[cur_frame]);
-            sprite.setScale(-FRAMESIZE, FRAMESIZE);
-        }
+        move_update(framesize, shield_frames);
+    }
+}
+
+void Enemy::move_right_animation()
+{
+    if (!shield)
+    {
+        move_update(-framesize, frames);
+    }
+    else
+    {
+        move_update(-framesize, shield_frames);
     }
 }
