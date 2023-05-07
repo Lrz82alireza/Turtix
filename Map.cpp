@@ -11,6 +11,7 @@ const string DIRTTXR = "Images/Dirt.png";
 const string PORTALTXR = "Images/portal.png";
 const string DIEHARDTXR = "Images/Ground.png";
 const string BABYTXR = "Images/boy/0.png";
+const string SHIELDTXR = "Images/shield/dont_set/0.png";
 
 float const height = 20.0;
 float const widht = 20.0;
@@ -88,7 +89,7 @@ void MAP::make_baby_turtle(float cur_x, float cur_y)
 
 void MAP::make_shield_guy(float cur_x, float cur_y)
 {
-    Shied_guy enemy(DIEHARDTXR);
+    Shied_guy enemy(SHIELDTXR);
     enemy.to_pos(Vector2f(cur_x, cur_y)); //
     shildGuys.push_back(enemy);
     enemys.push_back(enemy);

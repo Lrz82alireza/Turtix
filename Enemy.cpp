@@ -26,12 +26,66 @@ Enemy::Enemy(string file_name, float enemy_speed_)
     }
 }
 
-void Enemy::set_shield()
-{
-
-}
-
 Enemy::~Enemy()
 {
 }
 
+void Enemy::update_frame(int const FRAMENUM)
+{
+    if (cur_frame < (FRAMENUM - 1))
+    {
+        cur_frame += 1;
+    }
+    else
+    {
+        cur_frame = 0;
+    }
+}
+
+void Enemy::move_left_animation(int const FRAMESIZE , int const FRAMENUM)
+{
+    if (!shield)
+    {
+        sprite.setScale(FRAMESIZE, FRAMESIZE);
+        if (is_on_earth_())
+        {
+            update_frame(FRAMENUM);
+            sprite.setTexture(frames[cur_frame]);
+            sprite.setScale(FRAMESIZE, FRAMESIZE);
+        }
+    }
+    else
+    {
+        sprite.setScale(FRAMESIZE, FRAMESIZE);
+        if (is_on_earth_())
+        {
+            update_frame(FRAMENUM);
+            sprite.setTexture(shield_frames[cur_frame]);
+            sprite.setScale(FRAMESIZE, FRAMESIZE);
+        }
+    }
+}
+
+void Enemy::move_right_animation(int const FRAMESIZE , int const FRAMENUM)
+{
+    if (!shield)
+    {
+        sprite.setScale(-FRAMESIZE, FRAMESIZE);
+        if (is_on_earth_())
+        {
+            update_frame(FRAMENUM);
+            sprite.setTexture(frames[cur_frame]);
+            sprite.setScale(-FRAMESIZE, FRAMESIZE);
+        }
+    }
+    else
+    {
+        sprite.setScale(-FRAMESIZE, FRAMESIZE);
+        if (is_on_earth_())
+        {
+            update_frame(FRAMENUM);
+            sprite.setTexture(shield_frames[cur_frame]);
+            sprite.setScale(-FRAMESIZE, FRAMESIZE);
+        }
+    }
+}

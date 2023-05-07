@@ -8,11 +8,6 @@ const float FRAMESIZE = 0.3;
 Baby_turtle::Baby_turtle(string file_name)
     : Person(file_name, BABY_TURTLE_SPEED)
 {
-    // set the first frame
-    init_animation_frames();
-    cur_frame = 0;
-    sprite.setTexture(frames[cur_frame]);
-    sprite.setScale(FRAMESIZE, FRAMESIZE);
 
     int ran = rand() % 2;
     switch (ran)
@@ -26,6 +21,10 @@ Baby_turtle::Baby_turtle(string file_name)
         this->cur_dir = {-1.f, 0.f};
         break;
     }
+    // set the first frame
+    init_animation_frames();
+    cur_frame = 0;
+    sprite.setScale(FRAMESIZE, FRAMESIZE);
 }
 
 void Baby_turtle::default_movement(bool is_move_valid, bool is_in_map)
@@ -66,6 +65,9 @@ void Baby_turtle::move_left_animation()
     {
         update_frame();
         sprite.setTexture(frames[cur_frame]);
+        //sprite.setOrigin(+frames[cur_frame].getSize().x ,
+        //                 +frames[cur_frame].getSize().y);
+
         sprite.setScale(FRAMESIZE, FRAMESIZE);
     }
 }
