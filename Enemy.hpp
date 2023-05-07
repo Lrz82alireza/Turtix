@@ -13,7 +13,10 @@ protected:
     //animation fields
     vector<Texture> *frames;
     vector<Texture> *shield_frames;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0705f012fdb6ee22fd0592da4cd3b00431981a25
     int cur_frame;
     int framesize;
     int framenum;
