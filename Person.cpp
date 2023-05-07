@@ -3,6 +3,7 @@
 // Private Functions
 void Person::init_texture(string file_name)
 {
+    texture = new Texture;
     if (!this->texture->loadFromFile(file_name))
     {
         cout << "Didnt find Player texture" << endl;
@@ -16,7 +17,6 @@ void Person::init_sprite()
     this->sprite.setOrigin(this->sprite.getTexture()->getSize().x / 2,
                            this->sprite.getTexture()->getSize().y / 2);
 }
-
 
 // Accessors
 void Person::move(float dir_x, float dir_y)

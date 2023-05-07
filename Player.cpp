@@ -11,7 +11,7 @@ const int HEALTH = 3;
 // Constructors
 
 Player::Player()
-       :Person(PLAYER_TEXTURE, PLAYER_SPEED)
+    : Person(PLAYER_TEXTURE, PLAYER_SPEED)
 {
        this->health = HEALTH;
 }
