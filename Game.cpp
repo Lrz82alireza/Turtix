@@ -10,12 +10,11 @@ const Vector2f VIEW_SIZE = {400.f, 400.f};
 const int DIAMOND_SCORE = 1;
 const int STAR_SCORE = 5;
 
-
 const float JUMP_SPEED = 6;
 const float GRAVITY_SPEED = 0.5;
 
 const float TIME = 0.01;
-const float SHIELD_TIME = 5.0;
+const float SHIELD_TIME = 6.0;
 
 void Game::resize_view()
 {
@@ -51,7 +50,6 @@ void Game::move_person(Person &person, float dir_x, float dir_y)
         person.set_on_earth(false);
     while (!this->game_map.is_move_valid(person.get_sprite(), this->game_map.get_ground()))
     {
-        // bazgashty mitoone beshe ba shart khateme SPEED
 
         person.move(-dir_x, -dir_y);
         if (dir_y > 0)
@@ -149,14 +147,22 @@ void Game::default_baby_turtles_movement()
 
 void Game::default_enemys_movement()
 {
+    passed_time += TIME;
+
+    // cout << passed_time << endl;
+    set_enemys_shield();
+
+
     for (int i = 0; i < this->game_map.get_enemys().size(); i++)
     {
         Enemy *enemy = &this->game_map.get_enemys()[i];
+
 
         enemy->move(enemy->get_cur_dir().x, enemy->get_cur_dir().y);
         bool is_move_valid = game_map.is_move_valid(enemy->get_sprite(), game_map.get_ground());
         bool is_on_edge = game_map.is_on_edge(enemy->get_sprite());
         enemy->default_movement(is_move_valid, is_on_edge);
+
         if (enemy->get_cur_dir().x > 0)
         {
             enemy->move_right_animation();
@@ -228,13 +234,7 @@ void Game::player_hit_enemy()
     float player_bottom = this->player.get_sprite().getGlobalBounds().top +
                           this->player.get_sprite().getGlobalBounds().height - this->player.get_gravity_speed();
 
-    passed_time += TIME;
-
     vector<Enemy> &enemys = this->game_map.get_enemys();
-    vector<Shied_guy> &shieldGuys = this->game_map.get_shield_guys();
-
-    // cout << passed_time << endl;
-    set_enemys_shield(shieldGuys);
 
     for (int i = 0; i < enemys.size(); i++)
     {
@@ -298,11 +298,10 @@ void Game::render()
         this->map_window->draw(baby.get_sprite());
 
     for (auto diamond : game_map.get_diamonds())
-        this->map_window->draw(diamond);    
-    
+        this->map_window->draw(diamond);
+
     for (auto star : game_map.get_stars())
         this->map_window->draw(star);
-
 
     this->map_window->setView(view);
 
@@ -386,13 +385,15 @@ Game::~Game()
     delete this->map_window;
 }
 
-void Game::set_enemys_shield(vector<Shied_guy> &shieldGuys)
+void Game::set_enemys_shield()
 {
     if ((passed_time) - (SHIELD_TIME) >= 0.0)
     {
-        for (int i = 0; i < shieldGuys.size(); i++)
+        for (int i = 0; i < game_map.get_shield_guys().size(); i++)
         {
-            shieldGuys[i].set_shield();
+            Shield_guy *shield_guy = game_map.get_shield_guys()[i];
+
+            shield_guy->set_shield();
         }
         passed_time = 0.0;
     }
