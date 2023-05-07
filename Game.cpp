@@ -5,9 +5,15 @@ const String LOBBY_FONT = "Fonts/AmaticSC-Regular.ttf";
 const int WIDTH = 1000;
 const int HEIGHT = 1000;
 const int LIMIT_FPS = 144;
+const Vector2f VIEW_SIZE = {400.f, 400.f};
+
+const int DIAMOND_SCORE = 1;
+const int STAR_SCORE = 5;
+
+
 const float JUMP_SPEED = 6;
 const float GRAVITY_SPEED = 0.5;
-const Vector2f VIEW_SIZE = {400.f, 400.f};
+
 const float TIME = 0.01;
 const float SHIELD_TIME = 5.0;
 
@@ -175,6 +181,33 @@ void Game::player_hit_event()
 {
     player_hit_enemy();
     player_hit_baby();
+    player_collect_diamond();
+    player_collect_star();
+}
+
+void Game::player_collect_diamond()
+{
+    vector<RectangleShape> &diamonds = this->game_map.get_diamonds();
+    for (int i = 0; i < diamonds.size(); i++)
+    {
+        if (this->game_map.is_intersected(this->player.get_sprite(), diamonds[i]))
+        {
+            this->player.increase_score(DIAMOND_SCORE);
+            diamonds.erase(diamonds.begin() + i);
+        }
+    }
+}
+void Game::player_collect_star()
+{
+    vector<RectangleShape> &stars = this->game_map.get_stars();
+    for (int i = 0; i < stars.size(); i++)
+    {
+        if (this->game_map.is_intersected(this->player.get_sprite(), stars[i]))
+        {
+            this->player.increase_score(STAR_SCORE);
+            stars.erase(stars.begin() + i);
+        }
+    }
 }
 
 void Game::player_hit_baby()
@@ -263,6 +296,13 @@ void Game::render()
 
     for (auto baby : game_map.get_Babys())
         this->map_window->draw(baby.get_sprite());
+
+    for (auto diamond : game_map.get_diamonds())
+        this->map_window->draw(diamond);    
+    
+    for (auto star : game_map.get_stars())
+        this->map_window->draw(star);
+
 
     this->map_window->setView(view);
 
@@ -381,7 +421,7 @@ void Game::update_texts()
     texts[0].setString("Health: " + to_string(this->player.get_health()));
 
     texts[1].setPosition(view.getCenter().x - 25, view.getCenter().y - (view.getSize().y / 2));
-    texts[1].setString("Score: " + to_string(this->player.get_health()));
+    texts[1].setString("Score: " + to_string(this->player.get_score()));
 
     texts[2].setPosition(view.getCenter().x + (view.getSize().x / 2) - 75, view.getCenter().y - (view.getSize().y / 2));
     texts[2].setString("Baby: " + to_string(this->game_map.get_Babys().size()));

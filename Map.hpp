@@ -26,6 +26,8 @@ private:
 
     vector<RectangleShape> grounds;
     vector<vector<char>> input;
+    Texture *diamond_texture;
+    Texture *star_texture;
     Texture *ground_texture;
     Texture *dirt_texture;
     Texture *portal_texture;
@@ -52,6 +54,8 @@ private:
 public:
     MAP();
     void read_inputs(string file_name);
+    void make_diamond(float cur_x, float cur_y, Texture *texture);
+    void make_star(float cur_x, float cur_y, Texture *texture);
     void make_ground(float cur_x, float cur_y, Texture *texture);
     void make_portal(float cur_x, float cur_y, Texture *texture);
     void make_baby_turtle(float cur_x, float cur_y);
@@ -64,6 +68,8 @@ public:
     vector<RectangleShape> *get_ground();
     RectangleShape get_portal();
     Vector2f get_screen();
+    vector<RectangleShape> &get_stars() { return this->stars; }
+    vector<RectangleShape> &get_diamonds() { return this->diamonds; }
     vector<Baby_turtle> &get_Babys() { return this->baby_turtles; }
     vector<Enemy> &get_enemys();
     vector<Shied_guy> &get_shield_guys();

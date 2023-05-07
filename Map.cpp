@@ -9,11 +9,14 @@ const char DIAMOND = '^';
 const char STAR = '*';
 
 const string GROUNDTXR = "Images/Ground.png";
+const string DIAMONDTXR = "Images/diamond.png";
+const string STARTXR = "Images/star.png";
 const string DIRTTXR = "Images/Dirt.png";
 const string PORTALTXR = "Images/portal.png";
 const string DIEHARDTXR = "Images/Ground.png";
 const string BABYTXR = "Images/boy/0.png";
 const string SHIELDTXR = "Images/shield/dont_set/0.png";
+
 
 const String BABY_FRAMES_ADDRESS = "Images/boy/";
 const int BABY_FRAMENUM = 17;
@@ -40,6 +43,13 @@ void MAP::init_texture()
     portal_texture = new Texture;
     if (!portal_texture->loadFromFile(PORTALTXR))
         cout << "ERROR: couldnt find game_map -> portal_texture" << endl;
+    diamond_texture = new Texture;
+    if (!diamond_texture->loadFromFile(DIAMONDTXR))
+        cout << "ERROR: couldnt find game_map -> diamond_texture" << endl;
+    star_texture = new Texture;
+    if (!star_texture->loadFromFile(STARTXR))
+        cout << "ERROR: couldnt find game_map -> star_texture" << endl;
+    
 }
 
 MAP::MAP()
@@ -86,6 +96,22 @@ void MAP::read_inputs(string file_name)
     else
         cout << "ERROR: game_map file_name didnt found" << endl;
     input = file_content;
+}
+
+void MAP::make_diamond(float cur_x, float cur_y, Texture *texture)
+{
+    RectangleShape diamond(Vector2f(15, 15));
+    diamond.setTexture(texture);
+    diamond.setPosition(cur_x, cur_y);
+    diamonds.push_back(diamond);
+}
+
+void MAP::make_star(float cur_x, float cur_y, Texture *texture)
+{
+    RectangleShape star(Vector2f(15, 15));
+    star.setTexture(texture);
+    star.setPosition(cur_x, cur_y);
+    stars.push_back(star);
 }
 
 void MAP::make_ground(float cur_x, float cur_y, Texture *texture)
@@ -153,11 +179,11 @@ void MAP::make_texture(char c, float &cur_x, float &cur_y)
     }
     if (c == DIAMOND)
     {
-        //
+        make_diamond(cur_x, cur_y, diamond_texture); 
     }
     if (c == STAR)
     {
-        //
+        make_star(cur_x, cur_y, star_texture); 
     }
 }
 
