@@ -13,6 +13,16 @@ const string DIEHARDTXR = "Images/Ground.png";
 const string BABYTXR = "Images/boy/0.png";
 const string SHIELDTXR = "Images/shield/dont_set/0.png";
 
+const String BABY_FRAMES_ADDRESS = "Images/boy/";
+const int BABY_FRAMENUM = 17;
+
+const String SHIELD_GUY_FRAMES_ADDRESS = "Images/shield/set/";
+const int SHIELD_GUY_FRAMENUM = 12;
+
+const String ARMORED_SHIELD_GUY_FRAMES_ADDRESS = "Images/shield/dont_set/";
+const int ARMORED_SHIELD_GUY_FRAMENUM = 12;
+
+
 float const height = 20.0;
 float const widht = 20.0;
 float const gap = height;
@@ -34,7 +44,27 @@ void MAP::init_texture()
 MAP::MAP()
 {
     init_texture();
+    init_animations();
 }
+
+// animation method
+void MAP::init_animation_frames(vector<Texture> *frames, string address, int max_frame)
+{
+    for (int i = 0; i < max_frame; i++)
+    {
+        Texture tmp;
+        tmp.loadFromFile(address + to_string(i) + ".png");
+        frames->push_back(tmp);
+    }
+}
+
+void MAP::init_animations()
+{
+    init_animation_frames(&this->baby_frames, BABY_FRAMES_ADDRESS, BABY_FRAMENUM);
+    init_animation_frames(&this->Shield_guy_frames, SHIELD_GUY_FRAMES_ADDRESS, SHIELD_GUY_FRAMENUM);
+    init_animation_frames(&this->armored_shield_guy_frames, ARMORED_SHIELD_GUY_FRAMES_ADDRESS, ARMORED_SHIELD_GUY_FRAMENUM);
+}
+
 
 // Functions
 void MAP::read_inputs(string file_name)
@@ -75,21 +105,21 @@ void MAP::make_portal(float cur_x, float cur_y, Texture *texture)
 
 void MAP::make_die_hard(float cur_x, float cur_y)
 {
-    Die_hard enemy(DIEHARDTXR);
+    Die_hard enemy(DIEHARDTXR, &this->Shield_guy_frames);
     enemy.to_pos(Vector2f(cur_x, cur_y)); //
     enemys.push_back(enemy);
 }
 
 void MAP::make_baby_turtle(float cur_x, float cur_y)
 {
-    Baby_turtle Baby(BABYTXR);
+    Baby_turtle Baby(BABYTXR, &this->baby_frames);
     Baby.to_pos(Vector2f(cur_x, cur_y));
     baby_turtles.push_back(Baby);
 }
 
 void MAP::make_shield_guy(float cur_x, float cur_y)
 {
-    Shied_guy enemy(SHIELDTXR);
+    Shied_guy enemy(SHIELDTXR, &this->Shield_guy_frames, &this->armored_shield_guy_frames);
     enemy.to_pos(Vector2f(cur_x, cur_y)); //
     shildGuys.push_back(enemy);
     enemys.push_back(enemy);

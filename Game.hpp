@@ -25,7 +25,6 @@ private:
     const int cooldownDuration = 300; // milliseconds
 
     // Resources
-
     Font font;
     MAP game_map;
     Player player;

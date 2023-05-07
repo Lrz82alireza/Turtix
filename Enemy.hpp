@@ -11,8 +11,8 @@ protected:
     Vector2f cur_dir; // some random dir OR a const
     bool shield;
     //animation fields
-    vector<Texture> frames;
-    vector<Texture> shield_frames;
+    vector<Texture> *frames;
+    vector<Texture> *shield_frames;
     int cur_frame;
 
 public:

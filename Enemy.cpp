@@ -1,5 +1,6 @@
 #include "Enemy.hpp"
 
+const int FRAMENUM = 12;
 
 void Enemy::default_movement(bool is_move_valid , bool is_on_edge)
 {
@@ -50,7 +51,7 @@ void Enemy::move_left_animation(int const FRAMESIZE , int const FRAMENUM)
         if (is_on_earth_())
         {
             update_frame(FRAMENUM);
-            sprite.setTexture(frames[cur_frame]);
+            sprite.setTexture((*frames)[cur_frame]);
             sprite.setScale(FRAMESIZE, FRAMESIZE);
         }
     }
@@ -60,7 +61,7 @@ void Enemy::move_left_animation(int const FRAMESIZE , int const FRAMENUM)
         if (is_on_earth_())
         {
             update_frame(FRAMENUM);
-            sprite.setTexture(shield_frames[cur_frame]);
+            sprite.setTexture((*shield_frames)[cur_frame]);
             sprite.setScale(FRAMESIZE, FRAMESIZE);
         }
     }
@@ -74,7 +75,7 @@ void Enemy::move_right_animation(int const FRAMESIZE , int const FRAMENUM)
         if (is_on_earth_())
         {
             update_frame(FRAMENUM);
-            sprite.setTexture(frames[cur_frame]);
+            sprite.setTexture((*frames)[cur_frame]);
             sprite.setScale(-FRAMESIZE, FRAMESIZE);
         }
     }
@@ -84,7 +85,7 @@ void Enemy::move_right_animation(int const FRAMESIZE , int const FRAMENUM)
         if (is_on_earth_())
         {
             update_frame(FRAMENUM);
-            sprite.setTexture(shield_frames[cur_frame]);
+            sprite.setTexture((*shield_frames)[cur_frame]);
             sprite.setScale(-FRAMESIZE, FRAMESIZE);
         }
     }

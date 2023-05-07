@@ -7,6 +7,5 @@ class Die_hard : public Enemy
 private:
    
 public:
-    Die_hard (string file_name );
-    void init_animation_frames();
+    Die_hard (string file_name, vector<Texture> *frames_);
 };
