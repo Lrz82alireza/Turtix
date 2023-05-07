@@ -48,17 +48,14 @@ void Enemy::update_frame()
     }
 }
 
-void Enemy::move_update(float framesize_, vector<Texture> *texture)
+void Enemy::move_update(float framesize_x, float framesize_y, vector<Texture> *texture)
 {
-    if (!shield)
+    sprite.setScale(framesize_x, framesize_y);
+    if (is_on_earth_())
     {
-        sprite.setScale(framesize_, framesize_);
-        if (is_on_earth_())
-        {
-            update_frame();
-            sprite.setTexture((*texture)[cur_frame]);
-            sprite.setScale(framesize_, framesize_);
-        }
+        update_frame();
+        sprite.setTexture((*texture)[cur_frame]);
+        sprite.setScale(framesize_x, framesize_y);
     }
 }
 
@@ -66,11 +63,11 @@ void Enemy::move_left_animation()
 {
     if (!shield)
     {
-        move_update(framesize, frames);
+        move_update(framesize, framesize, frames);
     }
     else
     {
-        move_update(framesize, shield_frames);
+        move_update(framesize, framesize, shield_frames);
     }
 }
 
@@ -78,10 +75,10 @@ void Enemy::move_right_animation()
 {
     if (!shield)
     {
-        move_update(-framesize, frames);
+        move_update(-framesize, framesize, frames);
     }
     else
     {
-        move_update(-framesize, shield_frames);
+        move_update(-framesize, framesize, shield_frames);
     }
 }

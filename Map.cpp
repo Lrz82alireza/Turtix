@@ -11,7 +11,7 @@ const char STAR = '*';
 const string GROUNDTXR = "Images/Ground.png";
 const string DIRTTXR = "Images/Dirt.png";
 const string PORTALTXR = "Images/portal.png";
-const string DIEHARDTXR = "Images/Ground.png";
+const string DIEHARDTXR = "Images/shield/dont_set/0.png";
 const string BABYTXR = "Images/boy/0.png";
 const string SHIELDTXR = "Images/shield/dont_set/0.png";
 

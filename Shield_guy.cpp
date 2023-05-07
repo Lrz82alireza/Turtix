@@ -22,14 +22,12 @@ void Shied_guy::set_shield()
     if (shield)
     {
         shield = false;
-        //cout << "set_shield" << endl;
-        sprite.setColor(Color::Green);
+        cout << "set_shield" << endl;
     }
     else
     {
         shield = true;
-        //cout << "not_set_shield" << endl;
-        sprite.setColor(Color::Blue);
+        cout << "not_set_shield" << endl;
     }
     cur_frame = 0;
 }

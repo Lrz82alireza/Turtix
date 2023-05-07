@@ -26,7 +26,7 @@ public:
     void update_frame();
     void move_left_animation();
     void move_right_animation();
-    void move_update(float framesize_ , vector<Texture> *texture);
+    void move_update(float framesize_x , float framesize_y , vector<Texture> *texture);
 
 
     Enemy(string file_name, float enemy_speed_ , int freamnum_ , float framesize_);
