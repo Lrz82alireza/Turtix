@@ -10,7 +10,7 @@ const string GROUNDTXR = "Images/Ground.png";
 const string DIRTTXR = "Images/Dirt.png";
 const string PORTALTXR = "Images/portal.png";
 const string DIEHARDTXR = "Images/Ground.png";
-const string BABYTXR = "Images/Dirt.png";
+const string BABYTXR = "Images/boy/0.png";
 
 float const height = 20.0;
 float const widht = 20.0;
