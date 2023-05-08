@@ -13,8 +13,8 @@ const int STAR_SCORE = 5;
 const float JUMP_SPEED = 6;
 const float GRAVITY_SPEED = 0.5;
 
-const float TIME = 0.01;
-const float SHIELD_TIME = 6.0;
+const float TIME = 0.03;
+const float SHIELD_TIME = 11.0;
 
 void Game::resize_view()
 {
@@ -148,14 +148,12 @@ void Game::default_baby_turtles_movement()
 void Game::default_enemys_movement()
 {
     passed_time += TIME;
-
     // cout << passed_time << endl;
     set_enemys_shield();
 
     for (int i = 0; i < this->game_map.get_enemys().size(); i++)
     {
         Enemy *enemy = &this->game_map.get_enemys()[i];
-
 
         enemy->move(enemy->get_cur_dir().x, enemy->get_cur_dir().y);
         bool is_move_valid = game_map.is_move_valid(enemy->get_sprite(), game_map.get_ground());
@@ -275,7 +273,6 @@ void Game::update()
     this->person_jump(this->player);
     this->view.setCenter(this->player.get_position());
     this->default_events();
-
     this->update_texts();
 }
 
@@ -386,7 +383,7 @@ Game::~Game()
 
 void Game::set_enemys_shield()
 {
-    if ((passed_time) - (SHIELD_TIME) >= 0.0)
+    if (passed_time - SHIELD_TIME >= 0.0)
     {
         for (int i = 0; i < game_map.get_shield_guys().size(); i++)
         {
@@ -394,7 +391,7 @@ void Game::set_enemys_shield()
 
             shield_guy->set_shield();
         }
-        passed_time = 0.0;
+    passed_time = 0.0;
     }
 }
 

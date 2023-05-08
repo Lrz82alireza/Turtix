@@ -6,6 +6,10 @@ int const DIE_HARD_HEALTH = 1;
 const int FRAMENUM = 12;
 const float FRAMESIZE = 0.4;
 
+//float PASSED_TIME = 0.0;
+//float const SHIELD_TIME_HOLD = 8.0;
+//float const SHIELD_TIME = 0.3;
+
 Shield_guy::Shield_guy(string file_name, vector<Texture> *frames_, vector<Texture> *shield_frames_)
     : Enemy(file_name, enemy_speed , FRAMENUM , FRAMESIZE)
 {

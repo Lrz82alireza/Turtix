@@ -1,9 +1,11 @@
 #include "Enemy.hpp"
 
 const int FRAMENUM = 12;
-const float TIME = 0.3;
-const float DELAY = 5.0;
-float delay_time = 0.0;
+
+const float TIME_ANIMATION = 0.3;
+const float DELAY_ANIMATION = 5.0;
+float DELAY_TIME_ANIMATION = 0.0;
+
 
 void Enemy::default_movement(bool is_move_valid, bool is_on_edge)
 {
@@ -88,10 +90,10 @@ void Enemy::move_right_animation()
 
 bool Enemy::delay()
 {
-    delay_time += TIME;
-    if (delay_time - DELAY >= 0.0)
+    DELAY_TIME_ANIMATION += TIME_ANIMATION;
+    if (DELAY_TIME_ANIMATION - DELAY_ANIMATION >= 0.0)
     {
-        delay_time = 0.0;
+        DELAY_TIME_ANIMATION = 0.0;
         return true;
     }
     return false;
