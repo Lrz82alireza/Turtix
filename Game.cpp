@@ -237,7 +237,7 @@ void Game::player_hit_enemy()
     {
         if (this->game_map.did_it_hit(this->player.get_sprite(), *enemys[i]))
         {
-            if (player_bottom < enemys[i]->get_sprite().getGlobalBounds().top)
+            if (player_bottom < enemys[i]->get_sprite().getGlobalBounds().top && !enemys[i]->has_shield())
             {
                 enemys[i]->reduse_health(1);
                 if (!enemys[i]->is_alive())
@@ -340,10 +340,6 @@ void Game::poll_events()
     }
 
     // player movement
-    if (Keyboard::isKeyPressed(Keyboard::W))
-        this->move_person(this->player, 0.f, -1.f);
-    if (Keyboard::isKeyPressed(Keyboard::S))
-        this->move_person(this->player, 0.f, 1.f);
     if (Keyboard::isKeyPressed(Keyboard::A))
     {
         this->move_person(this->player, -1.f, 0.f);
