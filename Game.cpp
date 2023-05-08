@@ -10,7 +10,7 @@ const Vector2f VIEW_SIZE = {400.f, 400.f};
 const int DIAMOND_SCORE = 1;
 const int STAR_SCORE = 5;
 
-const float JUMP_SPEED = 6;
+const float JUMP_SPEED = 6.70;
 const float GRAVITY_SPEED = 0.5;
 
 const float TIME = 0.03;
