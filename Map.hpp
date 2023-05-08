@@ -33,7 +33,7 @@ private:
     Texture *portal_texture;
     VideoMode screen;
     RectangleShape portal;
-    vector<Enemy> enemys;
+    vector<Enemy *> enemys;
     vector<Baby_turtle> baby_turtles;
     vector<Shield_guy *> shieldGuys;
 
@@ -72,7 +72,7 @@ public:
     vector<RectangleShape> &get_stars() { return this->stars; }
     vector<RectangleShape> &get_diamonds() { return this->diamonds; }
     vector<Baby_turtle> &get_Babys() { return this->baby_turtles; }
-    vector<Enemy> &get_enemys();
+    vector<Enemy *> &get_enemys();
     vector<Shield_guy *> &get_shield_guys();
 
     bool is_in_map(Sprite sprite);

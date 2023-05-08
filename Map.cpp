@@ -135,8 +135,8 @@ void MAP::make_portal(float cur_x, float cur_y, Texture *texture)
 
 void MAP::make_die_hard(float cur_x, float cur_y)
 {
-    Die_hard enemy(DIEHARDTXR, &this->die_hard_frames);
-    enemy.to_pos(Vector2f(cur_x, cur_y)); //
+    Die_hard *enemy = new Die_hard(DIEHARDTXR, &this->die_hard_frames);
+    enemy->to_pos(Vector2f(cur_x, cur_y)); //
     enemys.push_back(enemy);
 }
 
@@ -149,11 +149,11 @@ void MAP::make_baby_turtle(float cur_x, float cur_y)
 
 void MAP::make_shield_guy(float cur_x, float cur_y)
 {
-    Shield_guy enemy(SHIELDTXR, &this->Shield_guy_frames, &this->armored_shield_guy_frames);
-    enemy.to_pos(Vector2f(cur_x, cur_y)); 
+    Shield_guy *enemy = new Shield_guy(SHIELDTXR, &this->Shield_guy_frames, &this->armored_shield_guy_frames);
+    enemy->to_pos(Vector2f(cur_x, cur_y)); 
     enemys.push_back(enemy);
     
-    Shield_guy *temp = (Shield_guy *)(&enemys[enemys.size() - 1]);
+    Shield_guy *temp = (Shield_guy *)(enemys[enemys.size() - 1]);
 
     shieldGuys.push_back(temp);
 }
@@ -318,7 +318,7 @@ RectangleShape MAP::get_portal()
     return portal;
 }
 
-vector<Enemy> &MAP::get_enemys()
+vector<Enemy *> &MAP::get_enemys()
 {
     return enemys;
 }

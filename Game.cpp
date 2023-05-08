@@ -153,7 +153,7 @@ void Game::default_enemys_movement()
 
     for (int i = 0; i < this->game_map.get_enemys().size(); i++)
     {
-        Enemy *enemy = &this->game_map.get_enemys()[i];
+        Enemy *enemy = this->game_map.get_enemys()[i];
 
         enemy->move(enemy->get_cur_dir().x, enemy->get_cur_dir().y);
         bool is_move_valid = game_map.is_move_valid(enemy->get_sprite(), game_map.get_ground());
@@ -173,10 +173,10 @@ void Game::default_enemys_movement()
 
 void Game::enemys_gravity_move()
 {
-    vector<Enemy> &enemys = this->game_map.get_enemys();
+    vector<Enemy *> &enemys = this->game_map.get_enemys();
     for (int i = 0; i < enemys.size(); i++)
     {
-        this->gravity_move(enemys[i]);
+        this->gravity_move(*enemys[i]);
     }
 }
 
@@ -231,16 +231,16 @@ void Game::player_hit_enemy()
     float player_bottom = this->player.get_sprite().getGlobalBounds().top +
                           this->player.get_sprite().getGlobalBounds().height - this->player.get_gravity_speed();
 
-    vector<Enemy> &enemys = this->game_map.get_enemys();
+    vector<Enemy *> &enemys = this->game_map.get_enemys();
 
     for (int i = 0; i < enemys.size(); i++)
     {
-        if (this->game_map.did_it_hit(this->player.get_sprite(), enemys[i]))
+        if (this->game_map.did_it_hit(this->player.get_sprite(), *enemys[i]))
         {
-            if (player_bottom < enemys[i].get_sprite().getGlobalBounds().top)
+            if (player_bottom < enemys[i]->get_sprite().getGlobalBounds().top)
             {
-                enemys[i].reduse_health(1);
-                if (!enemys[i].is_alive())
+                enemys[i]->reduse_health(1);
+                if (!enemys[i]->is_alive())
                     enemys.erase(enemys.begin() + i);
 
                 this->player.set_on_earth(false);
@@ -285,10 +285,11 @@ void Game::render()
         this->map_window->draw(ground);
 
     this->map_window->draw(game_map.get_portal());
+
     this->map_window->draw(this->player.get_sprite());
 
     for (auto enemy : game_map.get_enemys())
-        this->map_window->draw(enemy.get_sprite());
+        this->map_window->draw(enemy->get_sprite());
 
     for (auto baby : game_map.get_Babys())
         this->map_window->draw(baby.get_sprite());
@@ -388,10 +389,9 @@ void Game::set_enemys_shield()
         for (int i = 0; i < game_map.get_shield_guys().size(); i++)
         {
             Shield_guy *shield_guy = game_map.get_shield_guys()[i];
-
             shield_guy->set_shield();
         }
-    passed_time = 0.0;
+        passed_time = 0.0;
     }
 }
 
