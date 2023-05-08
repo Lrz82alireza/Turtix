@@ -26,4 +26,5 @@ public:
     void update_frame();
     void move_left_animation();
     void move_right_animation();
+    bool delay();
 };

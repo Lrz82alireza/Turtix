@@ -11,8 +11,8 @@ const Vector2f VIEW_SIZE = {400.f, 400.f};
 const int DIAMOND_SCORE = 1;
 const int STAR_SCORE = 5;
 
-const float JUMP_SPEED = 5;
-const float GRAVITY_SPEED = 0.5;
+const float JUMP_SPEED = 4;
+const float GRAVITY_SPEED = 0.8;
 const float STANDARD_ERROR = 0.f;
 
 const float TIME = 0.03;
@@ -280,6 +280,7 @@ void Game::person_jump(Person &person)
 // Functions
 void Game::update()
 {
+    this->game_map.set_stars_animation();
     this->gravity_action();
     this->poll_events();
     this->person_jump(this->player);
@@ -288,20 +289,26 @@ void Game::update()
     this->player_in_void();
     this->view.setCenter(this->player.get_position());
     this->update_texts();
+    this->game_map.set_portal_animation();
 }
 
 void Game::render()
 {
     this->map_window->clear();
 
+    
     this->map_window->draw(background);
+
+    this->map_window->draw(game_map.get_portal());
 
     for (auto ground : *(game_map.get_ground()))
         this->map_window->draw(ground);
 
-    this->map_window->draw(game_map.get_portal());
 
     this->map_window->draw(this->player.get_sprite());
+
+   for (auto star : game_map.get_stars())
+        this->map_window->draw(star);
 
     for (auto enemy : game_map.get_enemys())
         this->map_window->draw(enemy->get_sprite());
@@ -311,9 +318,6 @@ void Game::render()
 
     for (auto diamond : game_map.get_diamonds())
         this->map_window->draw(diamond);
-
-    for (auto star : game_map.get_stars())
-        this->map_window->draw(star);
 
     this->map_window->setView(view);
 

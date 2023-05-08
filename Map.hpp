@@ -30,7 +30,10 @@ private:
     Texture *star_texture;
     Texture *ground_texture;
     Texture *dirt_texture;
-    Texture *portal_texture;
+
+    Texture *portal0_texture;
+    Texture *portal1_texture;
+
     VideoMode screen;
     RectangleShape portal;
     vector<Enemy *> enemys;
@@ -43,8 +46,13 @@ private:
     vector<Texture> Shield_guy_frames;
     vector<Texture> armored_shield_guy_frames;
     vector<Texture> die_hard_frames;
+    vector<Texture> stars_frames;
+    
+    int cur_stars_frame = 0;
+
     void init_animation_frames(vector<Texture> *frames, string address, int max_frame);
     void init_animations();
+    bool delay();
 
     // Private Functions
     void init_texture();
@@ -80,4 +88,8 @@ public:
     bool did_it_hit(Sprite sprite, Person enemy);
     bool is_move_valid(Sprite sprite, vector<RectangleShape> *shapes); /////////////////////////
     bool is_on_edge(Sprite sprite);
+
+    void set_portal_animation();
+    void set_stars_animation();
+    void update_stars_frame();
 };
