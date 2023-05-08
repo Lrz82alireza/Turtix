@@ -2,7 +2,7 @@
 
 const int FRAMENUM = 12;
 
-const float TIME_ANIMATION = 0.3;
+const float TIME_ANIMATION = 0.4;
 const float DELAY_ANIMATION = 5.0;
 float DELAY_TIME_ANIMATION = 0.0;
 

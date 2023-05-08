@@ -5,6 +5,10 @@ float BABY_TURTLE_SPEED = 1;
 const int FRAMENUM = 17;
 const float FRAMESIZE = 0.3;
 
+const float TIME_ANIMATION = 1.0;
+const float DELAY_ANIMATION = 3.0;
+float DELAY_TIME = 0.0;
+
 Baby_turtle::Baby_turtle(string file_name, vector<Texture> *frames_)
     : Person(file_name, BABY_TURTLE_SPEED)
 {
@@ -51,7 +55,7 @@ void Baby_turtle::update_frame()
 void Baby_turtle::move_left_animation()
 {
     sprite.setScale(FRAMESIZE, FRAMESIZE);
-    if (is_on_earth_())
+    if (is_on_earth_() && delay())
     {
         update_frame();
         sprite.setTexture((*frames)[cur_frame]);
@@ -62,10 +66,21 @@ void Baby_turtle::move_left_animation()
 void Baby_turtle::move_right_animation()
 {
     sprite.setScale(-FRAMESIZE, FRAMESIZE);
-    if (is_on_earth_())
+    if (is_on_earth_() && delay())
     {
         update_frame();
         sprite.setTexture((*frames)[cur_frame]);
         sprite.setScale(-FRAMESIZE, FRAMESIZE);
     }
+}
+
+bool Baby_turtle::delay()
+{
+    DELAY_TIME += TIME_ANIMATION;
+    if (DELAY_TIME - DELAY_ANIMATION >= 0.0)
+    {
+        DELAY_TIME = 0.0;
+        return true;
+    }
+    return false;
 }
