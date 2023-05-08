@@ -260,6 +260,17 @@ void Game::player_hit_enemy()
     }
 }
 
+void Game::player_in_void()
+{
+    if (player.get_sprite().getGlobalBounds().top > this->game_map.get_screen().y + 200)
+    {
+        this->player.reduse_health(1);
+        if (!this->player.is_alive())
+            cout << "player is dead" << endl;
+        this->player.to_pos(this->game_map.get_portal().getPosition());
+    }
+}
+
 void Game::person_jump(Person &person)
 {
     this->move_person(person, 0.f, -person.get_jump_speed());
@@ -274,6 +285,7 @@ void Game::update()
     this->person_jump(this->player);
     this->default_events();
     this->player_hit_event();
+    this->player_in_void();
     this->view.setCenter(this->player.get_position());
     this->update_texts();
 }
@@ -424,7 +436,6 @@ void Game::init_background()
         2.5 * this->game_map.get_screen().y / background.getGlobalBounds().height);
 
     this->background.setOrigin(this->map_window->getSize().x / 2.f, this->map_window->getSize().y / 2.f + 250);
-
 }
 
 void Game::update_texts()

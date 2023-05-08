@@ -61,6 +61,7 @@ private:
     void player_collect_star();
     void player_hit_baby();
     void player_hit_enemy();
+    void player_in_void();
 
     void set_enemys_shield();
 
