@@ -11,11 +11,14 @@ BUILD_DR = build
 all: game.out
 
 
-game.out: ${BUILD_DR}/main.o ${BUILD_DR}/Game.o ${BUILD_DR}/Map.o ${BUILD_DR}/Player.o ${BUILD_DR}/Person.o ${BUILD_DR}/Public_functions.o ${BUILD_DR}/Enemy.o ${BUILD_DR}/Die_hard.o ${BUILD_DR}/Shield_guy.o ${BUILD_DR}/Baby_turtle.o
-	${CC} ${BUILD_DR}/main.o ${BUILD_DR}/Game.o ${BUILD_DR}/Map.o ${BUILD_DR}/Player.o ${BUILD_DR}/Person.o ${BUILD_DR}/Public_functions.o ${BUILD_DR}/Enemy.o ${BUILD_DR}/Die_hard.o ${BUILD_DR}/Shield_guy.o ${BUILD_DR}/Baby_turtle.o ${SF_LIB} -o game
+game.out: ${BUILD_DR}/main.o ${BUILD_DR}/Game.o ${BUILD_DR}/Map.o ${BUILD_DR}/Player.o ${BUILD_DR}/Person.o ${BUILD_DR}/Public_functions.o ${BUILD_DR}/Enemy.o ${BUILD_DR}/Die_hard.o ${BUILD_DR}/Shield_guy.o ${BUILD_DR}/Baby_turtle.o ${BUILD_DR}/Game_manager.o
+	${CC} ${BUILD_DR}/main.o ${BUILD_DR}/Game.o ${BUILD_DR}/Map.o ${BUILD_DR}/Player.o ${BUILD_DR}/Person.o ${BUILD_DR}/Public_functions.o ${BUILD_DR}/Enemy.o ${BUILD_DR}/Die_hard.o ${BUILD_DR}/Shield_guy.o ${BUILD_DR}/Baby_turtle.o ${BUILD_DR}/Game_manager.o ${SF_LIB} -o game
 
-${BUILD_DR}/main.o: main.cpp Game.hpp
+${BUILD_DR}/main.o: main.cpp Game_manager.hpp
 	${CC} -c main.cpp -o ${BUILD_DR}/main.o
+
+${BUILD_DR}/Game_manager.o: Game_manager.cpp Game.hpp
+	${CC} -c Game_manager.cpp -o ${BUILD_DR}/Game_manager.o
 
 ${BUILD_DR}/Game.o: Game.cpp Map.hpp Player.hpp
 	${CC} -c Game.cpp -o ${BUILD_DR}/Game.o
@@ -43,6 +46,8 @@ ${BUILD_DR}/Shield_guy.o: Shield_guy.cpp Enemy.hpp
 
 ${BUILD_DR}/Baby_turtle.o: Baby_turtle.cpp Person.hpp
 	${CC} -c Baby_turtle.cpp -o ${BUILD_DR}/Baby_turtle.o
+
+
 
 clean:
 	rm -rf build/ && mkdir -p build

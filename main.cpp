@@ -1,4 +1,4 @@
-#include "Game.hpp"
+#include "Game_manager.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -7,18 +7,22 @@ using namespace sf;
 int main()
 {
 
-    Game game("input.txt");
 
-    // game loop
-    while (game.running())
-    {
-        // update
-        game.update();
-
-        // render
-        game.render();
-    }
+    Game_manager manager;
+    manager.run();
     // cout << "s" << endl;
+
+    // Game game("input.txt");
+
+    // // game loop
+    // while (game.running())
+    // {
+    //     // update
+    //     game.update();
+
+    //     // render
+    //     game.render();
+    // }
 
     return 0;
 }
