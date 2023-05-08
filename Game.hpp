@@ -25,6 +25,8 @@ private:
     const int cooldownDuration = 300; // milliseconds
 
     // Resources
+    Texture *bg_texture;
+    Sprite background;
     Font font;
     MAP game_map;
     Player player;
@@ -43,6 +45,7 @@ private:
     void init_view();
     void init_texts();
     void init_font();
+    void init_background();
 
     void move_person(Person &person, float dir_x, float dir_y);
     void gravity_action();
@@ -58,6 +61,7 @@ private:
     void player_collect_star();
     void player_hit_baby();
     void player_hit_enemy();
+    void player_in_void();
 
     void set_enemys_shield();
 

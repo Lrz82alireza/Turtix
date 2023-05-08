@@ -1,6 +1,7 @@
 #include "Game.hpp"
 
 const String LOBBY_FONT = "Fonts/AmaticSC-Regular.ttf";
+const string BACKGROUND_IM = "Images/background/mainbg.png";
 
 const int WIDTH = 1000;
 const int HEIGHT = 1000;
@@ -10,8 +11,13 @@ const Vector2f VIEW_SIZE = {400.f, 400.f};
 const int DIAMOND_SCORE = 1;
 const int STAR_SCORE = 5;
 
+<<<<<<< HEAD
 const float JUMP_SPEED = 6.70;
+=======
+const float JUMP_SPEED = 5;
+>>>>>>> 2cae5ae00293dcb8cc7a782e8183e8b9abcafa77
 const float GRAVITY_SPEED = 0.5;
+const float STANDARD_ERROR = 0.f;
 
 const float TIME = 0.03;
 const float SHIELD_TIME = 11.0;
@@ -25,7 +31,7 @@ void Game::resize_view()
 // Initialise Functions
 void Game::init_map_window()
 {
-    // this->map_window = new RenderWindow(this->game_map.get_screen(), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
+    // this->map_window = new RenderWindow(VideoMode(this->game_map.get_screen().x, this->game_map.get_screen().y), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
     this->map_window = new RenderWindow(VideoMode(1000, 1000), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
 
     this->map_window->setFramerateLimit(LIMIT_FPS);
@@ -237,7 +243,7 @@ void Game::player_hit_enemy()
     {
         if (this->game_map.did_it_hit(this->player.get_sprite(), *enemys[i]))
         {
-            if (player_bottom < enemys[i]->get_sprite().getGlobalBounds().top && !enemys[i]->has_shield())
+            if (player_bottom - this->player.get_gravity_speed() <= enemys[i]->get_sprite().getGlobalBounds().top + STANDARD_ERROR && !enemys[i]->has_shield())
             {
                 enemys[i]->reduse_health(1);
                 if (!enemys[i]->is_alive())
@@ -258,6 +264,17 @@ void Game::player_hit_enemy()
     }
 }
 
+void Game::player_in_void()
+{
+    if (player.get_sprite().getGlobalBounds().top > this->game_map.get_screen().y + 200)
+    {
+        this->player.reduse_health(1);
+        if (!this->player.is_alive())
+            cout << "player is dead" << endl;
+        this->player.to_pos(this->game_map.get_portal().getPosition());
+    }
+}
+
 void Game::person_jump(Person &person)
 {
     this->move_person(person, 0.f, -person.get_jump_speed());
@@ -268,18 +285,20 @@ void Game::person_jump(Person &person)
 void Game::update()
 {
     this->gravity_action();
-    this->player_hit_event();
     this->poll_events();
     this->person_jump(this->player);
-    this->view.setCenter(this->player.get_position());
     this->default_events();
+    this->player_hit_event();
+    this->player_in_void();
+    this->view.setCenter(this->player.get_position());
     this->update_texts();
 }
 
 void Game::render()
 {
-
     this->map_window->clear();
+
+    this->map_window->draw(background);
 
     for (auto ground : *(game_map.get_ground()))
         this->map_window->draw(ground);
@@ -367,6 +386,7 @@ Game::Game(string map_name)
     this->init_view();
     this->init_font();
     this->init_texts();
+    this->init_background();
 }
 
 Game::Game()
@@ -405,6 +425,21 @@ void Game::init_font()
 {
     if (!this->font.loadFromFile(LOBBY_FONT))
         cout << "ERROR: FAILED TO LOAD FONTS" << endl;
+}
+
+void Game::init_background()
+{
+    this->bg_texture = new Texture;
+    if (!bg_texture->loadFromFile(BACKGROUND_IM))
+        cout << "aaaaaaaahhhhhhhhhhhhhh" << endl;
+
+    this->background.setTexture(*bg_texture);
+
+    background.setScale(
+        1.5 * this->game_map.get_screen().x / background.getGlobalBounds().width,
+        2.5 * this->game_map.get_screen().y / background.getGlobalBounds().height);
+
+    this->background.setOrigin(this->map_window->getSize().x / 2.f, this->map_window->getSize().y / 2.f + 250);
 }
 
 void Game::update_texts()

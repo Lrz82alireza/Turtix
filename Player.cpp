@@ -1,7 +1,7 @@
 #include "Player.hpp"
 
 const String PLAYER_TEXTURE = "Images/player/0.png";
-const float PLAYER_SPEED = 1.5;
+const float PLAYER_SPEED = 1.8;
 const int HEALTH = 3;
 
 const int FRAMENUM = 16;
