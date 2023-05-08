@@ -152,7 +152,6 @@ void Game::default_enemys_movement()
     // cout << passed_time << endl;
     //set_enemys_shield();
 
-
     for (int i = 0; i < this->game_map.get_enemys().size(); i++)
     {
         Enemy *enemy = &this->game_map.get_enemys()[i];
