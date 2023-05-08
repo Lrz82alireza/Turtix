@@ -7,13 +7,9 @@
 
 class Enemy : public Person
 {
-
-private:
-
 protected:
     Vector2f cur_dir; // some random dir OR a const
     bool shield;
-    
     //animation fields
     vector<Texture> *frames;
     vector<Texture> *shield_frames;
@@ -31,7 +27,7 @@ public:
     void move_left_animation();
     void move_right_animation();
     void move_update(float framesize_x , float framesize_y , vector<Texture> *texture);
-
+    bool delay();
 
     Enemy(string file_name, float enemy_speed_ , int freamnum_ , float framesize_);
     ~Enemy();

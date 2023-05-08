@@ -35,13 +35,14 @@ private:
     RectangleShape portal;
     vector<Enemy> enemys;
     vector<Baby_turtle> baby_turtles;
-    vector<Shield_guy> shildGuys;
+    vector<Shield_guy *> shieldGuys;
 
     // animation fields
     vector<Texture> baby_frames;
 
     vector<Texture> Shield_guy_frames;
     vector<Texture> armored_shield_guy_frames;
+    vector<Texture> die_hard_frames;
     void init_animation_frames(vector<Texture> *frames, string address, int max_frame);
     void init_animations();
 
@@ -72,7 +73,7 @@ public:
     vector<RectangleShape> &get_diamonds() { return this->diamonds; }
     vector<Baby_turtle> &get_Babys() { return this->baby_turtles; }
     vector<Enemy> &get_enemys();
-    vector<Shield_guy> &get_shield_guys();
+    vector<Shield_guy *> &get_shield_guys();
 
     bool is_in_map(Sprite sprite);
     bool is_intersected(Sprite thing, RectangleShape shapes);

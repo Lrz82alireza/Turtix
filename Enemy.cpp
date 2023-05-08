@@ -1,6 +1,9 @@
 #include "Enemy.hpp"
 
 const int FRAMENUM = 12;
+const float TIME = 0.3;
+const float DELAY = 5.0;
+float delay_time = 0.0;
 
 void Enemy::default_movement(bool is_move_valid, bool is_on_edge)
 {
@@ -51,7 +54,7 @@ void Enemy::update_frame()
 void Enemy::move_update(float framesize_x, float framesize_y, vector<Texture> *texture)
 {
     sprite.setScale(framesize_x, framesize_y);
-    if (is_on_earth_())
+    if (is_on_earth_() && delay())
     {
         update_frame();
         sprite.setTexture((*texture)[cur_frame]);
@@ -81,4 +84,15 @@ void Enemy::move_right_animation()
     {
         move_update(-framesize, framesize, shield_frames);
     }
+}
+
+bool Enemy::delay()
+{
+    delay_time += TIME;
+    if (delay_time - DELAY >= 0.0)
+    {
+        delay_time = 0.0;
+        return true;
+    }
+    return false;
 }

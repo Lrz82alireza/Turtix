@@ -22,12 +22,10 @@ void Shield_guy::set_shield()
     if (shield)
     {
         shield = false;
-        cout << "set_shield" << endl;
     }
     else
     {
         shield = true;
-        cout << "not_set_shield" << endl;
     }
     cur_frame = 0;
 }

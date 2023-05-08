@@ -13,7 +13,7 @@ const string DIAMONDTXR = "Images/diamond.png";
 const string STARTXR = "Images/star.png";
 const string DIRTTXR = "Images/Dirt.png";
 const string PORTALTXR = "Images/portal.png";
-const string DIEHARDTXR = "Images/shield/dont_set/0.png";
+const string DIEHARDTXR = "Images/normal/0.png";
 const string BABYTXR = "Images/boy/0.png";
 const string SHIELDTXR = "Images/shield/dont_set/0.png";
 
@@ -21,11 +21,14 @@ const string SHIELDTXR = "Images/shield/dont_set/0.png";
 const String BABY_FRAMES_ADDRESS = "Images/boy/";
 const int BABY_FRAMENUM = 17;
 
-const String SHIELD_GUY_FRAMES_ADDRESS = "Images/shield/set/";
+const String SHIELD_GUY_FRAMES_ADDRESS = "Images/shield/dont_set/";
 const int SHIELD_GUY_FRAMENUM = 12;
 
-const String ARMORED_SHIELD_GUY_FRAMES_ADDRESS = "Images/shield/dont_set/";
+const String ARMORED_SHIELD_GUY_FRAMES_ADDRESS = "Images/shield/set/";
 const int ARMORED_SHIELD_GUY_FRAMENUM = 12;
+
+const String DIE_HARD_FRAMES_ADDRESS = "Images/normal/";
+const int DIE_HARD_FRAMENUM = 6;
 
 float const height = 20.0;
 float const widht = 20.0;
@@ -74,6 +77,7 @@ void MAP::init_animations()
     init_animation_frames(&this->baby_frames, BABY_FRAMES_ADDRESS, BABY_FRAMENUM);
     init_animation_frames(&this->Shield_guy_frames, SHIELD_GUY_FRAMES_ADDRESS, SHIELD_GUY_FRAMENUM);
     init_animation_frames(&this->armored_shield_guy_frames, ARMORED_SHIELD_GUY_FRAMES_ADDRESS, ARMORED_SHIELD_GUY_FRAMENUM);
+    init_animation_frames(&this->die_hard_frames , DIE_HARD_FRAMES_ADDRESS , DIE_HARD_FRAMENUM);
 }
 
 // Functions
@@ -131,7 +135,7 @@ void MAP::make_portal(float cur_x, float cur_y, Texture *texture)
 
 void MAP::make_die_hard(float cur_x, float cur_y)
 {
-    Die_hard enemy(DIEHARDTXR, &this->Shield_guy_frames);
+    Die_hard enemy(DIEHARDTXR, &this->die_hard_frames);
     enemy.to_pos(Vector2f(cur_x, cur_y)); //
     enemys.push_back(enemy);
 }
@@ -146,9 +150,12 @@ void MAP::make_baby_turtle(float cur_x, float cur_y)
 void MAP::make_shield_guy(float cur_x, float cur_y)
 {
     Shield_guy enemy(SHIELDTXR, &this->Shield_guy_frames, &this->armored_shield_guy_frames);
-    enemy.to_pos(Vector2f(cur_x, cur_y)); //
-    shildGuys.push_back(enemy);
+    enemy.to_pos(Vector2f(cur_x, cur_y)); 
     enemys.push_back(enemy);
+    
+    Shield_guy *temp = (Shield_guy *)(&enemys[enemys.size() - 1]);
+
+    shieldGuys.push_back(temp);
 }
 
 void MAP::make_texture(char c, float &cur_x, float &cur_y)
@@ -316,7 +323,7 @@ vector<Enemy> &MAP::get_enemys()
     return enemys;
 }
 
-vector<Shield_guy>& MAP::get_shield_guys()
+vector<Shield_guy *> &MAP::get_shield_guys()
 {
-    return shildGuys;
+    return shieldGuys;
 }
