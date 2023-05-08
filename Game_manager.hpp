@@ -27,6 +27,7 @@ enum PAUSE
 class Game_manager
 {
 private:
+public:
     Mouse mouse;
     Vector2f mous_pos;
     Event event;
@@ -71,7 +72,7 @@ private:
     int get_window_event(vector<RectangleShape> &options);
     void get_mous_pos(RenderWindow &window);
     void render_window(RenderWindow &Window, vector<RectangleShape> &options, Sprite &bg);
-public:
+    /////////////
     Game_manager();
 
     void run();
