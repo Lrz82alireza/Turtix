@@ -11,7 +11,7 @@
 using namespace sf;
 using namespace std;
 
-const float GRAVITY_ACCELERATION = 0.1;
+const float GRAVITY_ACCELERATION = 0.05;
 
 class Person
 {

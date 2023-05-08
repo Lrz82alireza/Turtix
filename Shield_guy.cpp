@@ -4,7 +4,7 @@ float const enemy_speed = 1.0;
 int const DIE_HARD_HEALTH = 1;
 
 const int FRAMENUM = 12;
-const float FRAMESIZE = 0.4;
+const float FRAMESIZE = 0.5;
 
 //float PASSED_TIME = 0.0;
 //float const SHIELD_TIME_HOLD = 8.0;
