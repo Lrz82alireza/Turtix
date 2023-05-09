@@ -260,7 +260,10 @@ void Game::player_hit_enemy()
                 this->player.reduse_health(1);
                 if (!this->player.is_alive())
                     cout << "player is dead" << endl;
-                this->player.to_pos(this->game_map.get_portal().getPosition());
+                Vector2f loc;
+                loc.x = this->game_map.get_portal().getPosition().x + this->game_map.get_portal().getGlobalBounds().width/2;
+                loc.y = this->game_map.get_portal().getPosition().y + this->game_map.get_portal().getGlobalBounds().height/2;
+                this->player.to_pos(loc);
             }
         }
     }
