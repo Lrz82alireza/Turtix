@@ -27,15 +27,14 @@ enum PAUSE
 class Game_manager
 {
 private:
-    Mouse mouse;
     Vector2f mous_pos;
     Event event;
     string cur_map;
     Game *game;
 
     bool mous_held = false;
-
-    RenderWindow *lobby_window;
+    
+    bool in_program = true;
 
     Texture *bg_texture;
     Sprite background;
@@ -44,9 +43,11 @@ private:
     Texture *option_txr;
     void init_option();
 
+    RenderWindow *lobby_window;
+
     // lobby
     void lobby();
-    bool lobby_running = false;
+    bool lobby_running = true;
     vector<RectangleShape> lobby_options;
     void init_lobby();
 
@@ -54,14 +55,16 @@ private:
     void map_selection();
     bool map_selection_running = false;
     vector<RectangleShape> map_selection_options;
+    vector<string> maps;
     void init_map_selection();
 
-    vector<string> maps;
+
+    void game_run();
+    bool in_game = false;
 
     // pause
     void pause();
-    bool in_game = false;
-    bool is_pause = true;
+    bool is_pause = false;
     vector<RectangleShape> pause_options;
     void init_pause();
 
@@ -71,9 +74,14 @@ private:
     int get_window_event(vector<RectangleShape> &options);
     void get_mous_pos(RenderWindow &window);
     void render_window(RenderWindow &Window, vector<RectangleShape> &options, Sprite &bg);
+    void run_lobby();
+    void run_map_selection();
+    void poll_event();
 public:
     /////////////
     Game_manager();
+    void render();
+    void update();
 
     void run();
 };

@@ -33,7 +33,7 @@ private:
     vector<Text> texts;
 
     // Window
-    RenderWindow *map_window;
+    RenderWindow *map_window = NULL;
     View view;
     Event event;
     void resize_view();
@@ -76,6 +76,7 @@ public:
     // Accessors
 
     // void close();
+    void run_game();
     bool running();
 
     // Functions
