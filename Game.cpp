@@ -434,6 +434,8 @@ void Game::init_texts()
     {
         Text temp;
         temp.setFont(this->font);
+        temp.setColor(Color(0, 24, 89));
+        temp.setStyle(Text::Style::Bold);
         texts.push_back(temp);
     }
 }

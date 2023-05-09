@@ -29,36 +29,6 @@ void Game_manager::run()
         this->update();
         this->render();
     }
-    // this->lobby_running = true;
-    // while (this->lobby_window->isOpen())
-    // {
-    //     this->lobby();
-    //     this->render_window(*lobby_window, lobby_options, background);
-    //     while (this->map_selection_running)
-    //     {
-
-    //         this->map_selection();
-    //         this->render_window(*lobby_window, map_selection_options, background);
-    //         // while (this->in_game)
-    //         // {
-    //         //         // game loop
-    //         //         while (game.running())
-    //         //         {
-    //         //             // update
-    //         //             game.update();
-
-    //         //             // render
-    //         //             game.render();
-    //         //         }
-
-    //         //         while (this->is_pause)
-    //         //         {
-    //         //             pause();
-    //         //             this->render_window(pause_window, pause_options, background);
-    //         //         }
-    //         //     }
-    //     }
-    // }
 }
 
 void Game_manager::get_mous_pos(RenderWindow &window)
@@ -67,7 +37,7 @@ void Game_manager::get_mous_pos(RenderWindow &window)
     mous_pos = window.mapPixelToCoords(mous_pos_i);
 }
 
-void Game_manager::render_window(RenderWindow &Window, vector<RectangleShape> &options, Sprite &bg)
+void Game_manager::render_window(RenderWindow &Window, vector<RectangleShape> &options, Sprite &bg, vector<Text> &texts)
 {
     Window.clear();
 
@@ -76,25 +46,10 @@ void Game_manager::render_window(RenderWindow &Window, vector<RectangleShape> &o
     for (auto i : options)
         Window.draw(i);
 
+    for (auto i : texts)
+        Window.draw(i);
+
     Window.display();
-}
-
-void Game_manager::run_lobby()
-{
-    while (this->lobby_running)
-    {
-        this->lobby();
-        this->render_window(*lobby_window, lobby_options, background);
-    }
-}
-
-void Game_manager::run_map_selection()
-{
-    while (this->map_selection_running)
-    {
-        this->map_selection();
-        this->render_window(*lobby_window, map_selection_options, background);
-    }
 }
 
 void Game_manager::poll_event()
@@ -114,27 +69,22 @@ void Game_manager::poll_event()
 void Game_manager::render()
 {
     this->lobby_window->clear();
-    
+
     if (this->lobby_running)
     {
-        this->render_window(*lobby_window, lobby_options, background);
-        cout << lobby_texts[0]->getString().toAnsiString() << endl;
-        return;
-        state = LOBBY;
+        this->render_window(*lobby_window, lobby_options, background, lobby_texts);
     }
 
     if (this->map_selection_running)
     {
-        this->render_window(*lobby_window, map_selection_options, background);
-        state = LEVEL;
+        this->render_window(*lobby_window, map_selection_options, background, level_texts);
     }
 
     if (this->is_pause)
     {
-        this->render_window(*lobby_window, pause_options, background);
-        state = PAUSE;
+        this->render_window(*lobby_window, pause_options, background, pause_texts);
     }
-    
+
     this->lobby_window->display();
 }
 
@@ -447,16 +397,19 @@ void Game_manager::init_font()
     }
 }
 
-void init_texts_(vector<string> s, vector<Text*> &t, vector<RectangleShape> &shape, Font font)
+void init_texts_(vector<string> s, vector<Text> &t, vector<RectangleShape> &shape, Font &font)
 {
     for (int i = 0; i < s.size(); i++)
     {
-        Text* tmp = new Text(s[i], font);
-        tmp->setOrigin(tmp->getLocalBounds().width / 2, tmp->getLocalBounds().height / 2);
+        Text tmp(s[i], font);
+        tmp.setOrigin(tmp.getGlobalBounds().width / 2, tmp.getGlobalBounds().height / 2);
         Vector2f loc;
-        loc.x = shape[i].getPosition().x;
-        loc.y = shape[i].getPosition().y;
-        tmp->setPosition(loc);
+        loc.x = shape[i].getGlobalBounds().left + shape[i].getGlobalBounds().width / 2;
+        loc.y = shape[i].getGlobalBounds().top + shape[i].getGlobalBounds().height / 3;
+        tmp.setPosition(loc);
+        tmp.setStyle(Text::Style::Bold);
+        tmp.setColor(Color(0, 24, 89));
+        tmp.setCharacterSize(45);
         // color set here
         t.push_back(tmp);
     }
@@ -470,8 +423,7 @@ void Game_manager::init_texts()
 
     vector<string> map = {"Level 1", "Level 2", "Return"};
     init_texts_(map, level_texts, map_selection_options, menu_font);
-    
-    vector<string> pause = {"resume", "return"};
-    init_texts_(pause, pause_texts , pause_options, menu_font);
 
+    vector<string> pause = {"resume", "return"};
+    init_texts_(pause, pause_texts, pause_options, menu_font);
 }
