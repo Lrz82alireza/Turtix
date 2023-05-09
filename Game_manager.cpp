@@ -2,6 +2,7 @@
 
 const string BACKGROUND_IM = "Images/background/lobbybg.png";
 const string BUTTON_IM = "Images/background/button.png";
+const string PRESSED_BUTTON_IM = "Images/background/pressed_button.png";
 
 const string MAP_ADDRESS = "input.txt";
 
@@ -138,7 +139,6 @@ void Game_manager::update()
 
     if (this->is_pause)
         this->pause();
-    
 }
 
 int Game_manager::get_window_event(vector<RectangleShape> &options)
@@ -190,6 +190,23 @@ void Game_manager::init_option()
     option_txr = new Texture;
     if (!option_txr->loadFromFile(BUTTON_IM))
         cout << "game manager init option" << endl;
+
+    pressed_option_txr = new Texture;
+    if (!pressed_option_txr->loadFromFile(PRESSED_BUTTON_IM))
+        cout << "game manager init option" << endl;
+}
+
+void Game_manager::to_pressed_txr(RectangleShape &shape)
+{
+    shape.setTexture(this->pressed_option_txr);
+}
+
+void Game_manager::to_normal_txr(vector<RectangleShape> &shapes)
+{
+    for (int i = 0; i < shapes.size(); i++)
+    {
+        shapes[i].setTexture(this->option_txr);
+    }
 }
 
 // lobby
@@ -202,6 +219,7 @@ void Game_manager::lobby()
     {
     case START:
         // check click mouse
+        to_pressed_txr(this->lobby_options[START]);
         if (!this->mous_held)
         {
             if (Mouse::isButtonPressed(Mouse::Left))
@@ -209,22 +227,26 @@ void Game_manager::lobby()
                 this->lobby_running = false;
                 this->map_selection_running = true;
                 this->mous_held = true;
-                break;
             }
         }
+        break;
     case EXIT_LOBBY:
         // check click mouse
+        to_pressed_txr(this->lobby_options[EXIT_LOBBY]);
         if (!this->mous_held)
         {
             if (Mouse::isButtonPressed(Mouse::Left))
             {
-                this->in_program= false;
+                this->in_program = false;
                 this->lobby_running = false;
                 this->lobby_window->close();
                 this->mous_held = true;
-                break;
             }
         }
+        break;
+    case NOTHING_CLICKED:
+        this->to_normal_txr(this->lobby_options);
+        break;
     }
     if (Mouse::isButtonPressed(Mouse::Left))
         this->mous_held = true;
@@ -259,6 +281,7 @@ void Game_manager::map_selection()
     {
     case MAP_1:
         // check click mouse
+        to_pressed_txr(this->map_selection_options[MAP_1]);
         if (!this->mous_held)
         {
             if (Mouse::isButtonPressed(Mouse::Left))
@@ -270,12 +293,13 @@ void Game_manager::map_selection()
                 game = new Game(cur_map);
 
                 this->mous_held = true;
-                break;
             }
         }
+        break;
 
     case MAP_2:
         // check click mouse
+        to_pressed_txr(this->map_selection_options[MAP_2]);
         if (!this->mous_held)
         {
             if (Mouse::isButtonPressed(Mouse::Left))
@@ -285,12 +309,13 @@ void Game_manager::map_selection()
                 this->in_game = true;
                 game = new Game(cur_map);
                 this->mous_held = true;
-                break;
             }
         }
+        break;
 
     case RETURN_MAP_SELECTION:
         // check click mouse
+        to_pressed_txr(this->map_selection_options[RETURN_MAP_SELECTION]);
         if (!this->mous_held)
         {
             if (Mouse::isButtonPressed(Mouse::Left))
@@ -298,9 +323,13 @@ void Game_manager::map_selection()
                 this->lobby_running = true;
                 this->map_selection_running = false;
                 this->mous_held = true;
-                break;
             }
         }
+        break;
+        
+    case NOTHING_CLICKED:
+        this->to_normal_txr(this->map_selection_options);
+        break;
     }
 
     if (Mouse::isButtonPressed(Mouse::Left))
@@ -361,6 +390,7 @@ void Game_manager::pause()
     {
     case RESUME:
         // check click mouse
+        to_pressed_txr(this->pause_options[RESUME]);
         if (!this->mous_held)
         {
             if (Mouse::isButtonPressed(Mouse::Left))
@@ -373,6 +403,7 @@ void Game_manager::pause()
 
     case EXIT_GAME:
         // check click mouse
+        to_pressed_txr(this->pause_options[EXIT_GAME]);
         if (!this->mous_held)
         {
             if (Mouse::isButtonPressed(Mouse::Left))
@@ -383,6 +414,9 @@ void Game_manager::pause()
                 delete (this->game);
             }
         }
+        break;
+    case NOTHING_CLICKED:
+        this->to_normal_txr(this->pause_options);
         break;
     }
     if (Mouse::isButtonPressed(Mouse::Left))

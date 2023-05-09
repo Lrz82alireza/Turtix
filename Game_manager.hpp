@@ -33,7 +33,7 @@ private:
     Game *game;
 
     bool mous_held = false;
-    
+
     bool in_program = true;
 
     Texture *bg_texture;
@@ -41,7 +41,10 @@ private:
     void init_background();
     
     Texture *option_txr;
+    Texture *pressed_option_txr;
     void init_option();
+    void to_pressed_txr(RectangleShape &shape);
+    void to_normal_txr(vector<RectangleShape> &shapes);
 
     RenderWindow *lobby_window;
 
