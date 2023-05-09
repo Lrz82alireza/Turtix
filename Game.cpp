@@ -296,7 +296,6 @@ void Game::render()
 {
     this->map_window->clear();
 
-    
     this->map_window->draw(background);
 
     this->map_window->draw(game_map.get_portal());
@@ -304,10 +303,9 @@ void Game::render()
     for (auto ground : *(game_map.get_ground()))
         this->map_window->draw(ground);
 
-
     this->map_window->draw(this->player.get_sprite());
 
-   for (auto star : game_map.get_stars())
+    for (auto star : game_map.get_stars())
         this->map_window->draw(star);
 
     for (auto enemy : game_map.get_enemys())
@@ -368,6 +366,16 @@ void Game::poll_events()
     {
         this->move_person(this->player, 1.f, 0.f);
         player.move_right_animation();
+    }
+}
+
+void Game::run_game()
+{
+    cout << this->map_window << endl;
+    if (!this->map_window->isOpen())
+    {
+        this->map_window->create(VideoMode(1000, 1000), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
+        this->map_window->setFramerateLimit(LIMIT_FPS);
     }
 }
 
