@@ -371,7 +371,6 @@ void Game::poll_events()
 
 void Game::run_game()
 {
-    cout << this->map_window << endl;
     if (!this->map_window->isOpen())
     {
         this->map_window->create(VideoMode(1000, 1000), "Game 1", Style::Close | Style::Titlebar | Style::Resize);
