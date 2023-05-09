@@ -6,6 +6,8 @@ const string PRESSED_BUTTON_IM = "Images/background/pressed_button.png";
 
 const string MAP_ADDRESS = "input.txt";
 
+const string FONT_ADDRESS = "Fonts/Amatic-Bold.ttf";
+
 const float OPTION_DISTANCE = 200;
 
 Game_manager::Game_manager()
@@ -16,6 +18,7 @@ Game_manager::Game_manager()
     this->init_lobby();
     this->init_map_selection();
     this->init_pause();
+    this->init_texts();
 }
 
 void Game_manager::run()
@@ -73,6 +76,7 @@ void Game_manager::render_window(RenderWindow &Window, vector<RectangleShape> &o
     for (auto i : options)
         Window.draw(i);
 
+    
     Window.display();
 }
 
@@ -111,16 +115,25 @@ void Game_manager::poll_event()
 void Game_manager::render()
 {
     this->lobby_window->clear();
-
+    
     if (this->lobby_running)
+    {
         this->render_window(*lobby_window, lobby_options, background);
+        state = LOBBY;
+    }
 
     if (this->map_selection_running)
+    {
         this->render_window(*lobby_window, map_selection_options, background);
+        state = LEVEL;
+    }
 
     if (this->is_pause)
+    {
         this->render_window(*lobby_window, pause_options, background);
-
+        state = PAUSE;
+    }
+    
     this->lobby_window->display();
 }
 
@@ -326,7 +339,7 @@ void Game_manager::map_selection()
             }
         }
         break;
-        
+
     case NOTHING_CLICKED:
         this->to_normal_txr(this->map_selection_options);
         break;
@@ -423,4 +436,40 @@ void Game_manager::pause()
         this->mous_held = true;
     else
         this->mous_held = false;
+}
+
+void Game_manager::init_font()
+{
+    if (!menu_font.loadFromFile(FONT_ADDRESS))
+    {
+        cout << "did not find the font" << endl;
+    }
+}
+
+void init_texts_(vector<string> s, vector<Text*> &t, vector<RectangleShape> &shape, Font font)
+{
+    for (int i = 0; i < s.size(); i++)
+    {
+        Text* tmp = new Text(s[i], font);
+        tmp->setOrigin(tmp->getLocalBounds().width / 2, tmp->getLocalBounds().height / 2);
+        Vector2f loc;
+        loc.x = shape[i].getPosition().x;
+        loc.y = shape[i].getPosition().y;
+        tmp->setPosition(loc);
+        // color set here
+        t.push_back(tmp);
+    }
+}
+
+void Game_manager::init_texts()
+{
+    init_font();
+    vector<string> lobby = {"Levels", "Exit"};
+    init_texts_(lobby, lobby_texts, lobby_options, menu_font);
+
+    vector<string> map = {"Level 1", "Level 2", "Return"};
+    init_texts_(map, level_texts, map_selection_options, menu_font);
+    
+    vector<string> pause = {"resume", "return"};
+    init_texts_(pause, pause_texts , pause_options, menu_font);
 }
