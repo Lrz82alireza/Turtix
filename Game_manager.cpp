@@ -76,7 +76,6 @@ void Game_manager::render_window(RenderWindow &Window, vector<RectangleShape> &o
     for (auto i : options)
         Window.draw(i);
 
-    
     Window.display();
 }
 
@@ -119,6 +118,8 @@ void Game_manager::render()
     if (this->lobby_running)
     {
         this->render_window(*lobby_window, lobby_options, background);
+        cout << lobby_texts[0]->getString().toAnsiString() << endl;
+        return;
         state = LOBBY;
     }
 
@@ -472,4 +473,5 @@ void Game_manager::init_texts()
     
     vector<string> pause = {"resume", "return"};
     init_texts_(pause, pause_texts , pause_options, menu_font);
+
 }
