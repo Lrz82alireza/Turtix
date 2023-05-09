@@ -24,6 +24,13 @@ enum PAUSE
     EXIT_GAME
 };
 
+enum STATE
+{
+    LOBBY,
+    LEVEL,
+    PAUSE
+};
+
 class Game_manager
 {
 private:
@@ -61,6 +68,13 @@ private:
     vector<string> maps;
     void init_map_selection();
 
+    Font menu_font;
+    void init_font();
+    vector <Text*> lobby_texts;
+    vector <Text*> level_texts;
+    vector <Text*> pause_texts;
+    int state;
+    void init_texts();
 
     void game_run();
     bool in_game = false;
@@ -80,6 +94,7 @@ private:
     void run_lobby();
     void run_map_selection();
     void poll_event();
+
 public:
     /////////////
     Game_manager();

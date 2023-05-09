@@ -125,7 +125,9 @@ void Game::default_baby_turtles_movement()
     {
         if (this->game_map.is_intersected(this->game_map.get_Babys()[i].get_sprite(), this->game_map.get_portal()))
         {
-            this->game_map.get_Babys().erase(this->game_map.get_Babys().begin() + i);
+            if (this->game_map.get_Babys()[i].get_sprite().getPosition().x == this->game_map.get_portal().getPosition().x +
+                                                                                  this->game_map.get_portal().getGlobalBounds().width / 2)
+                this->game_map.get_Babys().erase(this->game_map.get_Babys().begin() + i);
         }
         Baby_turtle *baby = &this->game_map.get_Babys()[i];
 
@@ -258,7 +260,10 @@ void Game::player_hit_enemy()
                 this->player.reduse_health(1);
                 if (!this->player.is_alive())
                     cout << "player is dead" << endl;
-                this->player.to_pos(this->game_map.get_portal().getPosition());
+                Vector2f loc;
+                loc.x = this->game_map.get_portal().getPosition().x + this->game_map.get_portal().getGlobalBounds().width/2;
+                loc.y = this->game_map.get_portal().getPosition().y + this->game_map.get_portal().getGlobalBounds().height/2;
+                this->player.to_pos(loc);
             }
         }
     }
@@ -443,7 +448,7 @@ void Game::init_background()
 {
     this->bg_texture = new Texture;
     if (!bg_texture->loadFromFile(BACKGROUND_IM))
-        cout << "aaaaaaaahhhhhhhhhhhhhh" << endl;
+        cout << "did not find background!" << endl;
 
     this->background.setTexture(*bg_texture);
 
