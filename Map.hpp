@@ -42,17 +42,24 @@ private:
 
     // animation fields
     vector<Texture> baby_frames;
+    vector<Texture> notfree_baby_frames;
 
     vector<Texture> Shield_guy_frames;
     vector<Texture> armored_shield_guy_frames;
     vector<Texture> die_hard_frames;
     vector<Texture> stars_frames;
+    vector<Texture> diamonds_frames;
     
     int cur_stars_frame = 0;
+    int cur_diamonds_frame = 0;
 
+    float PORTAL_DELAY_TIME_ANIMATION = 0.0;
+    float STARS_DELAY_TIME_ANIMATION = 0.0;
+    float DIAMONDS_DELAY_TIME_ANIMATION = 0.0;
+    
     void init_animation_frames(vector<Texture> *frames, string address, int max_frame);
     void init_animations();
-    bool delay();
+    bool delay(float &delay_time);
 
     // Private Functions
     void init_texture();
@@ -92,4 +99,6 @@ public:
     void set_portal_animation();
     void set_stars_animation();
     void update_stars_frame();
+    void set_diamonds_animation();
+    void update_diamonds_frame();
 };

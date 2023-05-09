@@ -10,20 +10,23 @@ const char STAR = '*';
 
 const float TIME_ANIMATION = 0.3;
 const float DELAY_ANIMATION = 5.0;
-float DELAY_PORTAL_TIME_ANIMATION = 0.0;
 
 const string GROUNDTXR = "Images/Ground.png";
-const string DIAMONDTXR = "Images/diamond.png";
-const string STARTXR = "Images/star.png";
+const string DIAMONDTXR = "Images/diamonds/15.png";
+const string STARTXR = "Images/stars/0.png";
 const string DIRTTXR = "Images/Dirt.png";
 const string PORTAL0TXR = "Images/portal/0.png";
 const string PORTAL1TXR = "Images/portal/1.png";
 const string DIEHARDTXR = "Images/normal/0.png";
-const string BABYTXR = "Images/boy/0.png";
+const string FREEBABYTXR = "Images/boy/free/0.png";
+const string NOTFREEBABYTXR = "Images/boy/not_free/0.png";
 const string SHIELDTXR = "Images/shield/dont_set/0.png";
 
-const String BABY_FRAMES_ADDRESS = "Images/boy/";
-const int BABY_FRAMENUM = 17;
+const String BABY_FRAMES_ADDRESS = "Images/boy/free/";
+const int BABY_FRAMENUM = 16;
+
+const String BABY_NOTFREE_FRAMES_ADDRESS = "Images/boy/not_free/";
+const int BABY_NOTFREE_FRAMENUM = 10;
 
 const String SHIELD_GUY_FRAMES_ADDRESS = "Images/shield/dont_set/";
 const int SHIELD_GUY_FRAMENUM = 12;
@@ -36,6 +39,9 @@ const int DIE_HARD_FRAMENUM = 6;
 
 const String STARS_FRAME_ADDRESS = "Images/stars/";
 const int STARS_FRAMENUM = 16;
+
+const String DIAMONDS_FRAME_ADDRESS = "Images/diamonds/";
+const int DIAMONDS_FRAMENUM = 16;
 // delay time
 
 float const height = 30.0;
@@ -89,6 +95,8 @@ void MAP::init_animations()
     init_animation_frames(&this->armored_shield_guy_frames, ARMORED_SHIELD_GUY_FRAMES_ADDRESS, ARMORED_SHIELD_GUY_FRAMENUM);
     init_animation_frames(&this->die_hard_frames, DIE_HARD_FRAMES_ADDRESS, DIE_HARD_FRAMENUM);
     init_animation_frames(&this->stars_frames, STARS_FRAME_ADDRESS, STARS_FRAMENUM);
+    init_animation_frames(&this->notfree_baby_frames, BABY_NOTFREE_FRAMES_ADDRESS, BABY_NOTFREE_FRAMENUM);
+    init_animation_frames(&this->diamonds_frames, DIAMONDS_FRAME_ADDRESS, DIAMONDS_FRAMENUM);
 }
 
 // Functions
@@ -139,7 +147,7 @@ void MAP::make_ground(float cur_x, float cur_y, Texture *texture)
 
 void MAP::make_portal(float cur_x, float cur_y, Texture *texture)
 {
-    portal.setSize(Vector2f(180, 150));
+    portal.setSize(Vector2f(200, 150));
     portal.setPosition(cur_x, cur_y - 48);
     portal.setTexture(texture);
 }
@@ -153,7 +161,7 @@ void MAP::make_die_hard(float cur_x, float cur_y)
 
 void MAP::make_baby_turtle(float cur_x, float cur_y)
 {
-    Baby_turtle Baby(BABYTXR, &this->baby_frames);
+    Baby_turtle Baby(NOTFREEBABYTXR, &this->baby_frames, &this->notfree_baby_frames);
     Baby.to_pos(Vector2f(cur_x, cur_y));
     baby_turtles.push_back(Baby);
 }
@@ -342,11 +350,11 @@ vector<Shield_guy *> &MAP::get_shield_guys()
 
 void MAP::set_portal_animation()
 {
-    if (portal.getTexture() == portal0_texture && delay())
+    if (portal.getTexture() == portal0_texture && delay(PORTAL_DELAY_TIME_ANIMATION))
     {
         portal.setTexture(portal1_texture);
     }
-    else if (portal.getTexture() != portal0_texture && delay())
+    else if (portal.getTexture() != portal0_texture && delay(PORTAL_DELAY_TIME_ANIMATION))
     {
         portal.setTexture(portal0_texture);
     }
@@ -357,7 +365,7 @@ void MAP::set_stars_animation()
     update_stars_frame();
     for (int i = 0; i < stars.size(); i++)
     {
-        if (delay())
+        if (delay(STARS_DELAY_TIME_ANIMATION))
             stars[i].setTexture(&stars_frames[cur_stars_frame]);
     }
 }
@@ -374,13 +382,35 @@ void MAP::update_stars_frame()
     }
 }
 
-bool MAP::delay()
+bool MAP::delay(float &delay_time)
 {
-    DELAY_PORTAL_TIME_ANIMATION += TIME_ANIMATION;
-    if (DELAY_PORTAL_TIME_ANIMATION - DELAY_ANIMATION >= 0.0)
+    delay_time += TIME_ANIMATION;
+    if (delay_time - DELAY_ANIMATION >= 0.0)
     {
-        DELAY_PORTAL_TIME_ANIMATION = 0.0;
+        delay_time = 0.0;
         return true;
     }
     return false;
+}
+
+void MAP::update_diamonds_frame()
+{
+    if (cur_diamonds_frame < (DIAMONDS_FRAMENUM - 1))
+    {
+        cur_diamonds_frame += 1;
+    }
+    else
+    {
+        cur_diamonds_frame = 0;
+    }
+}
+
+void MAP::set_diamonds_animation()
+{
+    update_diamonds_frame();
+    for (int i = 0; i < diamonds.size(); i++)
+    {
+        if (delay(DIAMONDS_DELAY_TIME_ANIMATION))
+            diamonds[i].setTexture(&diamonds_frames[cur_diamonds_frame]);
+    }
 }

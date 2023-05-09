@@ -2,10 +2,8 @@
 
 const int FRAMENUM = 12;
 
-const float TIME_ANIMATION = 0.4;
+const float TIME_ANIMATION = 0.6;
 const float DELAY_ANIMATION = 5.0;
-float DELAY_TIME_ANIMATION = 0.0;
-
 
 void Enemy::default_movement(bool is_move_valid, bool is_on_edge)
 {

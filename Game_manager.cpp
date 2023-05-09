@@ -20,14 +20,6 @@ Game_manager::Game_manager()
 
 void Game_manager::run()
 {
-<<<<<<< HEAD
-    // Event event;
-    // this->lobby_running = true;
-    //     this->render_window(*lobby_window, lobby_options, background);
-    // while (this->lobby_window->pollEvent(event))
-    // {
-    //     this->lobby();
-=======
 
     while (this->in_program)
     {
@@ -39,33 +31,11 @@ void Game_manager::run()
     // {
     //     this->lobby();
     //     this->render_window(*lobby_window, lobby_options, background);
->>>>>>> 09e70b10a911fd0160ed5637728443182d12cb34
     //     while (this->map_selection_running)
     //     {
 
     //         this->map_selection();
     //         this->render_window(*lobby_window, map_selection_options, background);
-<<<<<<< HEAD
-    Game game("input.txt");
-            // while (this->in_game)
-            // {
-                    // game loop
-                    while (game.running())
-                    {
-                        // update
-                        game.update();
-
-                        // render
-                        game.render();
-                    }
-
-                //     while (this->is_pause)
-                //     {
-                //         pause();
-                //         this->render_window(pause_window, pause_options, background);
-                //     }
-                // }
-=======
     //         // while (this->in_game)
     //         // {
     //         //         // game loop
@@ -84,7 +54,6 @@ void Game_manager::run()
     //         //             this->render_window(pause_window, pause_options, background);
     //         //         }
     //         //     }
->>>>>>> 09e70b10a911fd0160ed5637728443182d12cb34
     //     }
     // }
 }

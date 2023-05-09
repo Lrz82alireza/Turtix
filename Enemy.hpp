@@ -7,6 +7,9 @@
 
 class Enemy : public Person
 {
+private:
+    float DELAY_TIME_ANIMATION = 0.0;
+
 protected:
     Vector2f cur_dir; // some random dir OR a const
     bool shield;

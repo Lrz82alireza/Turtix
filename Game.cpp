@@ -144,6 +144,10 @@ void Game::default_baby_turtles_movement()
                 baby->move_left_animation();
             }
         }
+        else
+        {
+            baby->default_animation();
+        }
     }
 }
 
@@ -281,6 +285,7 @@ void Game::person_jump(Person &person)
 void Game::update()
 {
     this->game_map.set_stars_animation();
+    this->game_map.set_diamonds_animation();
     this->gravity_action();
     this->poll_events();
     this->person_jump(this->player);
