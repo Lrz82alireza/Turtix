@@ -7,6 +7,9 @@ const int HEALTH = 3;
 const int FRAMENUM = 16;
 const float FRAMESIZE = 0.4;
 
+const float PLAYER_TIME_ANIMATION = 1.0;
+const float PLAYER_DELAY_ANIMATION = 2.0;
+
 // Private Functions
 
 // Accessors
@@ -48,7 +51,7 @@ void Player::update_frame()
 void Player::move_left_animation()
 {
        sprite.setScale(FRAMESIZE, FRAMESIZE);
-       if (is_on_earth_())
+       if (is_on_earth_() && delay())
        {
               update_frame();
               sprite.setTexture(frames[cur_frame]);
@@ -59,7 +62,7 @@ void Player::move_left_animation()
 void Player::move_right_animation()
 {
        sprite.setScale(-FRAMESIZE, FRAMESIZE);
-       if (is_on_earth_())
+       if (is_on_earth_() && delay())
        {
               update_frame();
               sprite.setTexture(frames[cur_frame]);
@@ -67,4 +70,13 @@ void Player::move_right_animation()
        }
 }
 
-
+bool Player::delay()
+{
+       DELAY_TIME += PLAYER_TIME_ANIMATION;
+       if (DELAY_TIME - PLAYER_DELAY_ANIMATION >= 0.0)
+       {
+              DELAY_TIME = 0.0;
+              return true;
+       }
+       return false;
+}

@@ -16,6 +16,7 @@ using namespace std;
 class Player : public Person
 {
 private:
+    float DELAY_TIME = 0;
     int score = 0;
 
     // Private Functions
@@ -34,6 +35,7 @@ public:
     void update_frame();
     void move_left_animation();
     void move_right_animation();
+    bool delay();
     //Jump animation goes here
 };
 
