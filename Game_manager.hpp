@@ -70,10 +70,9 @@ private:
 
     Font menu_font;
     void init_font();
-    vector <Text*> lobby_texts;
-    vector <Text*> level_texts;
-    vector <Text*> pause_texts;
-    int state;
+    vector <Text> lobby_texts;
+    vector <Text> level_texts;
+    vector <Text> pause_texts;
     void init_texts();
 
     void game_run();
@@ -90,9 +89,7 @@ private:
     
     int get_window_event(vector<RectangleShape> &options);
     void get_mous_pos(RenderWindow &window);
-    void render_window(RenderWindow &Window, vector<RectangleShape> &options, Sprite &bg);
-    void run_lobby();
-    void run_map_selection();
+    void render_window(RenderWindow &Window, vector<RectangleShape> &options, Sprite &bg, vector<Text> &texts);
     void poll_event();
 
 public:
