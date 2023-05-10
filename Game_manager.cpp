@@ -4,7 +4,8 @@ const string BACKGROUND_IM = "Images/background/lobbybg.png";
 const string BUTTON_IM = "Images/background/button.png";
 const string PRESSED_BUTTON_IM = "Images/background/pressed_button.png";
 
-const string MAP_ADDRESS = "input.txt";
+const string MAP1_ADDRESS = "input1.txt";
+const string MAP2_ADDRESS = "input2.txt";
 
 const string FONT_ADDRESS = "Fonts/Amatic-Bold.ttf";
 
@@ -416,8 +417,8 @@ void Game_manager::map_selection()
 void Game_manager::init_map_selection()
 {
     // init maps
-    this->maps.push_back(MAP_ADDRESS);
-    this->maps.push_back(MAP_ADDRESS);
+    this->maps.push_back(MAP1_ADDRESS);
+    this->maps.push_back(MAP2_ADDRESS);
 
     // options
     RectangleShape option = this->make_option(this->option_txr);
