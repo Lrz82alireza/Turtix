@@ -10,7 +10,6 @@ const string FONT_ADDRESS = "Fonts/Amatic-Bold.ttf";
 
 const float OPTION_DISTANCE = 200;
 
-const float SIZE = 0.5;
 
 Game_manager::Game_manager()
 {
@@ -345,7 +344,6 @@ void Game_manager::init_lobby()
     option.setPosition(background.getGlobalBounds().left + background.getGlobalBounds().width / 2,
                        background.getGlobalBounds().top + background.getGlobalBounds().height / 2);
     
-    option.setScale(SIZE , SIZE);
     lobby_options.push_back(option);
 }
 
@@ -528,7 +526,7 @@ void init_texts_(vector<string> s, vector<Text> &t, vector<RectangleShape> &shap
         Text tmp(s[i], font);
         tmp.setOrigin(tmp.getGlobalBounds().width / 2, tmp.getGlobalBounds().height / 2);
         Vector2f loc;
-        loc.x = shape[i].getGlobalBounds().left + shape[i].getGlobalBounds().width / 2;
+        loc.x = shape[i].getGlobalBounds().left + shape[i].getGlobalBounds().width / 2 - 10;
         loc.y = shape[i].getGlobalBounds().top + shape[i].getGlobalBounds().height / 3;
         tmp.setPosition(loc);
         tmp.setStyle(Text::Style::Bold);
