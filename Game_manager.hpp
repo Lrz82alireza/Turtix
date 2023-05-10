@@ -103,7 +103,10 @@ private:
     vector<Text> lobby_texts;
     vector<Text> level_texts;
     vector<Text> pause_texts;
+    vector<Text> producer_texts;
     void init_texts();
+
+    void init_producer_texts();
 
     void init_windows();
 
@@ -113,7 +116,7 @@ private:
     void poll_event();
 
 public:
-    /////////////
+
     Game_manager();
     void render();
     void update();

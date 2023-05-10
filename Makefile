@@ -8,11 +8,11 @@ SF_LIB = -lsfml-graphics -lsfml-window -lsfml-system
 BUILD_DR = build
 
 
-all: game.out
+all: turtix.out
 
 
-game.out: ${BUILD_DR}/main.o ${BUILD_DR}/Game.o ${BUILD_DR}/Map.o ${BUILD_DR}/Player.o ${BUILD_DR}/Person.o ${BUILD_DR}/Public_functions.o ${BUILD_DR}/Enemy.o ${BUILD_DR}/Die_hard.o ${BUILD_DR}/Shield_guy.o ${BUILD_DR}/Baby_turtle.o ${BUILD_DR}/Game_manager.o
-	${CC} ${BUILD_DR}/main.o ${BUILD_DR}/Game.o ${BUILD_DR}/Map.o ${BUILD_DR}/Player.o ${BUILD_DR}/Person.o ${BUILD_DR}/Public_functions.o ${BUILD_DR}/Enemy.o ${BUILD_DR}/Die_hard.o ${BUILD_DR}/Shield_guy.o ${BUILD_DR}/Baby_turtle.o ${BUILD_DR}/Game_manager.o ${SF_LIB} -o game
+turtix.out: ${BUILD_DR}/main.o ${BUILD_DR}/Game.o ${BUILD_DR}/Map.o ${BUILD_DR}/Player.o ${BUILD_DR}/Person.o ${BUILD_DR}/Public_functions.o ${BUILD_DR}/Enemy.o ${BUILD_DR}/Die_hard.o ${BUILD_DR}/Shield_guy.o ${BUILD_DR}/Baby_turtle.o ${BUILD_DR}/Game_manager.o
+	${CC} ${BUILD_DR}/main.o ${BUILD_DR}/Game.o ${BUILD_DR}/Map.o ${BUILD_DR}/Player.o ${BUILD_DR}/Person.o ${BUILD_DR}/Public_functions.o ${BUILD_DR}/Enemy.o ${BUILD_DR}/Die_hard.o ${BUILD_DR}/Shield_guy.o ${BUILD_DR}/Baby_turtle.o ${BUILD_DR}/Game_manager.o ${SF_LIB} -o turtix.out
 
 ${BUILD_DR}/main.o: main.cpp Game_manager.hpp
 	${CC} -c main.cpp -o ${BUILD_DR}/main.o

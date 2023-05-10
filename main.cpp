@@ -10,20 +10,8 @@ int main()
 
     Game_manager *manager = new Game_manager;
     manager->run();
-
+    
     // cout << "s" << endl;
-
-    // Game game("input.txt");
-
-    // game loop
-    // while (game.running())
-    // {
-    //     // update
-    //     game.update();
-
-    //     // render
-    //     game.render();
-    // }
 
     return 0;
 }

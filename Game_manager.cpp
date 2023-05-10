@@ -41,8 +41,6 @@ void Game_manager::get_mous_pos(RenderWindow &window)
 
 void Game_manager::render_window(RenderWindow &Window, vector<RectangleShape> &options, Sprite &bg, vector<Text> &texts)
 {
-    Window.clear();
-
     Window.draw(bg);
 
     for (auto i : options)
@@ -50,8 +48,6 @@ void Game_manager::render_window(RenderWindow &Window, vector<RectangleShape> &o
 
     for (auto i : texts)
         Window.draw(i);
-
-    Window.display();
 }
 
 void Game_manager::poll_event()
@@ -73,7 +69,11 @@ void Game_manager::render()
     this->lobby_window->clear();
 
     if (this->lobby_running)
+    {
         this->render_window(*lobby_window, lobby_options, background, lobby_texts);
+        for (auto i : producer_texts)
+            lobby_window->draw(i);
+    }
 
     if (this->map_selection_running)
         this->render_window(*lobby_window, map_selection_options, background, level_texts);
@@ -196,12 +196,12 @@ void Game_manager::lose()
     {
     case PLAY_AGAIN:
         // check click mouse
-        to_pressed_txr(this->lobby_options[PLAY_AGAIN]);
+        to_pressed_txr(this->lose_options[PLAY_AGAIN]);
         if (!this->mous_held)
         {
-            delete (game);
             if (Mouse::isButtonPressed(Mouse::Left))
             {
+                delete (game);
                 this->lose_running = false;
                 this->game = new Game(cur_map);
                 this->in_game = true;
@@ -211,12 +211,12 @@ void Game_manager::lose()
         break;
     case RETURN_LOSE:
         // check click mouse
-        to_pressed_txr(this->lobby_options[RETURN_LOSE]);
+        to_pressed_txr(this->lose_options[RETURN_LOSE]);
         if (!this->mous_held)
         {
-            delete (game);
             if (Mouse::isButtonPressed(Mouse::Left))
             {
+                delete (game);
                 this->lose_running = false;
                 this->map_selection_running = true;
                 this->mous_held = true;
@@ -225,7 +225,7 @@ void Game_manager::lose()
         break;
 
     case NOTHING_CLICKED:
-        this->to_normal_txr(this->lobby_options);
+        this->to_normal_txr(this->lose_options);
         break;
     }
     if (Mouse::isButtonPressed(Mouse::Left))
@@ -256,12 +256,12 @@ void Game_manager::win()
     {
     case CONTINUE:
         // check click mouse
-        to_pressed_txr(this->lobby_options[PLAY_AGAIN]);
+        to_pressed_txr(this->win_options[PLAY_AGAIN]);
         if (!this->mous_held)
         {
-            delete (game);
             if (Mouse::isButtonPressed(Mouse::Left))
             {
+                delete (game);
                 this->win_running = false;
                 this->map_selection_running = true;
                 this->mous_held = true;
@@ -269,7 +269,7 @@ void Game_manager::win()
         }
         break;
     case NOTHING_CLICKED:
-        this->to_normal_txr(this->lobby_options);
+        this->to_normal_txr(this->win_options);
         break;
     }
     if (Mouse::isButtonPressed(Mouse::Left))
@@ -528,7 +528,7 @@ void init_texts_(vector<string> s, vector<Text> &t, vector<RectangleShape> &shap
         loc.y = shape[i].getGlobalBounds().top + shape[i].getGlobalBounds().height / 3;
         tmp.setPosition(loc);
         tmp.setStyle(Text::Style::Bold);
-        tmp.setColor(Color(0, 24, 89));
+        tmp.setFillColor(Color(0, 24, 89));
         tmp.setCharacterSize(45);
         // color set here
         t.push_back(tmp);
@@ -552,4 +552,26 @@ void Game_manager::init_texts()
 
     vector<string> win = {"Continue"};
     init_texts_(win, win_texts, win_options, menu_font);
+
+    init_producer_texts();
+}
+
+void Game_manager::init_producer_texts()
+{
+    Text temp;
+    temp.setFont(menu_font);
+    temp.setString("Produced by samir Entertainment");
+    temp.setStyle(Text::Style::Bold);
+    temp.setFillColor(Color::Black);
+    temp.setCharacterSize(45);
+    temp.setOrigin(temp.getGlobalBounds().width / 2, temp.getGlobalBounds().height / 2);
+    temp.setPosition(lobby_window->getPosition().x + lobby_window->getSize().x / 2,
+                     lobby_window->getPosition().y);
+
+    this->producer_texts.push_back(temp);
+
+    temp.setString("Graphic Artists:\n saber-_-scorpio & TheSajad_Sh");
+    temp.setPosition(temp.getPosition().x, temp.getPosition().y + 100);
+
+    this->producer_texts.push_back(temp);
 }
