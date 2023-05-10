@@ -258,11 +258,9 @@ void Game::player_hit_enemy()
             else
             {
                 this->player.reduse_health(1);
-                if (!this->player.is_alive())
-                    cout << "player is dead" << endl;
                 Vector2f loc;
-                loc.x = this->game_map.get_portal().getPosition().x + this->game_map.get_portal().getGlobalBounds().width/2;
-                loc.y = this->game_map.get_portal().getPosition().y + this->game_map.get_portal().getGlobalBounds().height/2;
+                loc.x = this->game_map.get_portal().getPosition().x + this->game_map.get_portal().getGlobalBounds().width / 2;
+                loc.y = this->game_map.get_portal().getPosition().y + this->game_map.get_portal().getGlobalBounds().height / 2;
                 this->player.to_pos(loc);
             }
         }
@@ -300,6 +298,7 @@ void Game::update()
     this->view.setCenter(this->player.get_position());
     this->update_texts();
     this->game_map.set_portal_animation();
+    this->end_game();
 }
 
 void Game::render()
@@ -415,6 +414,22 @@ Game::~Game()
     delete this->map_window;
 }
 
+bool Game::did_lose()
+{
+    if (this->player.is_alive())
+        return false;
+    return true;
+}
+
+bool Game::did_win()
+{
+    if (this->game_map.get_Babys().size() != 0)
+        return false;
+    if (!this->game_map.get_portal().getGlobalBounds().contains(this->player.get_sprite().getPosition()))
+        return false;
+    return true;
+}
+
 void Game::set_enemys_shield()
 {
     if (passed_time - SHIELD_TIME >= 0.0)
@@ -472,4 +487,10 @@ void Game::update_texts()
 
     texts[2].setPosition(view.getCenter().x + (view.getSize().x / 2) - 75, view.getCenter().y - (view.getSize().y / 2));
     texts[2].setString("Baby: " + to_string(this->game_map.get_Babys().size()));
+}
+
+void Game::end_game()
+{
+    if (this->did_lose() || this->did_win())
+        this->map_window->close();
 }

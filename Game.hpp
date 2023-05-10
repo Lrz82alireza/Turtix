@@ -48,14 +48,17 @@ private:
     void init_background();
 
     void move_person(Person &person, float dir_x, float dir_y);
-    void gravity_action();
-    void gravity_move(Person &person);
-    void babys_gravity_move();
+    
     void delay_check();
     void default_events();
     void default_baby_turtles_movement();
     void default_enemys_movement();
+   
+    void gravity_action();
+    void gravity_move(Person &person);
+    void babys_gravity_move();
     void enemys_gravity_move();
+   
     void player_hit_event();
     void player_collect_diamond();
     void player_collect_star();
@@ -66,6 +69,8 @@ private:
     void set_enemys_shield();
 
     void update_texts();
+
+    void end_game();
 public:
     // Constructors
 
@@ -74,6 +79,9 @@ public:
     ~Game();
 
     // Accessors
+    bool did_lose();
+    bool did_win();
+
 
     // void close();
     void run_game();

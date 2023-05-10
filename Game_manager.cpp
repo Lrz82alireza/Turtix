@@ -18,6 +18,8 @@ Game_manager::Game_manager()
     this->init_lobby();
     this->init_map_selection();
     this->init_pause();
+    this->init_lose();
+    this->init_win();
     this->init_texts();
 }
 
@@ -71,19 +73,19 @@ void Game_manager::render()
     this->lobby_window->clear();
 
     if (this->lobby_running)
-    {
         this->render_window(*lobby_window, lobby_options, background, lobby_texts);
-    }
 
     if (this->map_selection_running)
-    {
         this->render_window(*lobby_window, map_selection_options, background, level_texts);
-    }
 
     if (this->is_pause)
-    {
         this->render_window(*lobby_window, pause_options, background, pause_texts);
-    }
+
+    if (this->win_running)
+        this->render_window(*lobby_window, win_options, background, win_texts);
+
+    if (this->lose_running)
+        this->render_window(*lobby_window, lose_options, background, lose_texts);
 
     this->lobby_window->display();
 }
@@ -103,6 +105,12 @@ void Game_manager::update()
 
     if (this->is_pause)
         this->pause();
+
+    if (this->lose_running)
+        this->lose();
+
+    if (this->win_running)
+        this->win();
 }
 
 int Game_manager::get_window_event(vector<RectangleShape> &options)
@@ -119,10 +127,7 @@ int Game_manager::get_window_event(vector<RectangleShape> &options)
 
 void Game_manager::init_pause()
 {
-    RectangleShape option;
-    option.setTexture(option_txr);
-    option.setOrigin(option.getTexture()->getSize().x / 2, option.getTexture()->getSize().y / 2);
-    option.setSize(Vector2f(200.f, 100.f));
+    RectangleShape option = this->make_option(this->option_txr);
 
     option.setPosition(background.getGlobalBounds().left + background.getGlobalBounds().width / 2,
                        background.getGlobalBounds().top + background.getGlobalBounds().height / 3);
@@ -173,6 +178,115 @@ void Game_manager::to_normal_txr(vector<RectangleShape> &shapes)
     }
 }
 
+RectangleShape Game_manager::make_option(Texture *texture)
+{
+    RectangleShape option;
+    option.setTexture(texture);
+    option.setOrigin(option.getTexture()->getSize().x / 2, option.getTexture()->getSize().y / 2);
+    option.setSize(Vector2f(200.f, 100.f));
+    return option;
+}
+
+void Game_manager::lose()
+{
+    this->get_mous_pos(*this->lobby_window);
+    int result = this->get_window_event(this->lose_options);
+
+    switch (result)
+    {
+    case PLAY_AGAIN:
+        // check click mouse
+        to_pressed_txr(this->lobby_options[PLAY_AGAIN]);
+        if (!this->mous_held)
+        {
+            delete (game);
+            if (Mouse::isButtonPressed(Mouse::Left))
+            {
+                this->lose_running = false;
+                this->game = new Game(cur_map);
+                this->in_game = true;
+                this->mous_held = true;
+            }
+        }
+        break;
+    case RETURN_LOSE:
+        // check click mouse
+        to_pressed_txr(this->lobby_options[RETURN_LOSE]);
+        if (!this->mous_held)
+        {
+            delete (game);
+            if (Mouse::isButtonPressed(Mouse::Left))
+            {
+                this->lose_running = false;
+                this->map_selection_running = true;
+                this->mous_held = true;
+            }
+        }
+        break;
+
+    case NOTHING_CLICKED:
+        this->to_normal_txr(this->lobby_options);
+        break;
+    }
+    if (Mouse::isButtonPressed(Mouse::Left))
+        this->mous_held = true;
+    else
+        this->mous_held = false;
+}
+
+void Game_manager::init_lose()
+{
+    RectangleShape option = this->make_option(this->option_txr);
+
+    option.setPosition(background.getGlobalBounds().left + background.getGlobalBounds().width / 2 - 150,
+                       background.getGlobalBounds().top + background.getGlobalBounds().height / 3);
+    lose_options.push_back(option);
+
+    option.setPosition(background.getGlobalBounds().left + background.getGlobalBounds().width / 2 + 150,
+                       background.getGlobalBounds().top + background.getGlobalBounds().height / 3);
+    lose_options.push_back(option);
+}
+
+void Game_manager::win()
+{
+    this->get_mous_pos(*this->lobby_window);
+    int result = this->get_window_event(this->win_options);
+
+    switch (result)
+    {
+    case CONTINUE:
+        // check click mouse
+        to_pressed_txr(this->lobby_options[PLAY_AGAIN]);
+        if (!this->mous_held)
+        {
+            delete (game);
+            if (Mouse::isButtonPressed(Mouse::Left))
+            {
+                this->win_running = false;
+                this->map_selection_running = true;
+                this->mous_held = true;
+            }
+        }
+        break;
+    case NOTHING_CLICKED:
+        this->to_normal_txr(this->lobby_options);
+        break;
+    }
+    if (Mouse::isButtonPressed(Mouse::Left))
+        this->mous_held = true;
+    else
+        this->mous_held = false;
+}
+
+void Game_manager::init_win()
+{
+    RectangleShape option = this->make_option(this->option_txr);
+
+    option.setPosition(background.getGlobalBounds().left + background.getGlobalBounds().width / 2,
+                       background.getGlobalBounds().top + background.getGlobalBounds().height / 3);
+    win_options.push_back(option);
+}
+
 // lobby
 void Game_manager::lobby()
 {
@@ -220,10 +334,7 @@ void Game_manager::lobby()
 
 void Game_manager::init_lobby()
 {
-    RectangleShape option;
-    option.setTexture(option_txr);
-    option.setOrigin(option.getTexture()->getSize().x / 2, option.getTexture()->getSize().y / 2);
-    option.setSize(Vector2f(200.f, 100.f));
+    RectangleShape option = this->make_option(this->option_txr);
 
     option.setPosition(background.getGlobalBounds().left + background.getGlobalBounds().width / 2,
                        background.getGlobalBounds().top + background.getGlobalBounds().height / 3);
@@ -309,10 +420,7 @@ void Game_manager::init_map_selection()
     this->maps.push_back(MAP_ADDRESS);
 
     // options
-    RectangleShape option;
-    option.setTexture(option_txr);
-    option.setOrigin(option.getTexture()->getSize().x / 2, option.getTexture()->getSize().y / 2);
-    option.setSize(Vector2f(200.f, 100.f));
+    RectangleShape option = this->make_option(this->option_txr);
 
     option.setPosition(background.getGlobalBounds().left + background.getGlobalBounds().width / 2,
                        background.getGlobalBounds().top + background.getGlobalBounds().height / 2 - 300);
@@ -340,8 +448,20 @@ void Game_manager::game_run()
         game->render();
     }
     this->init_windows();
+
+    this->manage_end_game();
+}
+
+void Game_manager::manage_end_game()
+{
     this->in_game = false;
-    this->is_pause = true;
+
+    if (this->game->did_win())
+        this->win_running = true;
+    else if (this->game->did_lose())
+        this->lose_running = true;
+    else
+        this->is_pause = true;
 }
 
 // pause
@@ -424,6 +544,12 @@ void Game_manager::init_texts()
     vector<string> map = {"Level 1", "Level 2", "Return"};
     init_texts_(map, level_texts, map_selection_options, menu_font);
 
-    vector<string> pause = {"resume", "return"};
+    vector<string> pause = {"Resume", "Return"};
     init_texts_(pause, pause_texts, pause_options, menu_font);
+
+    vector<string> lose = {"Play again", "Return"};
+    init_texts_(lose, lose_texts, lose_options, menu_font);
+
+    vector<string> win = {"Continue"};
+    init_texts_(win, win_texts, win_options, menu_font);
 }
