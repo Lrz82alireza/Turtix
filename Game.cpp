@@ -423,9 +423,13 @@ bool Game::did_lose()
 
 bool Game::did_win()
 {
+    Vector2f loc;
+    loc.x = this->game_map.get_portal().getPosition().x + this->game_map.get_portal().getGlobalBounds().width / 2;
+    loc.y = this->game_map.get_portal().getPosition().y + this->game_map.get_portal().getGlobalBounds().height / 2;
+
     if (this->game_map.get_Babys().size() != 0)
         return false;
-    if (!this->game_map.get_portal().getGlobalBounds().contains(this->player.get_sprite().getPosition()))
+    if (!this->player.get_sprite().getGlobalBounds().contains(loc))
         return false;
     return true;
 }
@@ -449,7 +453,7 @@ void Game::init_texts()
     {
         Text temp;
         temp.setFont(this->font);
-        temp.setColor(Color(0, 24, 89));
+        temp.setFillColor(Color(0, 24, 89));
         temp.setStyle(Text::Style::Bold);
         texts.push_back(temp);
     }
