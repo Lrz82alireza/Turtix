@@ -10,6 +10,8 @@ const string FONT_ADDRESS = "Fonts/Amatic-Bold.ttf";
 
 const float OPTION_DISTANCE = 200;
 
+const float SIZE = 0.5;
+
 Game_manager::Game_manager()
 {
     this->init_background();
@@ -342,6 +344,8 @@ void Game_manager::init_lobby()
 
     option.setPosition(background.getGlobalBounds().left + background.getGlobalBounds().width / 2,
                        background.getGlobalBounds().top + background.getGlobalBounds().height / 2);
+    
+    option.setScale(SIZE , SIZE);
     lobby_options.push_back(option);
 }
 
